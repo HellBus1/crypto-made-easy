@@ -1,0 +1,26 @@
+---
+title: 'How a chart is built'
+description: 'See how raw order book bids and asks turn into candlesticks, volume bars, and indicator overlays on a spot exchange screen.'
+chapter: 1
+track: 'Reading the Screen'
+durationMinutes: 4
+interactiveFocus: '3-stage cause-and-effect toggle & spot screen anatomy hotspots'
+terms: ['Order Book', 'Candlestick', 'Volume', 'MA30', 'RSI']
+draft: false
+---
+
+When you open a spot exchange screen such as Gate.com, you are looking at three layers of information stacked on top of each other. Most beginners get overwhelmed because they try to read all three layers at once without knowing which one causes the others.
+
+## The 3-stage cause-and-effect chain
+
+Every chart is built from the bottom up in a strict sequence:
+
+1. **Stage 1: The Order Book (The Cause).** Buyers post resting **Bid** limit orders below the current price, and sellers post **Ask** limit orders above it. When impatient traders cross the spread, trades execute.
+2. **Stage 2: Candlesticks & Volume (The Recording).** Every executed trade during a timeframe (such as 4 hours or 1 day) is compressed into a single **Candlestick** showing four prices (Open, High, Low, Close) plus a **Volume** bar underneath showing how much capital changed hands.
+3. **Stage 3: Indicators (The Summary).** Mathematical formulas such as **MA30** (30-period average price), **Bollinger Bands**, **RSI**, and **MACD** read the completed candlesticks to summarize trend and momentum. Indicators never move price; price moves indicators.
+
+## What to notice on an exchange screen
+
+- **Ignore the blinking last-trade ticker** until you have checked the timeframe (`4H` or `1D`).
+- **Find the floor first:** Look for previous support lows on the candlestick chart and check the Bid % in the order book.
+- **Keep overlays minimal:** One moving average set (`MA` or `EMA`, never both at once) plus `RSI` is enough to evaluate the 3-Light checklist.

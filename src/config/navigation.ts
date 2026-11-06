@@ -20,31 +20,29 @@ export interface NavigationConfig {
 
 export const navigationConfig: NavigationConfig = {
   header: [
-    { label: 'Home', href: '/' },
+    { label: 'Overview', href: '/' },
+    { label: 'Learn', href: '/learn' },
+    { label: 'Signal Checker', href: '/checker' },
+    { label: 'Glossary', href: '/glossary' },
     { label: 'About', href: '/about' },
-    { label: 'Blog', href: '/blog' },
   ],
   footer: {
     product: [
-      { label: 'Features', href: '/#features' },
-      { label: 'About', href: '/about' },
-      { label: 'Blog', href: '/blog' },
+      { label: 'Course Modules', href: '/learn' },
+      { label: 'Signal Checker', href: '/checker' },
+      { label: 'Chart Glossary', href: '/glossary' },
     ],
     resources: [
-      { label: 'Documentation', href: 'https://docs.astro.build', external: true },
-      { label: 'Astro GitHub', href: 'https://github.com/withastro/astro', external: true },
-      {
-        label: 'Starter GitHub',
-        href: 'https://github.com/syubbanfakhriya/ts-astro-starter',
-        external: true,
-      },
+      { label: 'How the 3 Lights Work', href: '/learn/05-three-light-checklist' },
+      { label: 'Position Sizing & Reserve', href: '/learn/06-position-sizing' },
+      { label: 'Method & Disclaimers', href: '/about' },
     ],
     legal: [
-      { label: 'Privacy Policy', href: '/about' },
-      { label: 'Terms of Service', href: '/about' },
+      { label: 'Educational Disclaimer', href: '/about#disclaimer' },
+      { label: 'Zero-Tracking Privacy', href: '/about#privacy' },
       {
         label: 'License (MIT)',
-        href: 'https://github.com/syubbanfakhriya/ts-astro-starter/blob/master/LICENSE',
+        href: 'https://github.com/syubbanfakhriya/crypto-made-easy/blob/master/LICENSE',
         external: true,
       },
     ],

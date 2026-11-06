@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('lessons', ({ data }) => {
+    return import.meta.env.PROD ? !data.draft : true;
+  });
+
+  return lessons.map((lesson) => ({
+    params: { slug: lesson.id },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+const { Content } = await render(lesson);
+---
+
+<ContentLayout
+  title={`Chapter ${lesson.data.chapter}: ${lesson.data.title}`}
+  description={lesson.data.description}
+  backLink={{ href: '/learn', label: 'Back to all modules' }}
+>
+  <Content />
+
+  <hr />
+  <p>
+    Ready to test these concepts on a real chart reading?{' '}
+    <a href="/checker">Open the 3-Light Signal Checker &rarr;</a>
+  </p>
+</ContentLayout>
+

@@ -2,8 +2,8 @@
 @import './reset.css';
 
 /**
- * Global Styles
- * Base styling, typography defaults, focus accessibility, and utility classes.
+ * Global Styles: Achromatic Ledger
+ * Calm, high-contrast typography, tabular figures, flat 1px surfaces, and accessible focus states.
  */
 
 html {
@@ -27,7 +27,7 @@ main {
 }
 
 /* ==========================================================================
-   Typography Defaults
+   Typography Defaults (App & Course Hierarchy)
    ========================================================================== */
 h1,
 h2,
@@ -35,44 +35,71 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
   color: var(--color-text-main);
   letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: var(--font-size-4xl);
-}
-
-h2 {
-  font-size: var(--font-size-3xl);
-}
-
-h3 {
   font-size: var(--font-size-2xl);
 }
 
+h2 {
+  font-size: var(--font-size-lg);
+}
+
+h3 {
+  font-size: var(--font-size-base);
+}
+
 h4 {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-sm);
 }
 
 p {
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
   line-height: var(--line-height-relaxed);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-subtle {
+  color: var(--color-text-subtle);
+}
+
+/* ==========================================================================
+   Tabular Figures & Ledger Utilities
+   ========================================================================== */
+.num,
+table td[data-numeric='true'],
+table th[data-numeric='true'] {
+  font-variant-numeric: tabular-nums;
+}
+
+table td[data-numeric='true'],
+table th[data-numeric='true'] {
+  text-align: right;
 }
 
 /* ==========================================================================
    Links & Focus State Accessibility
    ========================================================================== */
 a {
-  color: var(--color-brand-primary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
+  color: var(--color-text-main);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-control);
+  text-underline-offset: 3px;
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--color-brand-primary-hover);
+  color: var(--color-data-hue);
+  text-decoration-color: var(--color-data-hue);
 }
 
 :focus-visible {
@@ -88,6 +115,7 @@ kbd,
 samp,
 pre {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 pre {
@@ -101,19 +129,72 @@ pre {
 }
 
 code:not(pre code) {
-  padding: 0.15em 0.35em;
+  padding: 0.125em 0.35em;
   border-radius: var(--radius-sm);
   background-color: var(--color-bg-subtle);
-  color: var(--color-brand-primary);
+  color: var(--color-text-main);
   font-size: 0.875em;
 }
 
 /* ==========================================================================
-   Prose Utility (for ContentLayout, markdown and articles)
+   Ledger Surface & Status Pill Primitives
+   ========================================================================== */
+.surface-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+  white-space: nowrap;
+  flex: none;
+  border: 1px solid transparent;
+}
+
+.status-pill--positive {
+  background-color: var(--color-pill-positive-bg);
+  color: var(--color-pill-positive-ink);
+  border-color: var(--color-pill-positive-border);
+}
+
+.status-pill--warning {
+  background-color: var(--color-pill-warning-bg);
+  color: var(--color-pill-warning-ink);
+  border-color: var(--color-pill-warning-border);
+}
+
+.status-pill--info {
+  background-color: var(--color-pill-info-bg);
+  color: var(--color-pill-info-ink);
+  border-color: var(--color-pill-info-border);
+}
+
+.status-pill--negative {
+  background-color: var(--color-pill-negative-bg);
+  color: var(--color-pill-negative-ink);
+  border-color: var(--color-pill-negative-border);
+}
+
+.status-pill--neutral {
+  background-color: var(--color-pill-neutral-bg);
+  color: var(--color-pill-neutral-ink);
+  border-color: var(--color-pill-neutral-border);
+}
+
+/* ==========================================================================
+   Prose Utility (for Lesson pages & About)
    ========================================================================== */
 .prose {
-  max-width: 68ch;
-  margin-inline: auto;
+  max-width: 65ch;
 }
 
 .prose > * + * {
@@ -124,13 +205,13 @@ code:not(pre code) {
 .prose h2,
 .prose h3 {
   margin-top: var(--space-8);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .prose ul,
 .prose ol {
   padding-left: var(--space-6);
-  color: var(--color-text-muted);
+  color: var(--color-text-main);
 }
 
 .prose li + li {
@@ -138,9 +219,8 @@ code:not(pre code) {
 }
 
 .prose blockquote {
-  border-left: 4px solid var(--color-brand-primary);
+  border-left: 3px solid var(--color-text-main);
   padding-left: var(--space-4);
-  font-style: italic;
   color: var(--color-text-muted);
   margin-block: var(--space-6);
 }

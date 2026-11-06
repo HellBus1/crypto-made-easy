@@ -1,178 +1,625 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/sections/Hero.astro';
-import Features from '../components/sections/Features.astro';
-import CTA from '../components/sections/CTA.astro';
-import Section from '../components/ui/Section.astro';
 import Container from '../components/ui/Container.astro';
-import Button from '../components/ui/Button.astro';
+import { curriculum } from '../config/curriculum';
 import { getCollection } from 'astro:content';
-import { formatDate, toISODate } from '../utils/date';
 
-const recentPosts = await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-});
-
-recentPosts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
-const displayedPosts = recentPosts.slice(0, 2);
+const publishedLessons = await getCollection('lessons', ({ data }) => !data.draft);
+const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
 ---
 
-<BaseLayout>
-  <!-- Hero Section -->
-  <Hero />
+<BaseLayout
+  title="Crypto Made Easy: Calm Spot Chart Course & 3-Light Signal Checklist"
+  description="Read spot exchange charts without panic. Learn how candlesticks, volume, and indicators work, then run the 3-Light checklist with a pre-planned 3-tier entry ladder."
+>
+  <section class="overview-shell">
+    <Container size="xl">
+      <!-- Screen Title Row (App-Screen Pattern) -->
+      <div class="title-row">
+        <div class="title-row__copy">
+          <h1>Spot Chart Learning &amp; 3-Light Signal Checklist</h1>
+          <p class="title-row__subline">
+            Always know where the support floor sits, how much cash reserve remains, and what your
+            exit plan is before placing a spot order.
+          </p>
+        </div>
+        <div class="title-row__actions">
+          <a href="/checker" class="btn-primary">
+            Open Signal Checker
+          </a>
+          <a href="/learn/01-how-a-chart-is-built" class="btn-secondary">
+            Start Chapter 1
+          </a>
+        </div>
+      </div>
 
-  <!-- Features Grid Section -->
-  <Features />
+      <!-- Divided KPI & Principle Strip (No icons, no sparklines, tabular figures) -->
+      <div class="kpi-strip" role="region" aria-label="Core checklist parameters">
+        <div class="kpi-cell">
+          <span class="kpi-cell__label">Target timeframes</span>
+          <span class="kpi-cell__value num">4H / 1D</span>
+          <span class="kpi-cell__note">Casual spot swing pace, checked 1–2 times daily</span>
+        </div>
+        <div class="kpi-cell">
+          <span class="kpi-cell__label">Buy Zone trigger</span>
+          <span class="kpi-cell__value num">3 / 3 Lights</span>
+          <span class="kpi-cell__note">Price &lt; MA30, RSI &le; 36, Bid &ge; 40%</span>
+        </div>
+        <div class="kpi-cell">
+          <span class="kpi-cell__label">Split-entry ladder</span>
+          <span class="kpi-cell__value num">13 · 21 · 30%</span>
+          <span class="kpi-cell__note">Three limit tranches placed at support levels</span>
+        </div>
+        <div class="kpi-cell">
+          <span class="kpi-cell__label">Unspent cash reserve</span>
+          <span class="kpi-cell__value num">36% USDT</span>
+          <span class="kpi-cell__note">Kept in reserve + 2% stop buffer below lowest support</span>
+        </div>
+      </div>
 
-  <!-- Recent Articles Section -->
-  {displayedPosts.length > 0 && (
-    <Section spacing="lg">
-      <Container size="xl">
-        <div class="articles-header">
+      <!-- Two-Column Balanced Workspace Preview: 3-Light Worked Example + Position Sizing Ladder -->
+      <div class="workspace-grid">
+        <!-- Left Card: The 3-Light Checklist Worked Example (SOL Nov 2026) -->
+        <article class="surface-card panel-equal">
+          <div class="panel-header">
+            <div>
+              <h2>Worked Example: SOL / USDT (4H)</h2>
+              <p class="panel-subline">Dated illustration from 5–6 Nov 2026 source dataset</p>
+            </div>
+            <span class="status-pill status-pill--positive">
+              <span aria-hidden="true">&#10003;</span> Buy Zone (3/3 Lights)
+            </span>
+          </div>
+
+          <table class="ledger-table" aria-label="3-Light evaluation for SOL">
+            <thead>
+              <tr>
+                <th scope="col">Checklist light</th>
+                <th scope="col" data-numeric="true">
+                  Observed reading
+                </th>
+                <th scope="col">Condition &amp; meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Light 1: Price vs MA30</strong>
+                </td>
+                <td data-numeric="true" class="num">
+                  89.73 vs 91.60 USDT
+                </td>
+                <td>
+                  <span class="status-pill status-pill--positive">&#10003; On discount</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Light 2: Momentum (RSI)</strong>
+                </td>
+                <td data-numeric="true" class="num">
+                  36.0
+                </td>
+                <td>
+                  <span class="status-pill status-pill--positive">&#10003; Sellers exhausted</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Light 3: Order Book Bid %</strong>
+                </td>
+                <td data-numeric="true" class="num">
+                  40.61% Bid
+                </td>
+                <td>
+                  <span class="status-pill status-pill--positive">&#10003; Buyer wall below</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="panel-footer">
+            <span class="panel-footer__note">
+              Contrast case: ETH with 22.0% Bid turns Light 3 off &rarr; <strong>Wait</strong>.
+            </span>
+            <a href="/checker" class="panel-footer__link">
+              Run your own numbers &rarr;
+            </a>
+          </div>
+        </article>
+
+        <!-- Right Card: Signature Split-Entry Ammunition Plan (233.77 USDT) -->
+        <article class="surface-card panel-equal">
+          <div class="panel-header">
+            <div>
+              <h2>Split-Entry Ammunition Plan</h2>
+              <p class="panel-subline">Worked allocation for 233.77 USDT total spot capital</p>
+            </div>
+            <span class="status-pill status-pill--neutral">87% cash kept after Entry 1</span>
+          </div>
+
+          <!-- Proportion Track (13% / 21% / 30% / 36%) -->
+          <div
+            class="allocation-bar"
+            role="img"
+            aria-label="Capital split: Entry 1 13%, Entry 2 21%, Entry 3 30%, Cash Reserve 36%"
+          >
+            <div class="allocation-bar__seg allocation-bar__seg--e1" style="width: 13%">
+              <span>E1 13%</span>
+            </div>
+            <div class="allocation-bar__seg allocation-bar__seg--e2" style="width: 21%">
+              <span>E2 21%</span>
+            </div>
+            <div class="allocation-bar__seg allocation-bar__seg--e3" style="width: 30%">
+              <span>E3 30%</span>
+            </div>
+            <div class="allocation-bar__seg allocation-bar__seg--res" style="width: 36%">
+              <span>Reserve 36%</span>
+            </div>
+          </div>
+
+          <table class="ledger-table" aria-label="Split-entry capital allocation">
+            <thead>
+              <tr>
+                <th scope="col">Tranche</th>
+                <th scope="col" data-numeric="true">
+                  Share
+                </th>
+                <th scope="col" data-numeric="true">
+                  Amount (USDT)
+                </th>
+                <th scope="col">Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Entry 1 (Support 1)</strong>
+                </td>
+                <td data-numeric="true" class="num">
+                  12.8%
+                </td>
+                <td data-numeric="true" class="num">
+                  30.00 USDT
+                </td>
+                <td>Initial test tranche near first floor</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Entry 2 (Support 2)</strong>
+                </td>
+                <td data-numeric="true" class="num">
+                  21.4%
+                </td>
+                <td data-numeric="true" class="num">
+                  50.00 USDT
+                </td>
+                <td>Lowers average cost if dip continues</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Entry 3 (Support 3)</strong>
+                </td>
+                <td data-numeric="true" class="num">
+                  29.9%
+                </td>
+                <td data-numeric="true" class="num">
+                  70.00 USDT
+                </td>
+                <td>Deep liquidity floor limit order</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Unspent Cash Reserve</strong>
+                </td>
+                <td data-numeric="true" class="num">
+                  35.9%
+                </td>
+                <td data-numeric="true" class="num">
+                  83.77 USDT
+                </td>
+                <td>Psychological calm &amp; emergency buffer</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="panel-footer">
+            <span class="panel-footer__note num">Total reconciled: 233.77 USDT (100.0%)</span>
+            <a href="/learn/01-how-a-chart-is-built" class="panel-footer__link">
+              Learn the method &rarr;
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Course Curriculum Table (All 8 Chapters) -->
+      <section class="curriculum-section" aria-labelledby="curriculum-heading">
+        <div class="section-header">
           <div>
-            <h2 class="articles-header__title">Latest from the Blog</h2>
-            <p class="articles-header__subtitle">
-              Guides, tutorials, and architectural insights written by engineers.
+            <h2 id="curriculum-heading">8-Chapter Interactive Curriculum</h2>
+            <p class="section-header__subline">
+              Move from raw exchange screen anatomy to the 3-Light checklist and calm position
+              sizing.
             </p>
           </div>
-          <Button variant="outline" size="md" href="/blog">
-            View All Articles &rarr;
-          </Button>
+          <a href="/learn" class="section-header__link">
+            View all chapters &rarr;
+          </a>
         </div>
 
-        <div class="articles-grid">
-          {displayedPosts.map((post) => (
-            <article class="article-card">
-              <time datetime={toISODate(post.data.publishDate)} class="article-card__date">
-                {formatDate(post.data.publishDate)}
-              </time>
-              <h3 class="article-card__title">
-                <a href={`/blog/${post.id}`} class="article-card__link">
-                  {post.data.title}
-                </a>
-              </h3>
-              <p class="article-card__description">{post.data.description}</p>
-              <a href={`/blog/${post.id}`} class="article-card__more">
-                Read article &rarr;
-              </a>
-            </article>
-          ))}
+        <div class="surface-card table-card">
+          <table class="ledger-table curriculum-table">
+            <thead>
+              <tr>
+                <th scope="col">Chapter</th>
+                <th scope="col">Track</th>
+                <th scope="col">Interactive chart &amp; focus</th>
+                <th scope="col" data-numeric="true">
+                  Read time
+                </th>
+                <th scope="col" data-numeric="true">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {curriculum.map((item) => {
+                const isReady = publishedSlugs.has(item.slug);
+                const href = isReady ? `/learn/${item.slug}` : '/learn';
+                return (
+                  <tr>
+                    <td>
+                      <div class="chapter-cell">
+                        <a href={href} class="chapter-cell__title">
+                          {item.chapter}. {item.title}
+                        </a>
+                        <span class="chapter-cell__desc">{item.description}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="status-pill status-pill--neutral">{item.track}</span>
+                    </td>
+                    <td class="text-muted">{item.interactiveFocus}</td>
+                    <td data-numeric="true" class="num">
+                      {item.durationMinutes} min
+                    </td>
+                    <td data-numeric="true">
+                      <a href={href} class="row-action">
+                        {isReady ? 'Open lesson' : 'Preview'}
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-      </Container>
-    </Section>
-  )}
-
-  <!-- Call to Action Banner Section -->
-  <CTA />
+      </section>
+    </Container>
+  </section>
 </BaseLayout>
 
 <style>
-  .articles-header {
+  .overview-shell {
+    padding-block: var(--space-8) var(--space-16);
+  }
+
+  .title-row {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     gap: var(--space-4);
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
   }
 
-  @media (min-width: 640px) {
-    .articles-header {
+  @media (min-width: 768px) {
+    .title-row {
       flex-direction: row;
       align-items: flex-end;
     }
   }
 
-  .articles-header__title {
+  .title-row__copy h1 {
     font-size: var(--font-size-2xl);
-    color: var(--color-text-main);
-    letter-spacing: -0.02em;
     margin-bottom: var(--space-2);
   }
 
-  @media (min-width: 640px) {
-    .articles-header__title {
-      font-size: var(--font-size-3xl);
-    }
-  }
-
-  .articles-header__subtitle {
-    font-size: var(--font-size-base);
+  .title-row__subline {
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
+    max-width: 62ch;
   }
 
-  .articles-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-  }
-
-  @media (min-width: 768px) {
-    .articles-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-8);
-    }
-  }
-
-  .article-card {
+  .title-row__actions {
     display: flex;
-    flex-direction: column;
-    padding: var(--space-6);
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border-default);
-    border-radius: var(--radius-xl);
-    transition:
-      border-color var(--transition-fast),
-      box-shadow var(--transition-fast);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    flex-shrink: 0;
   }
 
-  .article-card:hover {
-    border-color: var(--color-brand-primary);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .article-card__date {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-subtle);
-    margin-bottom: var(--space-2);
-  }
-
-  .article-card__title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-main);
-    line-height: var(--line-height-snug);
-    margin-bottom: var(--space-2);
-  }
-
-  .article-card__link {
-    color: inherit;
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--control-height);
+    padding-inline: var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     text-decoration: none;
   }
 
-  .article-card__link:hover {
-    color: var(--color-brand-primary);
+  .btn-primary {
+    background-color: var(--color-brand-primary);
+    color: var(--color-brand-primary-text);
+    border: 1px solid var(--color-brand-primary);
   }
 
-  .article-card__description {
+  .btn-primary:hover {
+    background-color: var(--color-brand-primary-hover);
+    color: var(--color-brand-primary-text);
+    text-decoration: none;
+  }
+
+  .btn-secondary {
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border-control);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-bg-subtle);
+    color: var(--color-text-main);
+    text-decoration: none;
+  }
+
+  /* Divided KPI Strip */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-6);
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .kpi-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .kpi-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .kpi-cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 1024px) {
+    .kpi-cell {
+      border-bottom: none;
+      border-right: 1px solid var(--color-border-subtle);
+    }
+    .kpi-cell:last-child {
+      border-right: none;
+    }
+  }
+
+  .kpi-cell__label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  .kpi-cell__value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-main);
+    line-height: 1.2;
+  }
+
+  .kpi-cell__note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  /* Two-Column Workspace Grid */
+  .workspace-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  @media (min-width: 1024px) {
+    .workspace-grid {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: stretch;
+    }
+  }
+
+  .panel-equal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .panel-header h2 {
+    font-size: var(--font-size-base);
+    margin-bottom: 2px;
+  }
+
+  .panel-subline {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  /* Allocation Proportion Bar */
+  .allocation-bar {
+    display: flex;
+    width: 100%;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-border-default);
+    margin-bottom: var(--space-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .allocation-bar__seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 1px solid var(--color-bg-surface);
+  }
+
+  .allocation-bar__seg--e1 {
+    background-color: var(--color-data-hue);
+    color: #ffffff;
+  }
+
+  .allocation-bar__seg--e2 {
+    background-color: #3b7dd8;
+    color: #ffffff;
+  }
+
+  .allocation-bar__seg--e3 {
+    background-color: var(--color-data-hue-subtle);
+    color: var(--color-text-main);
+  }
+
+  .allocation-bar__seg--res {
+    background-color: var(--color-bg-subtle);
+    color: var(--color-text-main);
+    border-right: none;
+  }
+
+  /* Ledger Tables */
+  .ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+  }
+
+  .ledger-table th {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-subtle);
+    text-align: left;
+    padding: var(--space-2) var(--space-2);
+    border-bottom: 1px solid var(--color-border-default);
+  }
+
+  .ledger-table td {
+    padding: var(--space-2) var(--space-2);
+    border-bottom: 1px solid var(--color-border-subtle);
+    vertical-align: middle;
+  }
+
+  .ledger-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .panel-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .panel-footer__note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .panel-footer__link {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-main);
+  }
+
+  /* Curriculum Section */
+  .section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .section-header__subline {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    line-height: var(--line-height-relaxed);
-    margin-bottom: var(--space-4);
-    flex-grow: 1;
+    margin-top: 2px;
   }
 
-  .article-card__more {
+  .section-header__link {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
-    color: var(--color-brand-primary);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
   }
 
-  .article-card__more:hover {
-    color: var(--color-brand-primary-hover);
+  .table-card {
+    padding: 0;
+    overflow-x: auto;
+  }
+
+  .curriculum-table th,
+  .curriculum-table td {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .chapter-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .chapter-cell__title {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-main);
+    text-decoration: none;
+  }
+
+  .chapter-cell__title:hover {
+    color: var(--color-data-hue);
     text-decoration: underline;
+  }
+
+  .chapter-cell__desc {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  .row-action {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
   }
 </style>

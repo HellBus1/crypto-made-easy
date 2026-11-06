@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+---
+
+<BaseLayout
+  title="3-Light Spot Signal Checker & Position Sizing Calculator"
+  description="Type in numbers from your spot exchange chart (Price, MA30, RSI, Order Book Bid %, Support & Resistance) to evaluate the 3-Light checklist and build a 3-tier split-entry plan."
+>
+  <section class="checker-page">
+    <Container size="xl">
+      <div class="checker-header">
+        <div>
+          <h1>Spot Signal Checker &amp; Position-Sizing Ladder</h1>
+          <p class="checker-header__subline">
+            Stateless manual checklist for 4H and 1D spot swing setups. Refreshing the page clears
+            all inputs.
+          </p>
+        </div>
+        <span class="status-pill status-pill--neutral">Zero storage · Client-only</span>
+      </div>
+
+      <div class="checker-grid">
+        <div class="surface-card">
+          <h2>Manual Chart Inputs</h2>
+          <p class="text-muted">
+            Read the current values from your exchange spot screen (e.g., Gate.com 4H or 1D chart):
+          </p>
+          <ul class="input-spec-list">
+            <li>
+              <strong>Coin ticker &amp; timeframe:</strong> Any spot pair on 4H or 1D.
+            </li>
+            <li>
+              <strong>Light 1 (Discount check):</strong> Current Price vs MA30 (and optional
+              Bollinger lower/upper bands).
+            </li>
+            <li>
+              <strong>Light 2 (Momentum check):</strong> RSI (0–100; buy light turns on at &le; 36).
+            </li>
+            <li>
+              <strong>Light 3 (Order book check):</strong> Bid % (0–100; buy light turns on at &ge;
+              40%).
+            </li>
+            <li>
+              <strong>Support &amp; Resistance levels:</strong> Up to 3 support floors and 2
+              resistance ceilings.
+            </li>
+            <li>
+              <strong>Total spot capital (USDT):</strong> Automatically splits into 13% / 21% / 30%
+              limit tranches plus a 36% cash reserve and a 2% stop-loss buffer below lowest support.
+            </li>
+          </ul>
+        </div>
+
+        <div class="surface-card">
+          <h2>Result States &amp; Calm Reminders</h2>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th scope="col">Signal badge</th>
+                <th scope="col">Trigger condition</th>
+                <th scope="col">Calm action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="status-pill status-pill--positive">&#10003; Buy Zone</span>
+                </td>
+                <td>All 3 lights on, not holding</td>
+                <td>Place Entry 1 limit order (13% of capital). Never go all-in.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="status-pill status-pill--warning">&bull; Wait / Hold</span>
+                </td>
+                <td>1–2 lights on, or holding above stop</td>
+                <td>Do nothing urgent. Keep limit orders and cash reserve intact.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="status-pill status-pill--info">&uarr; Take Profit</span>
+                </td>
+                <td>Holding &amp; target or mirrored sell lights hit</td>
+                <td>Place a Sell Limit near resistance. Do not chase above bands.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="status-pill status-pill--negative">! Plan Broken</span>
+                </td>
+                <td>Holding &amp; price closes at/below stop-loss</td>
+                <td>Follow your pre-set exit calmly instead of hoping.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .checker-page {
+    padding-block: var(--space-8) var(--space-16);
+  }
+
+  .checker-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .checker-header__subline {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  .checker-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 1024px) {
+    .checker-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .surface-card h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .input-spec-list {
+    margin-top: var(--space-4);
+    padding-left: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-3);
+  }
+
+  .spec-table th {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-subtle);
+    text-align: left;
+    padding: var(--space-2);
+    border-bottom: 1px solid var(--color-border-default);
+  }
+
+  .spec-table td {
+    padding: var(--space-2);
+    border-bottom: 1px solid var(--color-border-subtle);
+    vertical-align: top;
+  }
+</style>
