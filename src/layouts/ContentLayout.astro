@@ -1,0 +1,127 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import { formatDate, toISODate } from '../utils/date';
+
+export interface Props {
+  title: string;
+  description?: string;
+  publishDate?: Date | string;
+  updatedDate?: Date | string;
+  author?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  backLink?: {
+    href: string;
+    label: string;
+  };
+}
+
+const { title, description, publishDate, updatedDate, author, ogImage, canonicalUrl, backLink } =
+  Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  canonicalUrl={canonicalUrl}
+  type={publishDate ? 'article' : 'website'}
+  publishDate={publishDate}
+  author={author}
+>
+  <div class="content-layout">
+    <Container size="md">
+      {backLink && (
+        <nav class="content-layout__back" aria-label="Breadcrumb">
+          <a href={backLink.href} class="content-layout__back-link">
+            &larr; {backLink.label}
+          </a>
+        </nav>
+      )}
+
+      <header class="content-layout__header">
+        <h1 class="content-layout__title">{title}</h1>
+
+        {description && <p class="content-layout__description">{description}</p>}
+
+        {(publishDate || author) && (
+          <div class="content-layout__meta">
+            {publishDate && (
+              <time datetime={toISODate(publishDate)} class="content-layout__date">
+                Published on {formatDate(publishDate)}
+              </time>
+            )}
+            {updatedDate && (
+              <span class="content-layout__updated">(Updated on {formatDate(updatedDate)})</span>
+            )}
+            {author && <span class="content-layout__author">By {author}</span>}
+          </div>
+        )}
+      </header>
+
+      <article class="prose">
+        <slot />
+      </article>
+    </Container>
+  </div>
+</BaseLayout>
+
+<style>
+  .content-layout {
+    padding-block: var(--space-12) var(--space-20);
+  }
+
+  .content-layout__back {
+    margin-bottom: var(--space-6);
+  }
+
+  .content-layout__back-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .content-layout__back-link:hover {
+    color: var(--color-brand-primary);
+  }
+
+  .content-layout__header {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .content-layout__title {
+    font-size: var(--font-size-3xl);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-main);
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .content-layout__title {
+      font-size: var(--font-size-4xl);
+    }
+  }
+
+  .content-layout__description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-normal);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-layout__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .content-layout__author {
+    font-weight: var(--font-weight-medium);
+  }
+</style>

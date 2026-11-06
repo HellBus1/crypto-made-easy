@@ -1,0 +1,64 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<ContentLayout
+  title="About This Starter"
+  description="An architectural overview and guiding principles behind this production-ready Astro + TypeScript template."
+  author={siteConfig.author.name}
+  backLink={{ href: '/', label: 'Back to Homepage' }}
+>
+  <p>
+    The <strong>Astro + TypeScript Starter</strong> was engineered to bridge the gap between simple
+    single-purpose templates and bloated multi-framework setups. It provides an unopinionated,
+    high-performance foundation that can easily be adapted for company profile sites, developer
+    portfolios, blogs, documentation portals, or SaaS landing pages.
+  </p>
+
+  <h2>Core Architectural Tenets</h2>
+
+  <h3>1. Static-First Performance</h3>
+  <p>
+    By default, pages render at build time into pure HTML and CSS. There are no heavy client-side
+    JavaScript runtimes, no virtual DOM diffing, and no unnecessary client hydration. This
+    guarantees near-instant page loads and top-tier Core Web Vitals (LCP, INP, CLS).
+  </p>
+
+  <h3>2. Complete Type Safety</h3>
+  <p>
+    The template enables strict TypeScript checks across the entire codebase. From component props
+    and site configurations to content collection schemas, every data contract is typed and
+    validated.
+  </p>
+
+  <h3>3. Zero-FOUC Theming & Design Tokens</h3>
+  <p>
+    Rather than relying on runtime CSS-in-JS libraries or external utility frameworks, all design
+    tokens are exposed as standard CSS custom properties in <code>tokens.css</code>. Light and dark
+    themes are supported seamlessly with an instant inline script in the document{' '}
+    <code>&lt;head&gt;</code>, guaranteeing zero flash of unstyled content (FOUC).
+  </p>
+
+  <h3>4. Accessible and SEO-Optimized</h3>
+  <p>Accessibility and SEO are treated as first-class citizens. Key features include:</p>
+  <ul>
+    <li>Automated Open Graph and Twitter Card metadata generation.</li>
+    <li>Canonical URL normalization.</li>
+    <li>
+      Dynamic sitemap generation via <code>@astrojs/sitemap</code>.
+    </li>
+    <li>
+      A dedicated <code>robots.txt.ts</code> endpoint.
+    </li>
+    <li>Accessible skip links, semantic landmarks, and WCAG AA contrast compliance.</li>
+  </ul>
+
+  <hr />
+
+  <h2>Open Source & Extensible</h2>
+  <p>
+    This project is released under the permissive <strong>MIT License</strong>. Feel free to use it
+    as the boilerplate for your personal or commercial projects.
+  </p>
+</ContentLayout>

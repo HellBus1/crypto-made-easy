@@ -1,0 +1,68 @@
+---
+import SEO from '../components/layout/SEO.astro';
+import SkipLink from '../components/layout/SkipLink.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { siteConfig } from '../config/site';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+  publishDate?: Date | string;
+  author?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  canonicalUrl,
+  noindex,
+  type = 'website',
+  publishDate,
+  author,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={siteConfig.defaultLocale}>
+  <head>
+    <!-- Instant Zero-FOUC Theme Initialization -->
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch {
+          // Fallback if localStorage access is denied
+        }
+      })();
+    </script>
+
+    <SEO
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      canonicalUrl={canonicalUrl}
+      noindex={noindex}
+      type={type}
+      publishDate={publishDate}
+      author={author}
+    />
+  </head>
+  <body>
+    <SkipLink targetId="main-content" />
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

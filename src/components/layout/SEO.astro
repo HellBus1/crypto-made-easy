@@ -1,0 +1,87 @@
+---
+import { siteConfig } from '../../config/site';
+import { getCanonicalUrl, formatPageTitle } from '../../utils/seo';
+import { toISODate } from '../../utils/date';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+  publishDate?: Date | string;
+  author?: string;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  ogImage = siteConfig.defaultOgImage,
+  canonicalUrl,
+  noindex = false,
+  type = 'website',
+  publishDate,
+  author = siteConfig.author.name,
+} = Astro.props;
+
+const formattedTitle = formatPageTitle(title);
+const canonical = getCanonicalUrl(canonicalUrl || Astro.url.pathname);
+const fullOgImageUrl = ogImage.startsWith('http') ? ogImage : getCanonicalUrl(ogImage);
+
+const jsonLd =
+  type === 'article'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: title || siteConfig.title,
+        description: description,
+        image: fullOgImageUrl,
+        datePublished: publishDate ? toISODate(publishDate) : undefined,
+        author: {
+          '@type': 'Person',
+          name: author,
+        },
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: siteConfig.name,
+        url: siteConfig.url,
+        description: siteConfig.description,
+      };
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{formattedTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+
+<!-- Favicon and App Icons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Sitemap Discovery -->
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={fullOgImageUrl} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:locale" content={siteConfig.defaultLocale} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonical} />
+<meta name="twitter:title" content={formattedTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImageUrl} />
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

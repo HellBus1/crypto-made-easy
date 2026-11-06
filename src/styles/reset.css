@@ -1,0 +1,67 @@
+/**
+ * Modern CSS Reset
+ * Minimal, opinionated reset tailored for predictable component layout and typography.
+ */
+
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin across all elements */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. Allow percentage-based heights in the application */
+html,
+body {
+  height: 100%;
+}
+
+/* 4. Improve text rendering and baseline body styling */
+body {
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 5. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 6. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* 7. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Create a root stacking context */
+body {
+  isolation: isolate;
+}

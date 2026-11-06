@@ -1,0 +1,113 @@
+---
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import { siteConfig } from '../../config/site';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Ready to Launch Your Next Project?',
+  description = 'Fork or clone this starter template to kickstart your next website or SaaS product with production-grade engineering foundations.',
+} = Astro.props;
+---
+
+<Section spacing="lg">
+  <Container size="lg">
+    <div class="cta-banner">
+      <h2 class="cta-banner__title">{title}</h2>
+      <p class="cta-banner__description">{description}</p>
+      <div class="cta-banner__actions">
+        <Button
+          variant="primary"
+          size="lg"
+          href={siteConfig.socials.github || 'https://github.com/syubbanfakhriya/ts-astro-starter'}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Use This Template
+          <svg
+            class="cta-banner__btn-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </Button>
+        <Button variant="secondary" size="lg" href="/about">
+          {' '}
+          Learn More{' '}
+        </Button>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .cta-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-12) var(--space-6);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (min-width: 640px) {
+    .cta-banner {
+      padding: var(--space-16) var(--space-12);
+    }
+  }
+
+  .cta-banner__title {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .cta-banner__title {
+      font-size: var(--font-size-3xl);
+    }
+  }
+
+  .cta-banner__description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    max-width: 36rem;
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .cta-banner__description {
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  .cta-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .cta-banner__btn-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+</style>

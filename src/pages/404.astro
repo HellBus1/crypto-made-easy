@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Page Not Found (404)"
+  description="Sorry, the page you are looking for does not exist or has been moved."
+  noindex={true}
+>
+  <div class="error-page">
+    <Container size="md">
+      <div class="error-page__content">
+        <span class="error-page__badge">404 Error</span>
+        <h1 class="error-page__title">Page not found</h1>
+        <p class="error-page__message">
+          The page you are looking for doesn't exist, may have been removed, or is temporarily
+          unavailable.
+        </p>
+        <div class="error-page__actions">
+          <Button variant="primary" size="lg" href="/">
+            <svg
+              class="error-page__icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Return to Homepage
+          </Button>
+          <Button variant="outline" size="lg" href="/blog">
+            {' '}
+            Read the Blog{' '}
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding-block: var(--space-16);
+    text-align: center;
+  }
+
+  .error-page__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  .error-page__badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-brand-primary);
+    background-color: var(--color-brand-primary-subtle);
+    margin-bottom: var(--space-4);
+  }
+
+  .error-page__title {
+    font-size: var(--font-size-3xl);
+    color: var(--color-text-main);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .error-page__title {
+      font-size: var(--font-size-4xl);
+    }
+  }
+
+  .error-page__message {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  .error-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .error-page__icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+</style>

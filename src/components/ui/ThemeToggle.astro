@@ -1,0 +1,122 @@
+---
+/**
+ * ThemeToggle.astro
+ * Accessible light/dark theme toggle with minimal client JS and zero FOUC.
+ */
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  class="theme-toggle"
+  aria-label="Toggle color theme"
+  title="Toggle color theme"
+>
+  <!-- Sun Icon (shown in dark mode to switch to light) -->
+  <svg
+    class="theme-icon icon-sun"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+
+  <!-- Moon Icon (shown in light mode to switch to dark) -->
+  <svg
+    class="theme-icon icon-moon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: var(--space-1);
+    background: transparent;
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .theme-toggle:hover {
+    background-color: var(--color-bg-subtle);
+    border-color: var(--color-border-hover);
+  }
+
+  .theme-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform var(--transition-fast);
+  }
+
+  /* Default (Light mode): show moon, hide sun */
+  .icon-sun {
+    display: none;
+  }
+  .icon-moon {
+    display: block;
+  }
+
+  /* Dark mode: show sun, hide moon */
+  :global([data-theme='dark']) .icon-sun {
+    display: block;
+  }
+  :global([data-theme='dark']) .icon-moon {
+    display: none;
+  }
+</style>
+
+<script>
+  function setupThemeToggle() {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    toggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isCurrentlyDark = currentTheme === 'dark' || (!currentTheme && prefersDark);
+      const nextTheme = isCurrentlyDark ? 'light' : 'dark';
+
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+    });
+  }
+
+  // Setup on initial load
+  setupThemeToggle();
+
+  // Support Astro View Transitions if enabled later
+  document.addEventListener('astro:after-swap', setupThemeToggle);
+</script>
