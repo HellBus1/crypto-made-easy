@@ -4,3 +4,7 @@ node_modules/
 playwright-report/
 test-results/
 package-lock.json
+.agents/
+.taste-skill/
+resources/
+skills-lock.json

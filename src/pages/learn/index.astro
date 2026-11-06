@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import { curriculum } from '../../config/curriculum';
+import { getCollection } from 'astro:content';
+
+const publishedLessons = await getCollection('lessons', ({ data }) => !data.draft);
+const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
+---
+
+<BaseLayout
+  title="Learn Spot Chart Reading: 8 Interactive Modules"
+  description="Step-by-step interactive lessons covering spot exchange anatomy, candlesticks, moving averages, Bollinger Bands, RSI, support floors, and the 3-Light checklist."
+>
+  <section class="learn-index">
+    <Container size="xl">
+      <div class="learn-header">
+        <div>
+          <h1>Interactive Spot Chart Curriculum</h1>
+          <p class="learn-header__subline">
+            Eight focused chapters designed for 4H and 1D spot swing traders. Every chapter connects
+            directly to the 3-Light Signal Checker.
+          </p>
+        </div>
+        <a href="/checker" class="btn-checker">
+          Try Signal Checker &rarr;
+        </a>
+      </div>
+
+      <div class="modules-list">
+        {curriculum.map((item) => {
+          const isReady = publishedSlugs.has(item.slug);
+          const href = isReady ? `/learn/${item.slug}` : `/learn/01-how-a-chart-is-built`;
+          return (
+            <article class="surface-card module-card">
+              <div class="module-card__meta">
+                <span class="status-pill status-pill--neutral">
+                  Chapter {item.chapter} · {item.track}
+                </span>
+                <span class="module-card__duration num">{item.durationMinutes} min read</span>
+              </div>
+              <h2 class="module-card__title">
+                <a href={href}>{item.title}</a>
+              </h2>
+              <p class="module-card__desc">{item.description}</p>
+              <div class="module-card__footer">
+                <span class="module-card__focus">Interactive: {item.interactiveFocus}</span>
+                <a href={href} class="module-card__link">
+                  {isReady ? 'Read chapter' : 'Coming in Phase 5'} &rarr;
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .learn-index {
+    padding-block: var(--space-8) var(--space-16);
+  }
+
+  .learn-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .learn-header__subline {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+    max-width: 62ch;
+  }
+
+  .btn-checker {
+    display: inline-flex;
+    align-items: center;
+    height: var(--control-height);
+    padding-inline: var(--space-4);
+    background-color: var(--color-brand-primary);
+    color: var(--color-brand-primary-text);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+
+  .btn-checker:hover {
+    background-color: var(--color-brand-primary-hover);
+    color: var(--color-brand-primary-text);
+    text-decoration: none;
+  }
+
+  .modules-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .modules-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .module-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .module-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .module-card__duration {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .module-card__title {
+    font-size: var(--font-size-lg);
+  }
+
+  .module-card__title a {
+    text-decoration: none;
+  }
+
+  .module-card__title a:hover {
+    color: var(--color-data-hue);
+    text-decoration: underline;
+  }
+
+  .module-card__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    flex-grow: 1;
+  }
+
+  .module-card__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+    font-size: var(--font-size-xs);
+  }
+
+  .module-card__focus {
+    color: var(--color-text-subtle);
+  }
+
+  .module-card__link {
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+  }
+</style>

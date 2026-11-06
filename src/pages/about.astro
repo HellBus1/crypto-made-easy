@@ -1,64 +1,53 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
-import { siteConfig } from '../config/site';
 ---
 
 <ContentLayout
-  title="About This Starter"
-  description="An architectural overview and guiding principles behind this production-ready Astro + TypeScript template."
-  author={siteConfig.author.name}
-  backLink={{ href: '/', label: 'Back to Homepage' }}
+  title="About Crypto Made Easy"
+  description="How the 3-Light checklist, position-sizing ladder, and interactive chart lessons work, plus our privacy and educational disclaimers."
 >
   <p>
-    The <strong>Astro + TypeScript Starter</strong> was engineered to bridge the gap between simple
-    single-purpose templates and bloated multi-framework setups. It provides an unopinionated,
-    high-performance foundation that can easily be adapted for company profile sites, developer
-    portfolios, blogs, documentation portals, or SaaS landing pages.
+    <strong>Crypto Made Easy</strong> is a static, English-language learning course and manual
+    signal checklist built for casual spot swing traders. When you open an exchange screen like
+    Gate.com, the wall of moving averages, oscillators, and blinking order books can cause visual
+    blindness and emotional panic selling.
   </p>
 
-  <h2>Core Architectural Tenets</h2>
-
-  <h3>1. Static-First Performance</h3>
   <p>
-    By default, pages render at build time into pure HTML and CSS. There are no heavy client-side
-    JavaScript runtimes, no virtual DOM diffing, and no unnecessary client hydration. This
-    guarantees near-instant page loads and top-tier Core Web Vitals (LCP, INP, CLS).
+    Our core promise is <strong>ease of mind</strong>: before placing any spot order, you know where
+    the support floor is, how much USDT reserve remains unspent, and where the plan is invalidated.
   </p>
 
-  <h3>2. Complete Type Safety</h3>
-  <p>
-    The template enables strict TypeScript checks across the entire codebase. From component props
-    and site configurations to content collection schemas, every data contract is typed and
-    validated.
-  </p>
-
-  <h3>3. Zero-FOUC Theming & Design Tokens</h3>
-  <p>
-    Rather than relying on runtime CSS-in-JS libraries or external utility frameworks, all design
-    tokens are exposed as standard CSS custom properties in <code>tokens.css</code>. Light and dark
-    themes are supported seamlessly with an instant inline script in the document{' '}
-    <code>&lt;head&gt;</code>, guaranteeing zero flash of unstyled content (FOUC).
-  </p>
-
-  <h3>4. Accessible and SEO-Optimized</h3>
-  <p>Accessibility and SEO are treated as first-class citizens. Key features include:</p>
+  <h2>Two Pillars</h2>
   <ul>
-    <li>Automated Open Graph and Twitter Card metadata generation.</li>
-    <li>Canonical URL normalization.</li>
     <li>
-      Dynamic sitemap generation via <code>@astrojs/sitemap</code>.
+      <strong>Interactive Learn Modules:</strong> Eight short chapters with manipulable chart
+      diagrams that explain how order books create candlesticks, volume, and indicators.
     </li>
     <li>
-      A dedicated <code>robots.txt.ts</code> endpoint.
+      <strong>3-Light Signal Checker:</strong> Type in the numbers from your 4H or 1D chart to
+      evaluate Price vs MA30/BOLL, RSI, and Order Book Bid %, paired with an automatic 13% / 21% /
+      30% split-entry ladder and 36% cash reserve.
     </li>
-    <li>Accessible skip links, semantic landmarks, and WCAG AA contrast compliance.</li>
   </ul>
 
-  <hr />
-
-  <h2>Open Source & Extensible</h2>
+  <h2 id="disclaimer">Educational Disclaimer &amp; Risk Notice</h2>
   <p>
-    This project is released under the permissive <strong>MIT License</strong>. Feel free to use it
-    as the boilerplate for your personal or commercial projects.
+    This application is an educational checklist and arithmetic calculator,{' '}
+    <strong>not financial, investment, or trading advice</strong>. It does not predict market prices
+    or guarantee outcomes. A 3-of-3 "Buy Zone" reading can still fail in a macro downtrend, which is
+    why every plan requires a pre-agreed Stop-Loss ("Plan Broken") level below lowest support.
+  </p>
+  <p>
+    Dated price figures for BTC, ETH, and SOL (from 5–6 November 2026) appear strictly as historical
+    worked examples from the source documentation, never as live trading recommendations.
+  </p>
+
+  <h2 id="privacy">Statelessness &amp; Zero-Tracking Privacy</h2>
+  <p>
+    The Signal Checker is completely stateless: no backend, no user accounts, no cookies, and no
+    analytics. Nothing you type into the Signal Checker is saved or leaves your browser; refreshing
+    the page clears all checker inputs immediately. Only your optional chapter completion checkmarks
+    are stored locally in your browser under <code>cme:v1</code> and can be reset at any time.
   </p>
 </ContentLayout>
