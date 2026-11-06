@@ -9,6 +9,9 @@ terms: ['Order Book', 'Candlestick', 'Volume', 'MA30', 'RSI']
 draft: false
 ---
 
+import MarketChart from '../../components/charts/MarketChart';
+import CandleEditor from '../../components/charts/CandleEditor';
+
 When you open a spot exchange screen such as Gate.com, you are looking at three layers of information stacked on top of each other. Most beginners get overwhelmed because they try to read all three layers at once without knowing which one causes the others.
 
 ## The 3-stage cause-and-effect chain
@@ -18,6 +21,14 @@ Every chart is built from the bottom up in a strict sequence:
 1. **Stage 1: The Order Book (The Cause).** Buyers post resting **Bid** limit orders below the current price, and sellers post **Ask** limit orders above it. When impatient traders cross the spread, trades execute.
 2. **Stage 2: Candlesticks & Volume (The Recording).** Every executed trade during a timeframe (such as 4 hours or 1 day) is compressed into a single **Candlestick** showing four prices (Open, High, Low, Close) plus a **Volume** bar underneath showing how much capital changed hands.
 3. **Stage 3: Indicators (The Summary).** Mathematical formulas such as **MA30** (30-period average price), **Bollinger Bands**, **RSI**, and **MACD** read the completed candlesticks to summarize trend and momentum. Indicators never move price; price moves indicators.
+
+<MarketChart client:visible />
+
+## Sculpting a single candlestick (OHLC)
+
+Before reading 60 candles at once, test how a single candle records the tug-of-war between buyers and sellers during one session:
+
+<CandleEditor client:visible />
 
 ## What to notice on an exchange screen
 
