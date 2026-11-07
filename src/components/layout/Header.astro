@@ -18,14 +18,14 @@ function isActive(href: string): boolean {
 <header class="header">
   <Container size="xl">
     <div class="header__inner">
-      <!-- Site Branding: Candlestick + Ledger Mark -->
+      <!-- Site Branding -->
       <a href="/" class="header__brand" aria-label={`${siteConfig.name} Home`}>
         <svg
           class="header__logo-icon"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.75"
+          stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
           aria-hidden="true"
@@ -44,7 +44,7 @@ function isActive(href: string): boolean {
           ></rect>
         </svg>
         <span class="header__brand-name">{siteConfig.name}</span>
-        <span class="header__scope-badge">Spot 4H / 1D</span>
+        <span class="header__scope-badge">Beginner Guide</span>
       </a>
 
       <!-- Desktop Navigation Links -->
@@ -69,10 +69,23 @@ function isActive(href: string): boolean {
         </ul>
       </nav>
 
-      <!-- Actions: Primary CTA, Theme Toggle & Mobile Menu Button -->
+      <!-- Actions: Progress Pill, Primary CTA, Theme Toggle & Mobile Menu Button -->
       <div class="header__actions">
+        <a
+          href="/learn/01-how-a-chart-is-built"
+          id="header-progress-pill"
+          class="header__progress-pill"
+          title="Your local course progress"
+        >
+          <span class="header__progress-dot" aria-hidden="true"></span>
+          <span id="header-progress-text" class="num">
+            0/8 Done
+          </span>
+        </a>
+
         <a href="/checker" class="header__cta">
-          Check a Coin
+          {' '}
+          Check a Coin{' '}
         </a>
         <ThemeToggle />
 
@@ -135,6 +148,11 @@ function isActive(href: string): boolean {
               </a>
             </li>
           ))}
+          <li class="header__mobile-cta-item">
+            <a href="/checker" class="btn-primary" style="width: 100%; margin-top: 4px;">
+              Open 3-Light Signal Checker
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -154,8 +172,8 @@ function isActive(href: string): boolean {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 3.5rem;
-    gap: var(--space-4);
+    height: 3.75rem;
+    gap: var(--space-3);
   }
 
   .header__brand {
@@ -163,9 +181,10 @@ function isActive(href: string): boolean {
     align-items: center;
     gap: var(--space-2);
     font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold);
     color: var(--color-text-main);
     text-decoration: none;
+    flex-shrink: 0;
   }
 
   .header__brand:hover {
@@ -174,22 +193,23 @@ function isActive(href: string): boolean {
   }
 
   .header__logo-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: var(--color-text-main);
+    width: 1.35rem;
+    height: 1.35rem;
+    color: var(--color-data-hue);
   }
 
   .header__scope-badge {
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-regular);
-    color: var(--color-text-subtle);
-    background-color: var(--color-bg-subtle);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-data-hue);
+    background-color: var(--color-data-hue-subtle);
+    border: 1px solid var(--color-pill-info-border);
     padding: 2px var(--space-2);
     border-radius: var(--radius-sm);
     display: none;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 900px) {
     .header__scope-badge {
       display: inline-block;
     }
@@ -208,7 +228,7 @@ function isActive(href: string): boolean {
   .header__nav-list {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-1);
     list-style: none;
   }
 
@@ -217,7 +237,7 @@ function isActive(href: string): boolean {
     padding: 6px var(--space-3);
     border-radius: var(--radius-md);
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-medium);
     color: var(--color-text-muted);
     text-decoration: none;
     transition:
@@ -227,14 +247,14 @@ function isActive(href: string): boolean {
 
   .header__nav-link:hover {
     color: var(--color-text-main);
-    background-color: var(--color-bg-canvas);
+    background-color: var(--color-bg-subtle);
     text-decoration: none;
   }
 
   .header__nav-link--active {
     color: var(--color-text-main);
     background-color: var(--color-bg-subtle);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
   }
 
   .header__actions {
@@ -243,16 +263,49 @@ function isActive(href: string): boolean {
     gap: var(--space-2);
   }
 
+  .header__progress-pill {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-bg-subtle);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-main);
+    text-decoration: none;
+  }
+
+  .header__progress-pill:hover {
+    border-color: var(--color-data-hue);
+    background-color: var(--color-data-hue-subtle);
+    text-decoration: none;
+  }
+
+  @media (min-width: 640px) {
+    .header__progress-pill {
+      display: inline-flex;
+    }
+  }
+
+  .header__progress-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background-color: var(--color-success);
+  }
+
   .header__cta {
     display: none;
     align-items: center;
     justify-content: center;
-    height: 2rem;
+    height: 2.15rem;
     padding-inline: var(--space-3);
     background-color: var(--color-brand-primary);
     color: var(--color-brand-primary-text);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
     border-radius: var(--radius-md);
     text-decoration: none;
   }
@@ -331,7 +384,7 @@ function isActive(href: string): boolean {
     display: block;
     padding: var(--space-2) var(--space-3);
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-medium);
     color: var(--color-text-muted);
     border-radius: var(--radius-md);
     text-decoration: none;
@@ -346,7 +399,7 @@ function isActive(href: string): boolean {
   .header__mobile-link--active {
     color: var(--color-text-main);
     background-color: var(--color-bg-subtle);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
   }
 
   @media (min-width: 768px) {
@@ -357,9 +410,30 @@ function isActive(href: string): boolean {
 </style>
 
 <script>
-  function setupMobileMenu() {
+  function setupHeader() {
     const toggle = document.getElementById('mobile-menu-toggle');
     const menu = document.getElementById('mobile-menu');
+    const progressText = document.getElementById('header-progress-text');
+
+    function updateHeaderProgress() {
+      if (!progressText) return;
+      try {
+        const raw = window.localStorage.getItem('cme:v1');
+        if (!raw) {
+          progressText.textContent = '0/8 Done';
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        const count = Array.isArray(parsed?.completed) ? parsed.completed.length : 0;
+        progressText.textContent = `${Math.min(8, count)}/8 Done`;
+      } catch {
+        progressText.textContent = '0/8 Done';
+      }
+    }
+
+    updateHeaderProgress();
+    window.addEventListener('cme:progress-updated', updateHeaderProgress);
+    window.addEventListener('storage', updateHeaderProgress);
 
     if (!toggle || !menu) return;
 
@@ -374,6 +448,6 @@ function isActive(href: string): boolean {
     });
   }
 
-  setupMobileMenu();
-  document.addEventListener('astro:after-swap', setupMobileMenu);
+  setupHeader();
+  document.addEventListener('astro:after-swap', setupHeader);
 </script>

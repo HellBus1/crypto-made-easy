@@ -39,4 +39,3 @@ export function computeStopLoss(
     stopLossPrice: roundTo(rawStop, decimals),
   };
 }
-

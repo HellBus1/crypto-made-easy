@@ -40,21 +40,21 @@ export interface MarketChartProps {
 }
 
 export default function MarketChart({
-  title = 'Spot Chart Inspector (SOL / USDT Example)',
-  subtitle = 'Synthetic 4H / 1D teaching dataset. Toggle overlays to see how indicators summarize price.',
+  title = 'Interactive Spot Chart Sandbox (SOL / USDT)',
+  subtitle = 'Drag left/right to pan, scroll to zoom, and toggle the 4 Beginner Essentials (MA30, BOLL, VOL, RSI) on a real interactive chart canvas.',
   initialScenario = 'dip-at-support',
   allowScenarioSwitch = true,
   allowTimeframeSwitch = true,
   allowIndicatorToggles = true,
   defaultShowMa30 = true,
   defaultShowEma30 = false,
-  defaultShowBoll = false,
+  defaultShowBoll = true,
   defaultShowVolume = true,
   defaultShowRsi = true,
   defaultShowMacd = false,
   priceLines = [
-    { price: 88.5, title: 'Support 1 (88.50)', color: '#247b50', dashed: true },
-    { price: 79.58, title: 'Stop-Loss (79.58)', color: '#c4242a', dashed: true },
+    { price: 88.5, title: 'Support Floor 1 ($88.50)', color: '#15803d', dashed: true },
+    { price: 79.58, title: 'Stop-Loss ($79.58)', color: '#b91c1c', dashed: true },
   ],
 }: MarketChartProps) {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
@@ -79,6 +79,7 @@ export default function MarketChart({
 
   const latestCandle = candles[candles.length - 1];
   const latestMa = maSeries[maSeries.length - 1];
+  const latestBoll = bollSeries[bollSeries.length - 1];
   const latestRsi = rsiSeries[rsiSeries.length - 1];
   const latestMacd = macdSeries[macdSeries.length - 1];
 
@@ -87,14 +88,14 @@ export default function MarketChart({
     if (!container) return;
 
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const bgColor = isDark ? '#141414' : '#ffffff';
-    const textColor = isDark ? '#b4b4b4' : '#5f6672';
-    const gridColor = isDark ? '#242424' : '#eaeef4';
-    const borderColor = isDark ? '#262626' : '#dde2ea';
+    const bgColor = isDark ? '#111827' : '#ffffff';
+    const textColor = isDark ? '#cbd5e1' : '#334155';
+    const gridColor = isDark ? '#1e293b' : '#e2e8f0';
+    const borderColor = isDark ? '#334155' : '#cbd5e1';
 
     const chart = createChart(container, {
       width: container.clientWidth || 640,
-      height: 300,
+      height: 340,
       layout: {
         background: { type: ColorType.Solid, color: bgColor },
         textColor,
@@ -115,12 +116,12 @@ export default function MarketChart({
     });
 
     const candleSeries = chart.addSeries(CandlestickSeries, {
-      upColor: '#247b50',
-      downColor: '#c4242a',
-      borderUpColor: '#247b50',
-      borderDownColor: '#c4242a',
-      wickUpColor: '#247b50',
-      wickDownColor: '#c4242a',
+      upColor: '#15803d',
+      downColor: '#b91c1c',
+      borderUpColor: '#15803d',
+      borderDownColor: '#b91c1c',
+      wickUpColor: '#15803d',
+      wickDownColor: '#b91c1c',
     });
 
     candleSeries.setData(
@@ -146,7 +147,7 @@ export default function MarketChart({
 
     if (showMa30) {
       const maLine = chart.addSeries(LineSeries, {
-        color: '#1d5fbf',
+        color: '#0284c7',
         lineWidth: 2,
         title: 'MA30',
       });
@@ -163,7 +164,7 @@ export default function MarketChart({
 
     if (showEma30) {
       const emaLine = chart.addSeries(LineSeries, {
-        color: '#0a0a0a',
+        color: '#0369a1',
         lineWidth: 2,
         lineStyle: LineStyle.Dashed,
         title: 'EMA30',
@@ -181,16 +182,16 @@ export default function MarketChart({
 
     if (showBoll) {
       const upperLine = chart.addSeries(LineSeries, {
-        color: '#767d8a',
+        color: '#b45309',
         lineWidth: 1,
         lineStyle: LineStyle.Dotted,
-        title: 'BOLL Upper',
+        title: 'BOLL Roof (UB)',
       });
       const lowerLine = chart.addSeries(LineSeries, {
-        color: '#767d8a',
+        color: '#15803d',
         lineWidth: 1,
         lineStyle: LineStyle.Dotted,
-        title: 'BOLL Lower',
+        title: 'BOLL Floor (LB)',
       });
 
       upperLine.setData(
@@ -229,7 +230,7 @@ export default function MarketChart({
         candles.map((c) => ({
           time: c.time as UTCTimestamp,
           value: c.volume,
-          color: c.close >= c.open ? 'rgba(36, 123, 80, 0.28)' : 'rgba(196, 36, 42, 0.28)',
+          color: c.close >= c.open ? 'rgba(21, 128, 61, 0.28)' : 'rgba(185, 28, 28, 0.28)',
         }))
       );
     }
@@ -237,14 +238,23 @@ export default function MarketChart({
     chart.timeScale().fitContent();
 
     const handleResize = () => {
-      if (container) {
+      if (container && container.clientWidth > 0) {
         chart.applyOptions({ width: container.clientWidth });
       }
     };
 
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => handleResize());
+      resizeObserver.observe(container);
+    }
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
       chart.remove();
     };
   }, [
@@ -262,33 +272,33 @@ export default function MarketChart({
   ]);
 
   return (
-    <div data-ui="market-chart" className="surface-card" style={{ marginBlock: 'var(--space-6)' }}>
-      {/* Header & Controls */}
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          gap: 'var(--space-3)',
-          marginBottom: 'var(--space-3)',
-        }}
-      >
+    <div data-ui="market-chart" className="sim-box">
+      {/* Header & Live Pill Readouts */}
+      <div className="sim-box__header">
         <div>
-          <h3 style={{ margin: 0 }}>{title}</h3>
-          <p className="text-muted" style={{ fontSize: 'var(--font-size-xs)', margin: 0 }}>
-            {subtitle}
-          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '4px' }}>
+            <span className="status-pill status-pill--info">
+              Interactive TradingView Chart Canvas
+            </span>
+            <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-subtle)' }}>
+              Hover candles to inspect OHLC · Scroll or drag to pan &amp; zoom
+            </span>
+          </div>
+          <h3 className="sim-box__title">{title}</h3>
+          <p className="sim-box__subtitle">{subtitle}</p>
         </div>
 
         {/* Live Latest Reading Strip */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
           <span className="status-pill status-pill--neutral num">
-            Last: {latestCandle.close.toFixed(2)} USDT
+            Current: ${latestCandle.close.toFixed(2)}
           </span>
           {latestMa !== null && (
-            <span className="status-pill status-pill--info num">
-              MA: {latestMa.toFixed(2)} USDT
+            <span className="status-pill status-pill--info num">MA30: ${latestMa.toFixed(2)}</span>
+          )}
+          {latestBoll?.lower !== null && latestBoll?.upper !== null && (
+            <span className="status-pill status-pill--warning num">
+              BOLL: ${latestBoll.lower.toFixed(1)} to ${latestBoll.upper.toFixed(1)}
             </span>
           )}
           {latestRsi !== null && (
@@ -307,265 +317,268 @@ export default function MarketChart({
         </div>
       </div>
 
-      {/* Control Toolbar */}
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 'var(--space-2)',
-          paddingBottom: 'var(--space-3)',
-          marginBottom: 'var(--space-3)',
-          borderBottom: '1px solid var(--color-border-subtle)',
-        }}
-      >
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
-          {allowScenarioSwitch &&
-            (
-              [
-                { id: 'dip-at-support', label: 'Dip to Support (Buy Zone)' },
-                { id: 'uptrend', label: 'Healthy Uptrend' },
-                { id: 'range', label: 'Sideways Range' },
-                { id: 'broken-trend', label: 'Broken Support Floor' },
-              ] as const
-            ).map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setScenario(s.id)}
-                aria-pressed={scenario === s.id}
-                style={{
-                  height: '30px',
-                  paddingInline: 'var(--space-2)',
-                  fontSize: 'var(--font-size-xs)',
-                  fontWeight: scenario === s.id ? 600 : 400,
-                  backgroundColor:
-                    scenario === s.id ? 'var(--color-brand-primary)' : 'var(--color-bg-surface)',
-                  color:
-                    scenario === s.id
-                      ? 'var(--color-brand-primary-text)'
-                      : 'var(--color-text-main)',
-                  border: '1px solid var(--color-border-control)',
-                  borderRadius: 'var(--radius-sm)',
-                  cursor: 'pointer',
-                }}
-              >
-                {s.label}
-              </button>
-            ))}
-        </div>
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
-          {allowTimeframeSwitch &&
-            (['4H', '1D'] as const).map((tf) => (
-              <button
-                key={tf}
-                type="button"
-                onClick={() => setTimeframe(tf)}
-                aria-pressed={timeframe === tf}
-                style={{
-                  height: '30px',
-                  paddingInline: 'var(--space-2)',
-                  fontSize: 'var(--font-size-xs)',
-                  fontWeight: timeframe === tf ? 600 : 400,
-                  backgroundColor:
-                    timeframe === tf ? 'var(--color-bg-subtle)' : 'var(--color-bg-surface)',
-                  color: 'var(--color-text-main)',
-                  border: '1px solid var(--color-border-control)',
-                  borderRadius: 'var(--radius-sm)',
-                  cursor: 'pointer',
-                }}
-              >
-                {tf}
-              </button>
-            ))}
-
-          {allowIndicatorToggles &&
-            [
-              { label: 'MA30', active: showMa30, toggle: () => setShowMa30(!showMa30) },
-              { label: 'EMA30', active: showEma30, toggle: () => setShowEma30(!showEma30) },
-              { label: 'BOLL', active: showBoll, toggle: () => setShowBoll(!showBoll) },
-              { label: 'VOL', active: showVolume, toggle: () => setShowVolume(!showVolume) },
-              { label: 'RSI', active: showRsi, toggle: () => setShowRsi(!showRsi) },
-              { label: 'MACD', active: showMacd, toggle: () => setShowMacd(!showMacd) },
-            ].map((ind) => (
-              <button
-                key={ind.label}
-                type="button"
-                onClick={ind.toggle}
-                aria-pressed={ind.active}
-                style={{
-                  height: '30px',
-                  paddingInline: 'var(--space-2)',
-                  fontSize: 'var(--font-size-xs)',
-                  fontWeight: ind.active ? 600 : 400,
-                  backgroundColor: ind.active
-                    ? 'var(--color-data-hue-subtle)'
-                    : 'var(--color-bg-surface)',
-                  color: 'var(--color-text-main)',
-                  border: `1px solid ${
-                    ind.active ? 'var(--color-data-hue)' : 'var(--color-border-control)'
-                  }`,
-                  borderRadius: 'var(--radius-sm)',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}
-              >
-                {ind.active && (
-                  <svg
-                    width="11"
-                    height="11"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <polyline points="2 6 5 9 10 3" />
-                  </svg>
-                )}
-                {ind.label}
-              </button>
-            ))}
-        </div>
-      </div>
-
-      {/* Lightweight Charts Canvas Container */}
-      <div
-        ref={chartContainerRef}
-        style={{
-          width: '100%',
-          height: '300px',
-          border: '1px solid var(--color-border-default)',
-          borderRadius: 'var(--radius-md)',
-          overflow: 'hidden',
-        }}
-      />
-
-      {/* Optional RSI & MACD Sub-Pane Readouts */}
-      {(showRsi || showMacd) && (
+      <div className="sim-box__body">
+        {/* Control Toolbar */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             gap: 'var(--space-3)',
-            marginTop: 'var(--space-3)',
+            paddingBottom: 'var(--space-3)',
+            marginBottom: 'var(--space-3)',
+            borderBottom: '1px solid var(--color-border-subtle)',
           }}
         >
-          {showRsi && (
-            <div
-              style={{
-                padding: 'var(--space-3)',
-                backgroundColor: 'var(--color-bg-canvas)',
-                border: '1px solid var(--color-border-default)',
-                borderRadius: 'var(--radius-md)',
-                fontSize: 'var(--font-size-xs)',
-              }}
-            >
-              <div
-                style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}
-              >
-                <strong>RSI (14) Momentum Pane</strong>
-                <span className="num" style={{ fontWeight: 600 }}>
-                  {latestRsi !== null ? latestRsi.toFixed(1) : 'N/A'} / 100
-                </span>
-              </div>
-              <p className="text-muted" style={{ margin: 0, fontSize: 'var(--font-size-xs)' }}>
-                {latestRsi !== null && latestRsi <= 36
-                  ? '[ON] Light 2 ON (<= 36): Sellers are stretched and running out of steam.'
-                  : latestRsi !== null && latestRsi > 70
-                    ? '[!] Sell Warning (> 70): Momentum is overheated.'
-                    : '[--] Neutral zone (36 to 70): Wait for <= 36 before triggering Light 2.'}
-              </p>
-            </div>
-          )}
-
-          {showMacd && (
-            <div
-              style={{
-                padding: 'var(--space-3)',
-                backgroundColor: 'var(--color-bg-canvas)',
-                border: '1px solid var(--color-border-default)',
-                borderRadius: 'var(--radius-md)',
-                fontSize: 'var(--font-size-xs)',
-              }}
-            >
-              <div
-                style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}
-              >
-                <strong>MACD Histogram (Context)</strong>
-                <span className="num" style={{ fontWeight: 600 }}>
-                  {latestMacd?.histogram !== null && latestMacd?.histogram !== undefined
-                    ? latestMacd.histogram.toFixed(3)
-                    : 'N/A'}
-                </span>
-              </div>
-              <p className="text-muted" style={{ margin: 0, fontSize: 'var(--font-size-xs)' }}>
-                Supporting note only: shrinking negative bars show downward momentum is fading near
-                support.
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Accessible Data-Table Alternative */}
-      <details style={{ marginTop: 'var(--space-3)', fontSize: 'var(--font-size-xs)' }}>
-        <summary style={{ cursor: 'pointer', fontWeight: 500, color: 'var(--color-text-muted)' }}>
-          View tabular data alternative (latest 5 candles)
-        </summary>
-        <div style={{ overflowX: 'auto', marginTop: 'var(--space-2)' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid var(--color-border-default)' }}>
-                <th style={{ textAlign: 'left', padding: '4px' }}>Period</th>
-                <th data-numeric="true" style={{ padding: '4px' }}>
-                  Open
-                </th>
-                <th data-numeric="true" style={{ padding: '4px' }}>
-                  High
-                </th>
-                <th data-numeric="true" style={{ padding: '4px' }}>
-                  Low
-                </th>
-                <th data-numeric="true" style={{ padding: '4px' }}>
-                  Close
-                </th>
-                <th data-numeric="true" style={{ padding: '4px' }}>
-                  Volume
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {candles.slice(-5).map((c, idx) => (
-                <tr key={c.time} style={{ borderBottom: '1px solid var(--color-border-subtle)' }}>
-                  <td style={{ padding: '4px' }}>#{candles.length - 4 + idx}</td>
-                  <td data-numeric="true" className="num" style={{ padding: '4px' }}>
-                    {c.open.toFixed(2)}
-                  </td>
-                  <td data-numeric="true" className="num" style={{ padding: '4px' }}>
-                    {c.high.toFixed(2)}
-                  </td>
-                  <td data-numeric="true" className="num" style={{ padding: '4px' }}>
-                    {c.low.toFixed(2)}
-                  </td>
-                  <td data-numeric="true" className="num" style={{ padding: '4px' }}>
-                    {c.close.toFixed(2)}
-                  </td>
-                  <td data-numeric="true" className="num" style={{ padding: '4px' }}>
-                    {c.volume.toLocaleString('en-US')}
-                  </td>
-                </tr>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {allowScenarioSwitch &&
+              (
+                [
+                  { id: 'dip-at-support', label: '1. Dip to Support (Buy Zone)' },
+                  { id: 'uptrend', label: '2. Healthy Uptrend' },
+                  { id: 'range', label: '3. Sideways Range' },
+                  { id: 'broken-trend', label: '4. Broken Support Floor' },
+                ] as const
+              ).map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => setScenario(s.id)}
+                  aria-pressed={scenario === s.id}
+                  className={scenario === s.id ? 'btn-primary' : 'btn-secondary'}
+                  style={{ minHeight: '32px', padding: '4px 10px', fontSize: '12px' }}
+                >
+                  {s.label}
+                </button>
               ))}
-            </tbody>
-          </table>
+          </div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
+            {allowTimeframeSwitch &&
+              (['4H', '1D'] as const).map((tf) => (
+                <button
+                  key={tf}
+                  type="button"
+                  onClick={() => setTimeframe(tf)}
+                  aria-pressed={timeframe === tf}
+                  className={timeframe === tf ? 'btn-primary' : 'btn-subtle'}
+                  style={{ minHeight: '32px', padding: '4px 10px', fontSize: '12px' }}
+                >
+                  {tf}
+                </button>
+              ))}
+
+            {allowIndicatorToggles &&
+              [
+                {
+                  label: 'MA30 (Essential)',
+                  active: showMa30,
+                  toggle: () => setShowMa30(!showMa30),
+                },
+                {
+                  label: 'BOLL (Essential)',
+                  active: showBoll,
+                  toggle: () => setShowBoll(!showBoll),
+                },
+                {
+                  label: 'VOL (Essential)',
+                  active: showVolume,
+                  toggle: () => setShowVolume(!showVolume),
+                },
+                {
+                  label: 'RSI (Essential)',
+                  active: showRsi,
+                  toggle: () => setShowRsi(!showRsi),
+                },
+                {
+                  label: 'EMA30 (Optional)',
+                  active: showEma30,
+                  toggle: () => setShowEma30(!showEma30),
+                },
+                {
+                  label: 'MACD (Optional)',
+                  active: showMacd,
+                  toggle: () => setShowMacd(!showMacd),
+                },
+              ].map((ind) => (
+                <button
+                  key={ind.label}
+                  type="button"
+                  onClick={ind.toggle}
+                  aria-pressed={ind.active}
+                  style={{
+                    minHeight: '32px',
+                    padding: '4px 10px',
+                    fontSize: '12px',
+                    fontWeight: ind.active ? 700 : 500,
+                    backgroundColor: ind.active
+                      ? 'var(--color-data-hue-subtle)'
+                      : 'var(--color-bg-surface)',
+                    color: 'var(--color-text-main)',
+                    border: `1px solid ${
+                      ind.active ? 'var(--color-data-hue)' : 'var(--color-border-control)'
+                    }`,
+                    borderRadius: 'var(--radius-sm)',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  {ind.active && (
+                    <svg
+                      width="11"
+                      height="11"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="2 6 5 9 10 3" />
+                    </svg>
+                  )}
+                  {ind.label}
+                </button>
+              ))}
+          </div>
         </div>
-      </details>
+
+        {/* Lightweight Charts Canvas Container */}
+        <div
+          ref={chartContainerRef}
+          style={{
+            width: '100%',
+            height: '340px',
+            border: '1px solid var(--color-border-default)',
+            borderRadius: 'var(--radius-md)',
+            overflow: 'hidden',
+          }}
+        />
+
+        {/* RSI & MACD Sub-Pane Readouts */}
+        {(showRsi || showMacd) && (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+              gap: 'var(--space-3)',
+              marginTop: 'var(--space-3)',
+            }}
+          >
+            {showRsi && (
+              <div
+                style={{
+                  padding: 'var(--space-3) var(--space-4)',
+                  backgroundColor: 'var(--color-bg-canvas)',
+                  border: '1px solid var(--color-border-default)',
+                  borderRadius: 'var(--radius-md)',
+                  fontSize: 'var(--font-size-xs)',
+                }}
+              >
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}
+                >
+                  <strong>Light 2 Check: RSI (14) Exhaustion Meter</strong>
+                  <span className="num" style={{ fontWeight: 700 }}>
+                    {latestRsi !== null ? latestRsi.toFixed(1) : 'N/A'} / 100
+                  </span>
+                </div>
+                <p className="text-muted" style={{ margin: 0, fontSize: 'var(--font-size-xs)' }}>
+                  {latestRsi !== null && latestRsi <= 36
+                    ? 'Light 2 ON (<= 36): Sellers are stretched and running out of steam.'
+                    : latestRsi !== null && latestRsi > 70
+                      ? 'Sell Warning (> 70): Buyers are overheated near the roof.'
+                      : 'Neutral zone (36 to 70): Wait for RSI <= 36 before triggering Light 2.'}
+                </p>
+              </div>
+            )}
+
+            {showMacd && (
+              <div
+                style={{
+                  padding: 'var(--space-3) var(--space-4)',
+                  backgroundColor: 'var(--color-bg-canvas)',
+                  border: '1px solid var(--color-border-default)',
+                  borderRadius: 'var(--radius-md)',
+                  fontSize: 'var(--font-size-xs)',
+                }}
+              >
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}
+                >
+                  <strong>Optional Wave Helper: MACD Histogram</strong>
+                  <span className="num" style={{ fontWeight: 700 }}>
+                    {latestMacd?.histogram !== null && latestMacd?.histogram !== undefined
+                      ? latestMacd.histogram.toFixed(3)
+                      : 'N/A'}
+                  </span>
+                </div>
+                <p className="text-muted" style={{ margin: 0, fontSize: 'var(--font-size-xs)' }}>
+                  Supporting note only: shrinking red bars show downward momentum is fading near the
+                  support floor.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Accessible Data-Table Alternative */}
+        <details style={{ marginTop: 'var(--space-3)', fontSize: 'var(--font-size-xs)' }}>
+          <summary style={{ cursor: 'pointer', fontWeight: 600, color: 'var(--color-text-muted)' }}>
+            View tabular data alternative (latest 5 candles)
+          </summary>
+          <div style={{ overflowX: 'auto', marginTop: 'var(--space-2)' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--color-border-default)' }}>
+                  <th style={{ textAlign: 'left', padding: '6px' }}>Bar</th>
+                  <th data-numeric="true" style={{ padding: '6px' }}>
+                    Open
+                  </th>
+                  <th data-numeric="true" style={{ padding: '6px' }}>
+                    High
+                  </th>
+                  <th data-numeric="true" style={{ padding: '6px' }}>
+                    Low
+                  </th>
+                  <th data-numeric="true" style={{ padding: '6px' }}>
+                    Close
+                  </th>
+                  <th data-numeric="true" style={{ padding: '6px' }}>
+                    Volume
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {candles.slice(-5).map((c, idx) => (
+                  <tr key={c.time} style={{ borderBottom: '1px solid var(--color-border-subtle)' }}>
+                    <td style={{ padding: '6px' }}>#{candles.length - 4 + idx}</td>
+                    <td data-numeric="true" className="num" style={{ padding: '6px' }}>
+                      ${c.open.toFixed(2)}
+                    </td>
+                    <td data-numeric="true" className="num" style={{ padding: '6px' }}>
+                      ${c.high.toFixed(2)}
+                    </td>
+                    <td data-numeric="true" className="num" style={{ padding: '6px' }}>
+                      ${c.low.toFixed(2)}
+                    </td>
+                    <td data-numeric="true" className="num" style={{ padding: '6px' }}>
+                      ${c.close.toFixed(2)}
+                    </td>
+                    <td data-numeric="true" className="num" style={{ padding: '6px' }}>
+                      {c.volume.toLocaleString('en-US')}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
     </div>
   );
 }

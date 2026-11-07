@@ -1,37 +1,88 @@
 ---
 title: 'How a chart is built'
-description: 'See how raw order book bids and asks turn into candlesticks, volume bars, and indicator overlays on a spot exchange screen.'
+description: 'Why an exchange screen like Gate.com feels overwhelming at first, where 1m, MA, BOLL, and RSI live on the real screen, and which 4 essentials a beginner actually needs.'
 chapter: 1
-track: 'Reading the Screen'
-durationMinutes: 4
-interactiveFocus: '3-stage cause-and-effect toggle & spot screen anatomy hotspots'
-terms: ['Order Book', 'Candlestick', 'Volume', 'MA30', 'RSI']
+track: 'Foundations'
+durationMinutes: 6
+interactiveFocus: 'Real Gate.com Screenshot Map & Interactive TradingView Chart'
 draft: false
 ---
 
+import Term from '../../components/mdx/Term';
+import ExchangeScreenGuide from '../../components/learn/ExchangeScreenGuide';
+import EssentialIndicatorsGuide from '../../components/learn/EssentialIndicatorsGuide';
 import MarketChart from '../../components/charts/MarketChart';
-import CandleEditor from '../../components/charts/CandleEditor';
 
-When you open a spot exchange screen such as Gate.com, you are looking at three layers of information stacked on top of each other. Most beginners get overwhelmed because they try to read all three layers at once without knowing which one causes the others.
+When you open a crypto exchange like **Gate.com** or **Binance** for the very first time, the screen looks like an airplane cockpit. Numbers flash green and red every second, lines zig-zag across a grid, and **dozens of tiny buttons** (`1m`, `MA`, `BOLL`, `RSI`, `SRL`, `VPVR`, `SAR`, `SKDJ`) compete for your attention.
 
-## The 3-stage cause-and-effect chain
+If you felt confused, **nothing is wrong with you**. Exchange screens pack tools for high-speed day traders, futures gamblers, and calm spot buyers onto a single page.
 
-Every chart is built from the bottom up in a strict sequence:
+<div className="analogy-callout">
+  <div className="analogy-callout__header">
+    Everyday Analogy: The Microwave With 20 Buttons vs The 3 You Actually Use
+  </div>
+  <p>
+    Your microwave at home probably has 20 buttons (Defrost, Reheat, Popcorn, Beverage, Melt), yet
+    95% of the time you only press <strong>Time</strong> and <strong>Start</strong>. Gate.com is the
+    exact same way: out of 17+ indicator buttons along the bottom bar, a beginner only needs{' '}
+    <strong>3 essential chart indicators</strong> plus a calm <strong>4H or 1D timeframe</strong>.
+  </p>
+</div>
 
-1. **Stage 1: The Order Book (The Cause).** Buyers post resting **Bid** limit orders below the current price, and sellers post **Ask** limit orders above it. When impatient traders cross the spread, trades execute.
-2. **Stage 2: Candlesticks & Volume (The Recording).** Every executed trade during a timeframe (such as 4 hours or 1 day) is compressed into a single **Candlestick** showing four prices (Open, High, Low, Close) plus a **Volume** bar underneath showing how much capital changed hands.
-3. **Stage 3: Indicators (The Summary).** Mathematical formulas such as **MA30** (30-period average price), **Bollinger Bands**, **RSI**, and **MACD** read the completed candlesticks to summarize trend and momentum. Indicators never move price; price moves indicators.
+---
+
+## Step 1: Real Gate.com Screen Map (Click Pins 1 to 6)
+
+Below is an actual **Gate.com Spot** trading screen (`BTC/USDT`). Click the **numbered pins (1 to 6)** directly on the screenshot to see where the timeframe bar (`1m / 4h / 1D`), the price header (`O H L C`), the candlesticks, the bottom indicator strip (`MA`, `BOLL`, `RSI`), and the `Order Book` live:
+
+<ExchangeScreenGuide client:visible />
+
+---
+
+## Step 2: The Dozens of Tiny Buttons (`1m`, `MA`, `BOLL`, `RSI`) -> Only Use What Is Essential First!
+
+Look at the bottom edge of the Gate.com chart in the screenshot above. You will see a long row of 17 tiny buttons:
+
+`SRL` · `Turnover` · **`MA`** · `EMA` · **`Volume`** · `MACD` · **`BOLL`** · `VPVR` · `SAR` · `AVL` · `MTM` · `VR` · `DMA` · `SKDJ` · `PSY` · `BBI` · `>` (**`RSI`**)
+
+**Do not turn all of them on!** If you click every button, your chart turns into unreadable rainbow spaghetti. To jump into market reading and spot trading as a beginner, you only need **4 essential controls**:
+
+1. **Top-Left Timeframe Row -> Click `4h` or `1D` (Skip `1m`):** Never trade on `1m` (1-minute), where random noise makes every candle look like an emergency. Click `4h` (4-hour bars) or `1D` (daily bars).
+2. **Bottom Bar -> Click `MA` (<Term client:visible id="ma30">Moving Average</Term>):** Draws one smooth fair-price line across the candles so you immediately see if the coin is **on discount** (Light 1).
+3. **Bottom Bar -> Click `BOLL` (<Term client:visible id="bollinger-bands">Bollinger Bands</Term>):** Wraps a visual **Upper Roof** and **Lower Floor** tunnel around the candles so you never buy at the top.
+4. **Bottom Bar -> Click `>` then `RSI` (<Term client:visible id="rsi">Exhaustion Meter</Term>):** Opens a `0 to 100` speedometer at the bottom. When **RSI is 36 or lower**, sellers are tired (Light 2).
+
+Use the interactive graph below to click **`4h`**, **`MA`**, **`BOLL`**, and **`RSI`** and see how each button changes the chart:
+
+<EssentialIndicatorsGuide client:visible />
+
+---
+
+## Step 3: Beginner Cheat-Sheet (What to Use Now vs What to Ignore)
+
+| Button on Gate.com                                                    | Where It Lives on Screen                     | Beginner Status                 | Plain-English Job                                                                    |
+| :-------------------------------------------------------------------- | :------------------------------------------- | :------------------------------ | :----------------------------------------------------------------------------------- |
+| **`4h` / `1D`**                                                       | Top-left row above chart (`1m 15m 1h 4h 1D`) | **ESSENTIAL (Click First)**     | Zooms out so 1 candle bar = 4 hours or 1 full day. Filters out 1-minute panic noise. |
+| **`MA` (`MA30`)**                                                     | Bottom bar, 3rd button from left             | **ESSENTIAL (Light 1)**         | Smooth 30-bar average price line. Candles below `MA30` = coin is on sale.            |
+| **`BOLL`**                                                            | Bottom bar, 7th button from left             | **ESSENTIAL (Floor/Roof)**      | Draws the Upper Roof (`UB`) and Lower Bounce Floor (`LB`) around the candles.        |
+| **`RSI`**                                                             | Bottom bar, click `>` arrow on right         | **ESSENTIAL (Light 2)**         | `0–100` exhaustion meter. `36` or lower = sellers are tired. `70+` = overheated.     |
+| **`Volume`**                                                          | Bottom bar, 5th button (On by default)       | **ESSENTIAL (Context)**         | Shows crowd size underneath each candle (`Volume 14.51` in screenshot).              |
+| **`Order Book`**                                                      | Middle column (`Red Sellers / Green Buyers`) | **ESSENTIAL (Light 3)**         | Shows real waiting buy orders. We want at least `40%` Green Buyers before buying.    |
+| `1m` / `15m`                                                          | Top-left row above chart                     | **Ignore (Too Noisy)**          | Changes every 60 seconds; causes emotional over-trading.                             |
+| `SRL`, `VPVR`, `SAR`, `AVL`, `MTM`, `VR`, `DMA`, `SKDJ`, `PSY`, `BBI` | Bottom indicator strip                       | **Ignore (Day-Trader Clutter)** | Redundant or hyper-fast math formulas that clutter the chart for beginners.          |
+
+---
+
+## Step 4: Try the Live Interactive TradingView Chart Sandbox
+
+Now try panning, zooming, and toggling **`MA30`**, **`BOLL`**, **`VOL`**, and **`RSI`** on a real interactive chart canvas below:
 
 <MarketChart client:visible />
 
-## Sculpting a single candlestick (OHLC)
+---
 
-Before reading 60 candles at once, test how a single candle records the tug-of-war between buyers and sellers during one session:
+## Quick Beginner Checklist Before Moving to Chapter 2
 
-<CandleEditor client:visible />
-
-## What to notice on an exchange screen
-
-- **Ignore the blinking last-trade ticker** until you have checked the timeframe (`4H` or `1D`).
-- **Find the floor first:** Look for previous support lows on the candlestick chart and check the Bid % in the order book.
-- **Keep overlays minimal:** One moving average set (`MA` or `EMA`, never both at once) plus `RSI` is enough to evaluate the 3-Light checklist.
+- **Am I on the Spot tab?** Yes, buying real coins with my own USDT cash (never Futures or Margin).
+- **Did I click `4h` or `1D` at the top-left of the chart?** Yes, never `1m`.
+- **Did I turn on only the Essentials (`MA`, `BOLL`, `RSI`, `Volume`)?** Yes, and I ignored the other 13 buttons at the bottom.

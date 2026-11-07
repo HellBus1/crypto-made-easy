@@ -2,8 +2,8 @@
 @import './reset.css';
 
 /**
- * Global Styles: Achromatic Ledger
- * Calm, high-contrast typography, tabular figures, flat 1px surfaces, and accessible focus states.
+ * Global Styles: Calm Beginner Ledger (Blockchain-Made-Easy Inspired)
+ * Responsive layouts, course sidebar, interactive simulator labs, and inline glossary terms.
  */
 
 html {
@@ -14,12 +14,19 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (min-width: 1536px) {
+  html {
+    font-size: clamp(16px, 0.9vw + 2px, 19px);
+  }
+}
+
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: var(--color-bg-canvas);
   color: var(--color-text-main);
+  overflow-x: hidden;
 }
 
 main {
@@ -27,7 +34,7 @@ main {
 }
 
 /* ==========================================================================
-   Typography Defaults (App & Course Hierarchy)
+   Typography Defaults
    ========================================================================== */
 h1,
 h2,
@@ -35,26 +42,26 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-text-main);
   letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: var(--font-size-2xl);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
 }
 
 h2 {
-  font-size: var(--font-size-lg);
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
 }
 
 h3 {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-lg);
 }
 
 h4 {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
 }
 
 p {
@@ -85,10 +92,10 @@ table th[data-numeric='true'] {
 }
 
 /* ==========================================================================
-   Links & Focus State Accessibility
+   Links & Buttons
    ========================================================================== */
 a {
-  color: var(--color-text-main);
+  color: var(--color-data-hue);
   text-decoration: underline;
   text-decoration-color: var(--color-border-control);
   text-underline-offset: 3px;
@@ -98,8 +105,8 @@ a {
 }
 
 a:hover {
-  color: var(--color-data-hue);
-  text-decoration-color: var(--color-data-hue);
+  color: var(--color-text-main);
+  text-decoration-color: var(--color-text-main);
 }
 
 :focus-visible {
@@ -107,8 +114,65 @@ a:hover {
   outline-offset: 2px;
 }
 
+.btn-primary,
+.btn-secondary,
+.btn-subtle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-brand-primary);
+  color: var(--color-brand-primary-text);
+  border: 1px solid var(--color-brand-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-primary-hover);
+  color: var(--color-brand-primary-text);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border-default);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-border-hover);
+  color: var(--color-text-main);
+  text-decoration: none;
+}
+
+.btn-subtle {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.btn-subtle:hover {
+  background-color: var(--color-bg-active);
+  color: var(--color-text-main);
+  text-decoration: none;
+}
+
 /* ==========================================================================
-   Code & Preformatted Text
+   Code & Preformatted Diagrams
    ========================================================================== */
 code,
 kbd,
@@ -121,43 +185,71 @@ pre {
 pre {
   padding: var(--space-4);
   border-radius: var(--radius-lg);
-  background-color: var(--color-bg-surface);
+  background-color: var(--color-bg-subtle);
   border: 1px solid var(--color-border-default);
   overflow-x: auto;
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
+  font-size: var(--font-size-xs);
+  line-height: 1.45;
+  color: var(--color-text-main);
+}
+
+@media (min-width: 640px) {
+  pre {
+    font-size: var(--font-size-sm);
+  }
 }
 
 code:not(pre code) {
-  padding: 0.125em 0.35em;
+  padding: 0.15em 0.4em;
   border-radius: var(--radius-sm);
   background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border-subtle);
   color: var(--color-text-main);
   font-size: 0.875em;
 }
 
 /* ==========================================================================
-   Ledger Surface & Status Pill Primitives
+   Surface Cards & Status Pills
    ========================================================================== */
 .surface-card {
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .surface-card {
+    padding: var(--space-6);
+  }
+}
+
+@media (min-width: 1440px) {
+  .surface-card {
+    padding: var(--space-6) var(--space-8);
+  }
 }
 
 .status-pill {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: 2px var(--space-2);
+  gap: 6px;
+  padding: 3px var(--space-2);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   line-height: 1.4;
-  white-space: nowrap;
-  flex: none;
+  white-space: normal;
+  max-width: 100%;
   border: 1px solid transparent;
+}
+
+@media (min-width: 480px) {
+  .status-pill {
+    white-space: nowrap;
+    flex: none;
+  }
 }
 
 .status-pill--positive {
@@ -191,10 +283,270 @@ code:not(pre code) {
 }
 
 /* ==========================================================================
-   Prose Utility (for Lesson pages & About)
+   Beginner Analogy & Exchange Pointer Callout Cards
+   ========================================================================== */
+.analogy-callout {
+  margin-block: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-pill-warning-bg);
+  border: 1px solid var(--color-pill-warning-border);
+  color: var(--color-text-main);
+}
+
+.analogy-callout__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-pill-warning-ink);
+  margin-bottom: var(--space-1);
+}
+
+.analogy-callout p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+}
+
+.exchange-callout {
+  margin-block: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-pill-info-bg);
+  border: 1px solid var(--color-pill-info-border);
+  color: var(--color-text-main);
+}
+
+.exchange-callout__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-pill-info-ink);
+  margin-bottom: var(--space-1);
+}
+
+.exchange-callout p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+}
+
+/* ==========================================================================
+   Interactive Simulation Lab Container (Like Blockchain Made Easy)
+   ========================================================================== */
+.sim-box {
+  margin-block: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-default);
+  background-color: var(--color-bg-surface);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.sim-box__header {
+  padding: var(--space-4);
+  background-color: var(--color-bg-subtle);
+  border-bottom: 1px solid var(--color-border-default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .sim-box__header {
+    padding: var(--space-4) var(--space-6);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.sim-box__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .sim-box__title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+.sim-box__subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin: 4px 0 0 0;
+  max-width: 95ch;
+}
+
+.sim-box__body {
+  padding: var(--space-3);
+}
+
+@media (min-width: 480px) {
+  .sim-box__body {
+    padding: var(--space-4);
+  }
+}
+
+@media (min-width: 768px) {
+  .sim-box__body {
+    padding: var(--space-6);
+  }
+}
+
+.sim-box__footer {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-data-hue-subtle);
+  border-top: 1px solid var(--color-border-default);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-main);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .sim-box__footer {
+    padding: var(--space-3) var(--space-6);
+  }
+}
+
+/* ==========================================================================
+   Course Layout with Persistent Sidebar (Like Blockchain Made Easy)
+   ========================================================================== */
+.course-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  padding-block: var(--space-5) var(--space-16);
+}
+
+@media (min-width: 1024px) {
+  .course-shell {
+    grid-template-columns: 280px minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-6);
+    padding-block: var(--space-6) var(--space-16);
+  }
+}
+
+@media (min-width: 1440px) {
+  .course-shell {
+    grid-template-columns: 310px minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .course-shell--with-rail {
+    grid-template-columns: 300px minmax(0, 1fr) 280px;
+    gap: var(--space-6);
+  }
+}
+
+@media (min-width: 1800px) {
+  .course-shell {
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: var(--space-10);
+  }
+
+  .course-shell--with-rail {
+    grid-template-columns: 320px minmax(0, 1fr) 310px;
+    gap: var(--space-8);
+  }
+}
+
+.course-sidebar-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .course-sidebar-wrap {
+    position: sticky;
+    top: 4.5rem;
+    max-height: calc(100vh - 5.5rem);
+    overflow-y: auto;
+  }
+}
+
+.course-rail-wrap {
+  display: none;
+  min-width: 0;
+}
+
+@media (min-width: 1440px) {
+  .course-rail-wrap {
+    display: block;
+    position: sticky;
+    top: 4.5rem;
+    max-height: calc(100vh - 5.5rem);
+    overflow-y: auto;
+  }
+}
+
+.course-main {
+  min-width: 0;
+}
+
+/* ==========================================================================
+   Inline Glossary Term Tooltip (<Term id="..." />)
+   ========================================================================== */
+.term-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.term-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 3px;
+  border-radius: 4px;
+  background-color: var(--color-data-hue-subtle);
+  border: 1px dashed var(--color-data-hue);
+  color: var(--color-text-main);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: var(--font-weight-medium);
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.term-trigger:hover {
+  background-color: var(--color-bg-active);
+}
+
+.term-popover {
+  position: absolute;
+  z-index: 60;
+  left: 0;
+  bottom: calc(100% + 8px);
+  width: min(320px, 88vw);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-hover);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Prose Formatting (Lessons & Explanations)
    ========================================================================== */
 .prose {
-  max-width: 65ch;
+  max-width: 100%;
+}
+
+.prose p {
+  max-width: 92ch;
 }
 
 .prose > * + * {
@@ -219,10 +571,12 @@ code:not(pre code) {
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--color-text-main);
-  padding-left: var(--space-4);
-  color: var(--color-text-muted);
-  margin-block: var(--space-6);
+  border-left: 3px solid var(--color-data-hue);
+  background-color: var(--color-bg-subtle);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--color-text-main);
+  margin-block: var(--space-5);
 }
 
 .prose hr {
@@ -231,9 +585,43 @@ code:not(pre code) {
   margin-block: var(--space-8);
 }
 
-/* ==========================================================================
-   Screen Reader Only (Accessibility Helper)
-   ========================================================================== */
+.prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin-block: var(--space-5);
+  font-size: var(--font-size-xs);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+  .prose table {
+    display: table;
+    font-size: var(--font-size-sm);
+  }
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  background-color: var(--color-bg-subtle);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-main);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.prose tr:last-child td {
+  border-bottom: none;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

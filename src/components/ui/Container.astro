@@ -18,19 +18,7 @@ const { as: Tag = 'div', size = 'xl', class: className = '', ...rest } = Astro.p
   .container {
     width: 100%;
     margin-inline: auto;
-    padding-inline: var(--space-4);
-  }
-
-  @media (min-width: 640px) {
-    .container {
-      padding-inline: var(--space-6);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-inline: var(--space-8);
-    }
+    padding-inline: clamp(0.875rem, 2.5vw, 3rem);
   }
 
   .container--sm {
@@ -46,7 +34,13 @@ const { as: Tag = 'div', size = 'xl', class: className = '', ...rest } = Astro.p
   }
 
   .container--xl {
-    max-width: var(--container-xl);
+    max-width: min(96vw, var(--container-xl));
+  }
+
+  @media (min-width: 1920px) {
+    .container--xl {
+      max-width: min(94vw, var(--container-2xl));
+    }
   }
 
   .container--full {

@@ -1,6 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
-import ContentLayout from '../../layouts/ContentLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import CourseSidebar from '../../components/learn/CourseSidebar';
+import ChapterProgress from '../../components/learn/ChapterProgress';
+import ChapterComplete from '../../components/learn/ChapterComplete';
+import { curriculum } from '../../config/curriculum';
 
 export async function getStaticPaths() {
   const lessons = await getCollection('lessons', ({ data }) => {
@@ -14,19 +19,190 @@ export async function getStaticPaths() {
 }
 
 const { lesson } = Astro.props;
-const { Content } = await render(lesson);
+const { Content, headings } = await render(lesson);
+const meta = curriculum.find((c) => c.slug === lesson.id);
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
-<ContentLayout
+<BaseLayout
   title={`Chapter ${lesson.data.chapter}: ${lesson.data.title}`}
   description={lesson.data.description}
-  backLink={{ href: '/learn', label: 'Back to all modules' }}
 >
-  <Content />
+  <Container size="xl">
+    <div class="course-shell course-shell--with-rail">
+      <!-- Left Column: Curriculum & Progress Sidebar -->
+      <div class="course-sidebar-wrap">
+        <CourseSidebar client:load currentSlug={lesson.id} />
+      </div>
 
-  <hr />
-  <p>
-    Ready to test these concepts on a real chart reading?{' '}
-    <a href="/checker">Open the 3-Light Signal Checker &rarr;</a>
-  </p>
-</ContentLayout>
+      <!-- Center Column: Main Lesson Article & Interactive Labs -->
+      <article class="course-main surface-card lesson-article">
+        <ChapterProgress
+          client:load
+          chapter={lesson.data.chapter}
+          slug={lesson.id}
+          track={lesson.data.track}
+          durationMinutes={meta?.durationMinutes ?? 6}
+        />
+
+        <header class="lesson-header">
+          <h1>
+            Chapter {lesson.data.chapter}: {lesson.data.title}
+          </h1>
+          <p class="lesson-description">{lesson.data.description}</p>
+        </header>
+
+        <div class="prose lesson-prose">
+          <Content />
+        </div>
+
+        <ChapterComplete
+          client:load
+          slug={lesson.id}
+          chapter={lesson.data.chapter}
+          title={lesson.data.title}
+        />
+      </article>
+
+      <!-- Right Column (Visible on Large Screens >= 1440px): On-Page Guide & 4 Essentials Cheat Card -->
+      <aside class="course-rail-wrap" aria-label="On this page and quick reference">
+        <div class="rail-card">
+          <div class="rail-card__title">On This Page</div>
+          <ul class="rail-toc">
+            {tocHeadings.map((h) => (
+              <li class={h.depth === 3 ? 'rail-toc__sub' : ''}>
+                <a href={`#${h.slug}`}>{h.text}</a>
+              </li>
+            ))}
+            <li>
+              <a href="#chapter-complete-box">Mark Chapter Complete &darr;</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rail-card">
+          <div class="rail-card__title">4 Beginner Essentials Cheat-Card</div>
+          <ul class="rail-essentials">
+            <li>
+              <strong>1. Timeframe:</strong> Click <code>4h</code> or <code>1D</code> (skip{' '}
+              <code>1m</code> noise).
+            </li>
+            <li>
+              <strong>2. Light 1 (MA / BOLL):</strong> Price below <code>MA30</code> or near{' '}
+              <code>BOLL LB</code> = on discount.
+            </li>
+            <li>
+              <strong>3. Light 2 (RSI):</strong> <code>RSI &le; 36</code> = sellers are tired.
+            </li>
+            <li>
+              <strong>4. Light 3 (Order Book):</strong> <code>&ge; 40%</code> Green Buyers waiting
+              below.
+            </li>
+          </ul>
+          <a href="/checker" class="btn-primary" style="width: 100%; margin-top: 12px;">
+            Open 3-Light Signal Helper &rarr;
+          </a>
+        </div>
+      </aside>
+    </div>
+  </Container>
+</BaseLayout>
+
+<style>
+  .lesson-article {
+    padding: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .lesson-article {
+      padding: var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lesson-article {
+      padding: var(--space-8);
+    }
+  }
+
+  .lesson-header {
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border-default);
+  }
+
+  .lesson-header h1 {
+    margin-bottom: var(--space-2);
+  }
+
+  .lesson-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    max-width: 90ch;
+    margin: 0;
+  }
+
+  .lesson-prose {
+    max-width: 100%;
+  }
+
+  .rail-card {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-bg-surface);
+    margin-bottom: var(--space-4);
+  }
+
+  .rail-card__title {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .rail-toc {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: var(--font-size-xs);
+  }
+
+  .rail-toc a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    line-height: 1.4;
+    display: block;
+    padding: 3px 0;
+  }
+
+  .rail-toc a:hover {
+    color: var(--color-data-hue);
+    text-decoration: underline;
+  }
+
+  .rail-toc__sub {
+    padding-left: var(--space-3);
+  }
+
+  .rail-essentials {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    line-height: 1.45;
+    color: var(--color-text-muted);
+  }
+
+  .rail-essentials strong {
+    color: var(--color-text-main);
+  }
+</style>

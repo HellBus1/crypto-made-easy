@@ -1,103 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
-
-const glossaryItems = [
-  {
-    term: 'OHLC (Candlestick)',
-    category: 'Chart Basics',
-    definition:
-      'Open, High, Low, Close. Four prices from one time period packed into one candle body and two wicks.',
-    analogy:
-      'Like a daily weather log showing morning temperature, daytime peak, overnight low, and midnight reading.',
-  },
-  {
-    term: 'MA30 (30-Period Moving Average)',
-    category: 'Indicator (Light 1)',
-    definition:
-      'The average closing price of the last 30 candles on your chosen timeframe (4H or 1D).',
-    analogy: 'The fair baseline price over the past month; buying below it is buying on discount.',
-  },
-  {
-    term: 'BOLL (Bollinger Bands)',
-    category: 'Indicator (Light 1)',
-    definition:
-      'An upper and lower volatility envelope drawn two standard deviations around a moving average.',
-    analogy:
-      'Guardrails on a highway: touching the lower rail suggests price is stretched downward.',
-  },
-  {
-    term: 'RSI (Relative Strength Index)',
-    category: 'Momentum (Light 2)',
-    definition:
-      'A 0–100 momentum gauge comparing recent gains against recent losses. Readings at or below 36 indicate sellers are exhausted.',
-    analogy:
-      'A rubber band stretched downward; near 30–36 it becomes harder to stretch further without snapping back.',
-  },
-  {
-    term: 'Order Book Bid %',
-    category: 'Liquidity (Light 3)',
-    definition:
-      'The share of resting buy limit orders (Bids) versus sell limit orders (Asks) near current price.',
-    analogy:
-      'A safety net of waiting buyers underneath current price; ≥ 40% Bid shows real demand waiting below.',
-  },
-  {
-    term: 'Support & Resistance',
-    category: 'Market Structure',
-    definition:
-      'Support is a historical price floor where buyers previously stepped in; resistance is a price ceiling where sellers took profit.',
-    analogy: 'Floors and ceilings in a multi-story building.',
-  },
-  {
-    term: 'Stop-Loss (Plan Broken Level)',
-    category: 'Risk Control',
-    definition:
-      'A pre-agreed price just below the lowest support floor where your reason for buying is invalidated.',
-    analogy: 'A fire exit chosen before entering the building, never improvised during smoke.',
-  },
-];
+import GlossaryExplorer from '../components/learn/GlossaryExplorer';
 ---
 
 <BaseLayout
   title="Chart Glossary & Everyday Analogies"
-  description="Plain-language definitions and everyday analogies for every abbreviation on a crypto spot exchange screen."
+  description="Plain-language definitions, everyday analogies, real numeric examples, and Gate.com screen locations for every crypto spot chart term."
 >
   <section class="glossary-page">
     <Container size="xl">
       <div class="glossary-header">
+        <span class="status-pill status-pill--info">Zero-Jargon Dictionary</span>
         <h1>Chart Glossary &amp; Everyday Analogies</h1>
         <p class="glossary-header__subline">
-          Every abbreviation on your exchange screen translated into plain language.
+          Every word and abbreviation on a Gate.com or Binance spot chart explained in plain
+          English, complete with a real-world analogy, a numeric example, and where to spot it on
+          your screen.
         </p>
       </div>
 
-      <div class="surface-card table-wrap">
-        <table class="glossary-table">
-          <thead>
-            <tr>
-              <th scope="col">Term</th>
-              <th scope="col">Category</th>
-              <th scope="col">What it means on the chart</th>
-              <th scope="col">Everyday analogy</th>
-            </tr>
-          </thead>
-          <tbody>
-            {glossaryItems.map((item) => (
-              <tr>
-                <td>
-                  <strong>{item.term}</strong>
-                </td>
-                <td>
-                  <span class="status-pill status-pill--neutral">{item.category}</span>
-                </td>
-                <td>{item.definition}</td>
-                <td class="text-muted">{item.analogy}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <GlossaryExplorer client:load />
     </Container>
   </section>
 </BaseLayout>
@@ -111,39 +34,15 @@ const glossaryItems = [
     margin-bottom: var(--space-6);
   }
 
+  .glossary-header h1 {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
   .glossary-header__subline {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--color-text-muted);
-    margin-top: var(--space-1);
-  }
-
-  .table-wrap {
-    padding: 0;
-    overflow-x: auto;
-  }
-
-  .glossary-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--font-size-sm);
-  }
-
-  .glossary-table th {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-regular);
-    color: var(--color-text-subtle);
-    text-align: left;
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--color-border-default);
-  }
-
-  .glossary-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--color-border-subtle);
-    vertical-align: top;
-  }
-
-  .glossary-table tbody tr:last-child td {
-    border-bottom: none;
+    max-width: 90ch;
+    margin: 0;
   }
 </style>
