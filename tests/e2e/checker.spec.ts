@@ -44,4 +44,3 @@ test.describe('Phase 4 Signal Checker Flows (FR-1 to FR-7)', () => {
     expect(storageKeys.filter((k) => k !== 'theme' && k !== 'cme:v1')).toEqual([]);
   });
 });
-

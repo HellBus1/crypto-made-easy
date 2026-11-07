@@ -74,4 +74,3 @@ describe('Phase 4 Signal Checker Form & Presets', () => {
     expect(result.plan?.takeProfitPrice).toBe(102);
   });
 });
-
