@@ -209,12 +209,19 @@ code:not(pre code) {
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-xl);
-  padding: var(--space-5);
+  padding: var(--space-4);
+  min-width: 0;
 }
 
 @media (min-width: 640px) {
   .surface-card {
     padding: var(--space-6);
+  }
+}
+
+@media (min-width: 1440px) {
+  .surface-card {
+    padding: var(--space-6) var(--space-8);
   }
 }
 
@@ -227,9 +234,16 @@ code:not(pre code) {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   line-height: 1.4;
-  white-space: nowrap;
-  flex: none;
+  white-space: normal;
+  max-width: 100%;
   border: 1px solid transparent;
+}
+
+@media (min-width: 480px) {
+  .status-pill {
+    white-space: nowrap;
+    flex: none;
+  }
 }
 
 .status-pill--positive {
@@ -324,19 +338,21 @@ code:not(pre code) {
   border: 1px solid var(--color-border-default);
   background-color: var(--color-bg-surface);
   overflow: hidden;
+  min-width: 0;
 }
 
 .sim-box__header {
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-4);
   background-color: var(--color-bg-subtle);
   border-bottom: 1px solid var(--color-border-default);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .sim-box__header {
+    padding: var(--space-4) var(--space-6);
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -349,24 +365,37 @@ code:not(pre code) {
   margin: 0;
 }
 
+@media (min-width: 640px) {
+  .sim-box__title {
+    font-size: var(--font-size-lg);
+  }
+}
+
 .sim-box__subtitle {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  margin: 2px 0 0 0;
+  margin: 4px 0 0 0;
+  max-width: 72ch;
 }
 
 .sim-box__body {
-  padding: var(--space-4);
+  padding: var(--space-3);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 480px) {
   .sim-box__body {
-    padding: var(--space-5);
+    padding: var(--space-4);
+  }
+}
+
+@media (min-width: 768px) {
+  .sim-box__body {
+    padding: var(--space-6);
   }
 }
 
 .sim-box__footer {
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   background-color: var(--color-data-hue-subtle);
   border-top: 1px solid var(--color-border-default);
   font-size: var(--font-size-xs);
@@ -378,26 +407,41 @@ code:not(pre code) {
   gap: var(--space-2);
 }
 
+@media (min-width: 768px) {
+  .sim-box__footer {
+    padding: var(--space-3) var(--space-6);
+  }
+}
+
 /* ==========================================================================
    Course Layout with Persistent Sidebar (Like Blockchain Made Easy)
    ========================================================================== */
 .course-shell {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
-  padding-block: var(--space-6) var(--space-16);
+  gap: var(--space-5);
+  padding-block: var(--space-5) var(--space-16);
 }
 
 @media (min-width: 1024px) {
   .course-shell {
-    grid-template-columns: 290px minmax(0, 1fr);
+    grid-template-columns: 280px minmax(0, 1fr);
     align-items: start;
+    gap: var(--space-6);
+    padding-block: var(--space-6) var(--space-16);
+  }
+}
+
+@media (min-width: 1440px) {
+  .course-shell {
+    grid-template-columns: 310px minmax(0, 1fr);
     gap: var(--space-8);
   }
 }
 
 .course-sidebar-wrap {
   position: relative;
+  min-width: 0;
 }
 
 @media (min-width: 1024px) {
@@ -497,6 +541,43 @@ code:not(pre code) {
   border: none;
   border-top: 1px solid var(--color-border-default);
   margin-block: var(--space-8);
+}
+
+.prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin-block: var(--space-5);
+  font-size: var(--font-size-xs);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+  .prose table {
+    display: table;
+    font-size: var(--font-size-sm);
+  }
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  background-color: var(--color-bg-subtle);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-main);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.prose tr:last-child td {
+  border-bottom: none;
 }
 
 .sr-only {

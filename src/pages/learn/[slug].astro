@@ -66,10 +66,16 @@ const meta = curriculum.find((c) => c.slug === lesson.id);
 
 <style>
   .lesson-article {
-    padding: var(--space-5);
+    padding: var(--space-4);
   }
 
   @media (min-width: 640px) {
+    .lesson-article {
+      padding: var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
     .lesson-article {
       padding: var(--space-8);
     }

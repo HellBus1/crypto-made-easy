@@ -460,6 +460,16 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
     gap: var(--space-3);
   }
 
+  .hero-card__actions a {
+    flex: 1 1 100%;
+  }
+
+  @media (min-width: 560px) {
+    .hero-card__actions a {
+      flex: 0 1 auto;
+    }
+  }
+
   .hero-card__summary {
     padding: var(--space-5);
     border-radius: var(--radius-lg);
@@ -731,6 +741,12 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   @media (min-width: 768px) {
     .curriculum-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .curriculum-grid {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 

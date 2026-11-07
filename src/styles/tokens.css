@@ -123,8 +123,9 @@
 
   --container-sm: 640px;
   --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1240px;
+  --container-lg: 1080px;
+  --container-xl: 1440px;
+  --container-2xl: 1600px;
 
   /* ==========================================================================
      Clean Radii & Flat Surfaces (No resting shadows)
