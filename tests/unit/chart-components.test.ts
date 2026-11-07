@@ -19,3 +19,4 @@ describe('Phase 3 Chart Components Presets & OHLC Invariants', () => {
     }
   });
 });
+
