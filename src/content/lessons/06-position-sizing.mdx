@@ -1,0 +1,45 @@
+---
+title: 'Position sizing and split entry'
+description: 'Divide capital into three limit-order tranches plus a 36% cash reserve and a pre-agreed stop-loss below lowest support.'
+chapter: 6
+track: 'Execution & Mindset'
+durationMinutes: 4
+interactiveFocus: 'Interactive 13% / 21% / 30% / 36% capital ladder calculator'
+terms: ['limit-order', 'stop-loss', 'support']
+draft: false
+---
+
+import Term from '../../components/mdx/Term';
+import PositionSizingLab from '../../components/learn/PositionSizingLab';
+
+When a beginner gets a green signal, their first impulse is often to click "100% All-In" on a single market order.
+
+This is the fastest route to psychological pain. If price drops even 3%, fear strikes, and they panic sell right at the bottom.
+
+<div className="analogy-callout">
+  <div className="analogy-callout__header">
+    Everyday Analogy: Testing Cold Water With Your Toe Before Diving
+  </div>
+  <p>
+    You do not jump headfirst into a cold lake without testing it. You dip your toes first. If the
+    water is fine, you step in waist-deep. If a sudden current appears, you can step back onto the
+    pier without drowning.
+  </p>
+</div>
+
+## The 4-Bucket Split-Entry Ladder
+
+Instead of going all-in, we split our spot trading capital into four deliberate buckets:
+
+1. **Bucket 1 (~13% - Test Entry):** Place a small <Term client:visible id="limit-order">Limit Order</Term> at Support Floor 1. If price bounces immediately, you participate in the rally. If it drops, you have barely touched your capital.
+2. **Bucket 2 (~21% - Deeper Value):** Place a resting limit order at Support Floor 2. You get cheaper coins automatically.
+3. **Bucket 3 (~30% - Maximum Discount):** Place a resting limit order at Support Floor 3 (lowest major support).
+4. **Bucket 4 (~36% - Untouched Cash Reserve):** This cash stays in your USDT wallet. You **never** spend it on this trade.
+
+## The Peace of Mind Rule
+
+Notice what happens after your first purchase: **you still hold 87% of your capital safely in cash**!
+
+Even if all three entry tiers fill during a volatile flush, you still have **36% untouched cash**, and your stop-loss sits 2% below your lowest floor. One bad trade can never wipe you out.
+
+<PositionSizingLab client:visible />

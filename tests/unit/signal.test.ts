@@ -157,4 +157,3 @@ describe('Signal Checker Logic (FR-1 to FR-5)', () => {
     expect(result.sellLightsCount).toBe(3);
   });
 });
-

@@ -1,0 +1,48 @@
+---
+title: 'Chart glossary & everyday analogies'
+description: 'Translate every spot exchange abbreviation (OHLC, MA30, BOLL, RSI, MACD, Bid/Ask, Limit, Stop-Loss) into plain English.'
+chapter: 8
+track: 'Execution & Mindset'
+durationMinutes: 3
+interactiveFocus: 'Searchable plain-language dictionary of exchange abbreviations'
+terms:
+  [
+    'timeframe',
+    'candlestick',
+    'volume',
+    'ma30',
+    'bollinger-bands',
+    'rsi',
+    'macd',
+    'order-book',
+    'support',
+    'resistance',
+    'limit-order',
+    'stop-loss',
+  ]
+draft: false
+---
+
+import Term from '../../components/mdx/Term';
+import GlossaryExplorer from '../../components/learn/GlossaryExplorer';
+
+When you open Gate.com, Binance, or TradingView, the interface is flooded with financial acronyms and jargon designed for institutional market makers.
+
+This final chapter serves as your permanent, zero-jargon dictionary. Every term is paired with an everyday analogy and where to find it on your exchange screen.
+
+<div className="analogy-callout">
+  <div className="analogy-callout__header">Tip: Interactive Term Popups</div>
+  <p>
+    Throughout all chapters and the Signal Checker, whenever you see an underlined term like{' '}
+    <Term client:visible id="ma30">
+      MA30
+    </Term>{' '}
+    or{' '}
+    <Term client:visible id="rsi">
+      RSI
+    </Term>
+    , you can hover or click to view its immediate everyday definition.
+  </p>
+</div>
+
+<GlossaryExplorer client:visible />

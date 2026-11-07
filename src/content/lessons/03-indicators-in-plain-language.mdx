@@ -1,0 +1,81 @@
+---
+title: 'Indicators in plain language'
+description: 'Focus only on the 4 beginner essentials first (MA30, BOLL, RSI, and Volume) and practice reading them across the 4 core market shapes.'
+chapter: 3
+track: 'Indicators'
+durationMinutes: 6
+interactiveFocus: 'Essential Indicators Filter & 4 Market Scenarios Lab'
+draft: false
+---
+
+import Term from '../../components/mdx/Term';
+import EssentialIndicatorsGuide from '../../components/learn/EssentialIndicatorsGuide';
+import ScenarioDataExplorer from '../../components/learn/ScenarioDataExplorer';
+import MarketChart from '../../components/charts/MarketChart';
+
+When beginners open Gate.com, they see 17+ indicator buttons along the bottom of the chart (`SRL`, `Turnover`, `MA`, `EMA`, `Volume`, `MACD`, `BOLL`, `VPVR`, `SAR`, `AVL`, `MTM`, `VR`, `DMA`, `SKDJ`, `PSY`, `BBI`, `RSI`).
+
+Here is the secret that experienced spot traders know: **you do not need 17 indicators**. In fact, turning on more than 3 or 4 indicators at the same time makes your chart harder to read, not easier.
+
+<div className="analogy-callout">
+  <div className="analogy-callout__header">
+    Everyday Analogy: Driving a Car With 3 Dashboard Gauges vs 20 Gauges
+  </div>
+  <p>
+    When you drive a car, you only need three dashboard readings: your <strong>Speedometer</strong>,
+    your <strong>Fuel Gauge</strong>, and the <strong>Road Lines</strong>. You do not need 15 extra
+    dials showing oil viscosity or exhaust temperature. On a crypto chart, <strong>MA30</strong>,{' '}
+    <strong>BOLL</strong>, <strong>RSI</strong>, and <strong>Volume</strong> are your entire
+    dashboard.
+  </p>
+</div>
+
+---
+
+## Step 1: The Only 4 Essential Chart Indicators You Need Right Now
+
+1. **`MA` (<Term client:visible id="ma30">MA30 Moving Average</Term> - Light 1):**
+   - **What it is:** The average closing price of the last 30 candles drawn as one smooth line.
+   - **Why it matters:** If Current Price is **below MA30**, you are buying on discount instead of overpaying at the top.
+   - **Rule:** Pick **MA** (or EMA), never both at once.
+2. **`BOLL` (<Term client:visible id="bollinger-bands">Bollinger Bands</Term> - Light 1 Helper):**
+   - **What it is:** A 3-line tunnel around price showing the **Upper Roof (`UB`)**, **Middle Average (`MB`)**, and **Lower Floor (`LB`)**.
+   - **Why it matters:** Shows you at a glance whether price is near the cheap floor (`LB`) or expensive roof (`UB`).
+3. **`RSI` (<Term client:visible id="rsi">Relative Strength Index</Term> - Light 2):**
+   - **What it is:** A `0 to 100` momentum meter underneath the main chart.
+   - **Why it matters:** When **RSI is 36 or lower**, recent selling is exhausted and stretched like a rubber band (Light 2 turns ON). When **RSI is 70 or higher**, buyers are overheated.
+4. **`Volume` (<Term client:visible id="volume">Trading Activity Bars</Term> - Context):**
+   - **What it is:** Vertical green and red pillars underneath the candles showing how many coins traded during each bar.
+   - **Why it matters:** Confirms whether a price move has a real crowd behind it.
+
+---
+
+## Step 2: Interactive Button Filter (Essentials vs Clutter)
+
+Toggle **MA**, **BOLL**, **Volume**, and **RSI** on the interactive Gate.com chart below and see why we cross out the other 13 buttons:
+
+<EssentialIndicatorsGuide client:visible />
+
+---
+
+## Step 3: Practice Reading Essential Indicators on the 4 Market Shapes
+
+Use the **Market Pattern & Essential Indicator Lab** below to inspect how `MA30`, `BOLL`, `RSI(14)`, and `Volume` behave across all 4 market scenarios (`Dip at Support`, `Healthy Uptrend`, `Sideways Range`, and `Broken Floor`), and toggle between **4H** and **1D** bars:
+
+<ScenarioDataExplorer client:visible />
+
+---
+
+## Step 4: Full Interactive TradingView Chart With Essential Overlays
+
+Test panning, zooming, and toggling `MA30`, `BOLL`, `VOL`, and `RSI` on the live TradingView chart canvas below:
+
+<MarketChart client:visible />
+
+---
+
+## Quick Beginner Checklist Before Moving to Chapter 4
+
+- **Which 4 buttons do I keep ON?** `MA`, `BOLL`, `RSI`, and `Volume` (on a `4h` or `1D` chart).
+- **What turns Light 1 ON?** Current Price is below `MA30` (or touching the `BOLL` Lower Band) near a Support Floor.
+- **What turns Light 2 ON?** `RSI` is `36` or lower.
