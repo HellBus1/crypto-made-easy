@@ -1,0 +1,48 @@
+---
+title: 'Support, resistance and liquidity zones'
+description: 'Locate price floors where resting buy orders cluster and ceilings where sellers take profit before you place a single order.'
+chapter: 4
+track: 'Structure & Indicators'
+durationMinutes: 5
+interactiveFocus: 'Interactive floor and ceiling placement with bounce/break zones'
+terms: ['support', 'resistance', 'stop-loss', 'limit-order']
+draft: false
+---
+
+import Term from '../../components/mdx/Term';
+import SupportResistanceLab from '../../components/learn/SupportResistanceLab';
+
+Before you ever consider pressing "Buy" on Gate.com, you need to answer one fundamental question: **where is the floor, and where is the ceiling?**
+
+In technical analysis, prices do not move randomly through empty space. They move between zones where large groups of traders have already placed resting orders.
+
+<div className="analogy-callout">
+  <div className="analogy-callout__header">
+    Everyday Analogy: The Bouncing Tennis Ball in a Two-Story House
+  </div>
+  <p>
+    Imagine bouncing a rubber ball inside a room. If you drop it, the hard hardwood floor bounces it
+    back up. That is your <strong>Support Floor</strong>. If you throw it upwards, it smacks the
+    plaster ceiling and falls back down. That is your <strong>Resistance Ceiling</strong>.
+  </p>
+</div>
+
+## 1. What is a Support Floor?
+
+A **Support Floor** is a price level where buyers step in with enough cash demand to halt and reverse a downward move. On your exchange chart, look left to find areas where red candles previously stopped falling and left long lower wicks.
+
+When you use the <Term client:visible id="limit-order">Limit Order</Term> tab on Gate.com, you place your buy orders directly at these support floors rather than chasing green candles.
+
+## 2. What is a Resistance Ceiling?
+
+A **Resistance Ceiling** is a price level where previous buyers look to take profit or where trapped buyers from earlier peaks look to get out at breakeven. Rallies often stall or reverse when touching this ceiling.
+
+## 3. The 2% Safety Buffer Rule
+
+No support floor is unbreakable. If unexpected negative news hits the market, selling pressure can overwhelm buyer bids. That is why our method enforces a strict rule:
+
+> **The Stop-Loss Rule:** Place your pre-agreed <Term client:visible id="stop-loss">Stop-Loss</Term> exactly **2% below your lowest support floor**.
+
+If price drops through the floor by more than 2%, the floor is officially broken. We do not argue with the market; we exit according to the pre-agreed plan.
+
+<SupportResistanceLab client:visible />
