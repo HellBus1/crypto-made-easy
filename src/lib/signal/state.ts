@@ -17,21 +17,25 @@ export function buildSupportingNotes(
   const notes: string[] = [];
 
   if (input.macdHistogram === 'red_shrinking') {
-    notes.push('MACD histogram: Red bars are shrinking — selling momentum is fading.');
+    notes.push('MACD histogram: Red bars are shrinking, showing selling momentum is fading.');
   } else if (input.macdHistogram === 'red_growing') {
-    notes.push('MACD histogram: Red bars are growing — downward pressure is still active.');
+    notes.push('MACD histogram: Red bars are growing, showing downward pressure is still active.');
   } else if (input.macdHistogram === 'green_growing') {
-    notes.push('MACD histogram: Green bars are growing — upward momentum is building.');
+    notes.push('MACD histogram: Green bars are growing, showing upward momentum is building.');
   } else if (input.macdHistogram === 'green_shrinking') {
-    notes.push('MACD histogram: Green bars are shrinking — buying momentum is slowing down.');
+    notes.push(
+      'MACD histogram: Green bars are shrinking, showing buying momentum is slowing down.'
+    );
   }
 
   if (input.volumeState === 'higher') {
-    notes.push('Volume: Higher than usual on the latest move — strong participation behind price.');
+    notes.push(
+      'Volume: Higher than usual on the latest move, showing strong participation behind price.'
+    );
   } else if (input.volumeState === 'lower') {
-    notes.push('Volume: Lower than usual — low conviction; watch for fakeouts.');
+    notes.push('Volume: Lower than usual, showing low conviction; watch for fakeouts.');
   } else if (input.volumeState === 'normal') {
-    notes.push('Volume: In line with recent candles — normal market breathing.');
+    notes.push('Volume: In line with recent candles, showing normal market breathing.');
   }
 
   const validSupports = input.supports.filter((s) => Number.isFinite(s) && s > 0);
@@ -151,7 +155,7 @@ export function evaluateSignal(input: SignalInput): SignalEvaluation {
     ];
     whatNotToDo = [
       'Do not go all-in on Entry 1 or spend your 36% cash reserve.',
-      'Do not use a Market order if spread is wide — let price come to your Limit order.',
+      'Do not use a Market order if spread is wide; let price come to your Limit order.',
     ];
   } else {
     state = 'WAIT_HOLD';
