@@ -1,0 +1,56 @@
+---
+title: 'The 3-Light checklist'
+description: 'Combine Light 1 (Price vs MA30/BOLL), Light 2 (RSI ≤ 36), and Light 3 (Order Book Bid %) into a calm Buy, Wait, Take Profit, or Plan Broken decision.'
+chapter: 5
+track: 'Execution & Mindset'
+durationMinutes: 5
+interactiveFocus: 'Live 3-Light simulator with SOL and ETH worked examples'
+terms: ['ma30', 'rsi', 'order-book', 'support', 'stop-loss']
+draft: false
+---
+
+import Term from '../../components/mdx/Term';
+import ThreeLightQuickSim from '../../components/checker/ThreeLightQuickSim';
+
+The core philosophy of **Crypto Made Easy** is simple: **we never guess, and we never buy because of fear of missing out (FOMO)**.
+
+Instead, we treat spot trading like crossing a busy three-lane street. You do not step out into traffic if only Lane 1 is clear while cars are speeding down Lane 2 and 3. You only cross when **all 3 lights are green at the exact same moment**.
+
+<div className="analogy-callout">
+  <div className="analogy-callout__header">Everyday Analogy: The 3-Lane Street Crossing</div>
+  <p>
+    - <strong>Lane 1 (Price vs MA30):</strong> The coin is actually on discount compared to recent
+    history.
+    <br />- <strong>Lane 2 (RSI momentum):</strong> The selling rush has exhausted itself.
+    <br />- <strong>Lane 3 (Order Book):</strong> Real buyers are queued up beneath the current
+    price with cash.
+  </p>
+</div>
+
+## The 3 Lights Breakdown
+
+### Light 1: Is the coin on discount?
+
+- **Condition:** Current Price is below the 30-period Moving Average (<Term client:visible id="ma30">MA30</Term>) or touching the lower Bollinger Band.
+- **Meaning:** You are buying below the average cost of recent participants, not paying a premium.
+
+### Light 2: Have sellers exhausted their energy?
+
+- **Condition:** <Term client:visible id="rsi">RSI</Term> is at or below **36**.
+- **Meaning:** The momentum spring has been compressed downward. Panic selling is drying up.
+
+### Light 3: Are buyers waiting in the Order Book?
+
+- **Condition:** Green Buyer Bid % is at least **40%** (Ask % &le; 60%).
+- **Meaning:** Real buyers have placed resting limit orders below. You are not stepping into thin air.
+
+## Real Case Comparison: SOL vs ETH
+
+In our documented case from November 2026:
+
+- **Solana (SOL):** Price was below MA30 ($89.73 vs $91.60), RSI was 36, and Order Book was 40.61% Buyers. **All 3 lights were ON -> Buy Zone!**
+- **Ethereum (ETH):** Price was below MA30 and RSI was 34, **but** Order Book Buyers were only 22% (78% aggressive sellers). **Light 3 remained OFF -> Wait!**
+
+Waiting on ETH protected traders from catching a falling knife.
+
+<ThreeLightQuickSim client:visible />
