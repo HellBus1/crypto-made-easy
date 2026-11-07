@@ -1,0 +1,98 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import CourseSidebar from '../../components/learn/CourseSidebar';
+import ChapterProgress from '../../components/learn/ChapterProgress';
+import ChapterComplete from '../../components/learn/ChapterComplete';
+import { curriculum } from '../../config/curriculum';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('lessons', ({ data }) => {
+    return import.meta.env.PROD ? !data.draft : true;
+  });
+
+  return lessons.map((lesson) => ({
+    params: { slug: lesson.id },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+const { Content } = await render(lesson);
+const meta = curriculum.find((c) => c.slug === lesson.id);
+---
+
+<BaseLayout
+  title={`Chapter ${lesson.data.chapter}: ${lesson.data.title}`}
+  description={lesson.data.description}
+>
+  <Container size="xl">
+    <div class="course-shell">
+      <div class="course-sidebar-wrap">
+        <CourseSidebar client:load currentSlug={lesson.id} />
+      </div>
+
+      <article class="course-main surface-card lesson-article">
+        <ChapterProgress
+          client:load
+          chapter={lesson.data.chapter}
+          slug={lesson.id}
+          track={lesson.data.track}
+          durationMinutes={meta?.durationMinutes ?? 6}
+        />
+
+        <header class="lesson-header">
+          <h1>
+            Chapter {lesson.data.chapter}: {lesson.data.title}
+          </h1>
+          <p class="lesson-description">{lesson.data.description}</p>
+        </header>
+
+        <div class="prose lesson-prose">
+          <Content />
+        </div>
+
+        <ChapterComplete
+          client:load
+          slug={lesson.id}
+          chapter={lesson.data.chapter}
+          title={lesson.data.title}
+        />
+      </article>
+    </div>
+  </Container>
+</BaseLayout>
+
+<style>
+  .lesson-article {
+    padding: var(--space-5);
+  }
+
+  @media (min-width: 640px) {
+    .lesson-article {
+      padding: var(--space-8);
+    }
+  }
+
+  .lesson-header {
+    padding-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border-default);
+  }
+
+  .lesson-header h1 {
+    margin-bottom: var(--space-2);
+  }
+
+  .lesson-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    max-width: 65ch;
+    margin: 0;
+  }
+
+  .lesson-prose {
+    max-width: 100%;
+  }
+</style>

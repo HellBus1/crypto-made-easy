@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import GlossaryExplorer from '../components/learn/GlossaryExplorer';
+---
+
+<BaseLayout
+  title="Chart Glossary & Everyday Analogies"
+  description="Plain-language definitions, everyday analogies, real numeric examples, and Gate.com screen locations for every crypto spot chart term."
+>
+  <section class="glossary-page">
+    <Container size="xl">
+      <div class="glossary-header">
+        <span class="status-pill status-pill--info">Zero-Jargon Dictionary</span>
+        <h1>Chart Glossary &amp; Everyday Analogies</h1>
+        <p class="glossary-header__subline">
+          Every word and abbreviation on a Gate.com or Binance spot chart explained in plain
+          English, complete with a real-world analogy, a numeric example, and where to spot it on
+          your screen.
+        </p>
+      </div>
+
+      <GlossaryExplorer client:load />
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .glossary-page {
+    padding-block: var(--space-8) var(--space-16);
+  }
+
+  .glossary-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .glossary-header h1 {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .glossary-header__subline {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    max-width: 65ch;
+    margin: 0;
+  }
+</style>

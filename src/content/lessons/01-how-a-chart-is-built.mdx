@@ -1,0 +1,88 @@
+---
+title: 'How a chart is built'
+description: 'Why an exchange screen like Gate.com feels overwhelming at first, how to ignore 90% of the clutter, and how time and price turn into a calm 4H or 1D chart.'
+chapter: 1
+track: 'Foundations'
+durationMinutes: 5
+interactiveFocus: 'Gate.com Screen Decoder & Time/Price Grid'
+draft: false
+---
+
+import Term from '../../components/mdx/Term';
+import ExchangeScreenGuide from '../../components/learn/ExchangeScreenGuide';
+
+When you open a crypto exchange like **Gate.com** or **Binance** for the very first time, the screen looks like an airplane cockpit. Numbers flash green and red every second, lines zig-zag across a grid, and dozens of tiny buttons (`1m`, `MA`, `BOLL`, `RSI`, `Perp`, `10x`) compete for your attention.
+
+If you felt confused, **nothing is wrong with you**. Exchange screens pack tools for high-speed day traders, futures gamblers, and calm spot buyers onto a single page.
+
+<div className="analogy-callout">
+  <div className="analogy-callout__header">
+    Everyday Analogy: The Supermarket Receipt vs The Cockpit
+  </div>
+  <p>
+    Walking into Gate.com for the first time is like walking into a supermarket where the price tags
+    flash every half-second. Once you learn where the <strong>normal price tag</strong>, the{' '}
+    <strong>30-day average price</strong>, and the <strong>discount aisle</strong> live, you can
+    ignore 90% of the flashing signs.
+  </p>
+</div>
+
+---
+
+## Step 1: Make Sure You Are on the "Spot" Tab
+
+Before you look at any chart, check the top menu of your exchange and make sure you clicked <Term client:visible id="spot-market">Spot Market</Term> (never _Futures_, _Perpetuals_, or _Margin_).
+
+1. **Spot trading** means buying the real coin directly with your own <Term client:visible id="usdt">USDT</Term> digital dollar cash.
+2. If you buy **1 SOL for $128.18** on Spot, you own **1 SOL**. Even if the price drops 20% next week, the exchange can never force-liquidate you or take your coin away.
+3. **Futures / Margin** uses borrowed money and can wipe out your account to zero in minutes. Beginners should stay **100% on Spot**.
+
+---
+
+## Step 2: Interactive Gate.com Screen Decoder
+
+Click each of the **6 numbered zones** on the interactive screen map below to see what each area on Gate.com does, what everyday analogy explains it, and how it connects to our **3-Light Signal Helper**:
+
+<ExchangeScreenGuide client:visible />
+
+---
+
+## Step 3: How Time (X-Axis) and Price (Y-Axis) Build a Chart
+
+Every crypto chart is just a simple two-direction grid:
+
+```
+Price (USDT)  ▲
+   $135.00 ───┼───────────────────────────────────────  ◄── Resistance Ceiling (Where sellers cashed out)
+              │          ┌─┐
+   $130.00 ───┼──────────│ │────── Smooth MA30 Line ──  ◄── 30-Bar Fair-Price Average ($129.07)
+              │   ┌─┐    └─┘    ┌─┐
+   $128.18 ───┼───│ │───────────│ │───────────────────  ◄── Current Price ($128.18 - On Discount!)
+              │   └─┘           └┬┘
+   $126.64 ───┼──────────────────┴────────────────────  ◄── Support Floor (Where buyers bounced before)
+              └──────────┬──────────────┬────────────►
+                    Yesterday         Today             Time (4H or 1D Bars)
+```
+
+- **Bottom Edge (Left to Right = Time):** Moving right means moving forward in time. Each vertical bar is one <Term client:visible id="candlestick">Candlestick</Term> covering your chosen <Term client:visible id="timeframe">Timeframe (4H or 1D)</Term>.
+- **Right Edge (Bottom to Top = Price in USDT):** Moving up means the coin is more expensive in <Term client:visible id="usdt">USDT</Term>; moving down means the coin is cheaper.
+
+<div className="exchange-callout">
+  <div className="exchange-callout__header">
+    Why We Use 4H and 1D Timeframes (Never 1-Minute Charts)
+  </div>
+  <p>
+    On a <strong>1-minute (1m)</strong> chart, a single random trade makes the bar jump up or down,
+    triggering panic and impulsive clicks. Switching Gate.com to <strong>4H</strong> (1 bar = 4
+    hours) or <strong>1D</strong> (1 bar = 1 full day) filters out the random noise so you only need
+    to check your screen once or twice a day.
+  </p>
+</div>
+
+---
+
+## Quick Beginner Checklist Before Moving to Chapter 2
+
+- **Am I on the Spot tab?** Yes, buying with my own USDT cash.
+- **Did I switch the timeframe button above the chart to `4H` or `1D`?** Yes, so each bar represents 4 hours or 1 day.
+- **Can I spot the 5 key numbers?** Current Price, <Term client:visible id="ma30">MA30</Term>, <Term client:visible id="rsi">RSI</Term>, <Term client:visible id="order-book">Order Book Buyer %</Term>, and the nearest <Term client:visible id="support">Support Floor</Term>.

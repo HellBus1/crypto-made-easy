@@ -30,11 +30,21 @@ function isActive(href: string): boolean {
           stroke-linejoin="round"
           aria-hidden="true"
         >
-          <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
-          <path d="M12 12v9"></path>
-          <path d="m8 17 4 4 4-4"></path>
+          <line x1="7" y1="3" x2="7" y2="21"></line>
+          <rect x="4.5" y="7" width="5" height="9" rx="1" fill="currentColor"></rect>
+          <line x1="17" y1="4" x2="17" y2="20"></line>
+          <rect
+            x="14.5"
+            y="8"
+            width="5"
+            height="7"
+            rx="1"
+            fill="var(--color-bg-surface)"
+            stroke="currentColor"
+          ></rect>
         </svg>
         <span class="header__brand-name">{siteConfig.name}</span>
+        <span class="header__scope-badge">Beginner Guide</span>
       </a>
 
       <!-- Desktop Navigation Links -->
@@ -59,8 +69,24 @@ function isActive(href: string): boolean {
         </ul>
       </nav>
 
-      <!-- Actions: Theme Toggle & Mobile Menu Button -->
+      <!-- Actions: Progress Pill, Primary CTA, Theme Toggle & Mobile Menu Button -->
       <div class="header__actions">
+        <a
+          href="/learn/01-how-a-chart-is-built"
+          id="header-progress-pill"
+          class="header__progress-pill"
+          title="Your local course progress"
+        >
+          <span class="header__progress-dot" aria-hidden="true"></span>
+          <span id="header-progress-text" class="num">
+            0/8 Done
+          </span>
+        </a>
+
+        <a href="/checker" class="header__cta">
+          {' '}
+          Check a Coin{' '}
+        </a>
         <ThemeToggle />
 
         <button
@@ -122,6 +148,11 @@ function isActive(href: string): boolean {
               </a>
             </li>
           ))}
+          <li class="header__mobile-cta-item">
+            <a href="/checker" class="btn-primary" style="width: 100%; margin-top: 4px;">
+              Open 3-Light Signal Checker
+            </a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -133,41 +164,55 @@ function isActive(href: string): boolean {
     position: sticky;
     top: 0;
     z-index: 50;
-    background-color: var(--color-bg-canvas);
-    border-bottom: 1px solid var(--color-border-subtle);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition:
-      background-color var(--transition-base),
-      border-color var(--transition-base);
+    background-color: var(--color-bg-surface);
+    border-bottom: 1px solid var(--color-border-default);
   }
 
   .header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4rem;
+    height: 3.75rem;
+    gap: var(--space-3);
   }
 
   .header__brand {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .header__brand:hover {
     color: var(--color-text-main);
     text-decoration: none;
   }
 
-  .header__brand:hover {
-    color: var(--color-brand-primary);
-    text-decoration: none;
+  .header__logo-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    color: var(--color-data-hue);
   }
 
-  .header__logo-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    color: var(--color-brand-primary);
+  .header__scope-badge {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-data-hue);
+    background-color: var(--color-data-hue-subtle);
+    border: 1px solid var(--color-pill-info-border);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .header__scope-badge {
+      display: inline-block;
+    }
   }
 
   .header__nav {
@@ -183,31 +228,98 @@ function isActive(href: string): boolean {
   .header__nav-list {
     display: flex;
     align-items: center;
-    gap: var(--space-6);
+    gap: var(--space-1);
     list-style: none;
   }
 
   .header__nav-link {
+    display: inline-block;
+    padding: 6px var(--space-3);
+    border-radius: var(--radius-md);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-muted);
-    transition: color var(--transition-fast);
+    text-decoration: none;
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast);
   }
 
   .header__nav-link:hover {
     color: var(--color-text-main);
+    background-color: var(--color-bg-subtle);
     text-decoration: none;
   }
 
   .header__nav-link--active {
-    color: var(--color-brand-primary);
-    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-main);
+    background-color: var(--color-bg-subtle);
+    font-weight: var(--font-weight-bold);
   }
 
   .header__actions {
     display: flex;
     align-items: center;
     gap: var(--space-2);
+  }
+
+  .header__progress-pill {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-bg-subtle);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-main);
+    text-decoration: none;
+  }
+
+  .header__progress-pill:hover {
+    border-color: var(--color-data-hue);
+    background-color: var(--color-data-hue-subtle);
+    text-decoration: none;
+  }
+
+  @media (min-width: 640px) {
+    .header__progress-pill {
+      display: inline-flex;
+    }
+  }
+
+  .header__progress-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background-color: var(--color-success);
+  }
+
+  .header__cta {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 2.15rem;
+    padding-inline: var(--space-3);
+    background-color: var(--color-brand-primary);
+    color: var(--color-brand-primary-text);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+  }
+
+  .header__cta:hover {
+    background-color: var(--color-brand-primary-hover);
+    color: var(--color-brand-primary-text);
+    text-decoration: none;
+  }
+
+  @media (min-width: 640px) {
+    .header__cta {
+      display: inline-flex;
+    }
   }
 
   .header__mobile-toggle {
@@ -220,7 +332,7 @@ function isActive(href: string): boolean {
     background: transparent;
     color: var(--color-text-main);
     border: 1px solid var(--color-border-default);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     cursor: pointer;
   }
 
@@ -254,7 +366,7 @@ function isActive(href: string): boolean {
   /* Mobile Dropdown Menu */
   .header__mobile-menu {
     border-top: 1px solid var(--color-border-subtle);
-    padding-block: var(--space-4);
+    padding-block: var(--space-3);
   }
 
   .header__mobile-menu[hidden] {
@@ -264,17 +376,18 @@ function isActive(href: string): boolean {
   .header__mobile-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-1);
     list-style: none;
   }
 
   .header__mobile-link {
     display: block;
     padding: var(--space-2) var(--space-3);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-muted);
     border-radius: var(--radius-md);
+    text-decoration: none;
   }
 
   .header__mobile-link:hover {
@@ -284,9 +397,9 @@ function isActive(href: string): boolean {
   }
 
   .header__mobile-link--active {
-    color: var(--color-brand-primary);
-    background-color: var(--color-brand-primary-subtle);
-    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-main);
+    background-color: var(--color-bg-subtle);
+    font-weight: var(--font-weight-bold);
   }
 
   @media (min-width: 768px) {
@@ -297,9 +410,30 @@ function isActive(href: string): boolean {
 </style>
 
 <script>
-  function setupMobileMenu() {
+  function setupHeader() {
     const toggle = document.getElementById('mobile-menu-toggle');
     const menu = document.getElementById('mobile-menu');
+    const progressText = document.getElementById('header-progress-text');
+
+    function updateHeaderProgress() {
+      if (!progressText) return;
+      try {
+        const raw = window.localStorage.getItem('cme:v1');
+        if (!raw) {
+          progressText.textContent = '0/8 Done';
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        const count = Array.isArray(parsed?.completed) ? parsed.completed.length : 0;
+        progressText.textContent = `${Math.min(8, count)}/8 Done`;
+      } catch {
+        progressText.textContent = '0/8 Done';
+      }
+    }
+
+    updateHeaderProgress();
+    window.addEventListener('cme:progress-updated', updateHeaderProgress);
+    window.addEventListener('storage', updateHeaderProgress);
 
     if (!toggle || !menu) return;
 
@@ -314,6 +448,6 @@ function isActive(href: string): boolean {
     });
   }
 
-  setupMobileMenu();
-  document.addEventListener('astro:after-swap', setupMobileMenu);
+  setupHeader();
+  document.addEventListener('astro:after-swap', setupHeader);
 </script>

@@ -1,0 +1,290 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Term from '../components/mdx/Term';
+---
+
+<BaseLayout
+  title="3-Light Spot Signal Checker & Position Sizing Calculator"
+  description="Learn how to copy 5 simple numbers from your Gate.com spot screen into the 3-Light checklist and split your budget safely."
+>
+  <section class="checker-page">
+    <Container size="xl">
+      <!-- Friendly Header -->
+      <div class="surface-card checker-hero">
+        <div class="checker-header">
+          <div>
+            <span class="status-pill status-pill--info">
+              Beginner Safety Checklist · Spot 4H / 1D
+            </span>
+            <h1 style="margin-top: 8px; margin-bottom: 6px;">
+              Spot Signal Checker &amp; Position-Sizing Ladder
+            </h1>
+            <p class="checker-header__subline">
+              Instead of guessing whether to buy or panic-sell on Gate.com, check three simple
+              traffic lights and divide your budget into safe, pre-planned steps.
+            </p>
+          </div>
+          <a href="/learn/01-how-a-chart-is-built" class="btn-secondary">
+            Need help finding these numbers? View Screen Map &rarr;
+          </a>
+        </div>
+
+        <div class="analogy-callout" style="margin-bottom: 0;">
+          <div class="analogy-callout__header">
+            Everyday Analogy: The 3-Light Street Crossing Rule
+          </div>
+          <p>
+            Imagine crossing a busy 3-lane road. You do not run across just because Lane 1 is clear.
+            You wait until <strong>all 3 lanes are clear at the same time</strong>: (1) The coin is
+            cheaper than its recent 30-bar average, (2) Sellers are tired on the RSI meter, and (3)
+            Real buyers are waiting with cash in the Order Book.
+          </p>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Guide with Concrete Examples -->
+      <div class="checker-grid">
+        <!-- Left Card: The 5 Numbers You Read from Gate.com -->
+        <article class="surface-card">
+          <h2>Step 1: Where to Find the 5 Numbers on Gate.com</h2>
+          <p class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: 16px;">
+            Open your exchange on the <strong>Spot</strong> tab and click the{' '}
+            <Term client:visible id="timeframe">
+              4H or 1D
+            </Term>{' '}
+            button above the chart. Here is every number you need, with a real Solana (SOL/USDT)
+            example:
+          </p>
+
+          <div class="example-list">
+            <div class="example-item">
+              <div class="example-item__top">
+                <strong>1. Current Price &amp; MA30 Average (Light 1)</strong>
+                <span class="status-pill status-pill--positive num">
+                  Example: $128.18 vs $129.07
+                </span>
+              </div>
+              <p>
+                Compare the big price at the top-left (<code class="num">128.18</code>) against the{' '}
+                <Term client:visible id="ma30">
+                  MA30
+                </Term>{' '}
+                number printed at the top of the chart (<code class="num">129.07</code>). Because{' '}
+                <code class="num">$128.18</code> is below <code class="num">$129.07</code>, the coin
+                is on discount (<strong>Light 1 ON</strong>).
+              </p>
+            </div>
+
+            <div class="example-item">
+              <div class="example-item__top">
+                <strong>2. RSI Momentum Meter (Light 2)</strong>
+                <span class="status-pill status-pill--positive num">
+                  Example: RSI = 32.57 (&le; 36)
+                </span>
+              </div>
+              <p>
+                Look at the{' '}
+                <Term client:visible id="rsi">
+                  RSI
+                </Term>{' '}
+                sub-chart at the bottom of your screen (0 to 100). When RSI is{' '}
+                <strong>36 or lower</strong>, recent selling is exhausted (
+                <strong>Light 2 ON</strong>).
+              </p>
+            </div>
+
+            <div class="example-item">
+              <div class="example-item__top">
+                <strong>3. Order Book Buyer % (Light 3)</strong>
+                <span class="status-pill status-pill--positive num">
+                  Example: 41.58% Buyers (&ge; 40%)
+                </span>
+              </div>
+              <p>
+                Look at the green vs red tug-of-war bar in the{' '}
+                <Term client:visible id="order-book">
+                  Order Book
+                </Term>
+                . When Green Buyers make up <strong>at least 40%</strong>, real demand is waiting
+                below (<strong>Light 3 ON</strong>).
+              </p>
+            </div>
+
+            <div class="example-item">
+              <div class="example-item__top">
+                <strong>4. Nearest Support Floors &amp; Ceiling</strong>
+                <span class="status-pill status-pill--info num">
+                  Floors: $128 / $126.64 / $124.50
+                </span>
+              </div>
+              <p>
+                Look left on the chart to see where red drops previously bounced up (your{' '}
+                <Term client:visible id="support">
+                  Support Floors
+                </Term>
+                ) and where green rallies stalled (
+                <Term client:visible id="resistance">
+                  Resistance Ceiling
+                </Term>{' '}
+                at <code class="num">$135.00</code>).
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Right Card: What the 4 Result Badges Tell You to Do -->
+        <article class="surface-card">
+          <h2>Step 2: What Each Result Badge Means in Plain English</h2>
+          <p class="text-muted" style="font-size: var(--font-size-sm); margin-bottom: 16px;">
+            Once you enter those numbers, you get one of four calm, unmistakable action plans:
+          </p>
+
+          <div class="example-list">
+            <div class="example-item">
+              <div class="example-item__top">
+                <span class="status-pill status-pill--positive">
+                  &#10003; Buy Zone: Consider Split Entry
+                </span>
+                <span class="num" style="font-size: 12px; font-weight: 700;">
+                  All 3 Lights ON
+                </span>
+              </div>
+              <p>
+                <strong>What to do:</strong> Place your first small{' '}
+                <Term client:visible id="limit-order">
+                  Limit Buy
+                </Term>{' '}
+                for only <strong>13% of your budget</strong> ($30 out of $233.77) at Support Floor
+                1, place 21% ($50) at Floor 2, 30% ($70) at Floor 3, and keep{' '}
+                <strong>36% ($83.77)</strong> untouched in cash.
+              </p>
+            </div>
+
+            <div class="example-item">
+              <div class="example-item__top">
+                <span class="status-pill status-pill--warning">&bull; Wait: Hold Your Cash</span>
+                <span class="num" style="font-size: 12px; font-weight: 700;">
+                  1 or 2 Lights OFF
+                </span>
+              </div>
+              <p>
+                <strong>Real example (ETH):</strong> ETH dropped below MA30 and had RSI 35,{' '}
+                <em>but</em> Order Book Buyers were only <strong>22%</strong> (Light 3 OFF). Waiting
+                protected your cash from catching a falling knife.
+              </p>
+            </div>
+
+            <div class="example-item">
+              <div class="example-item__top">
+                <span class="status-pill status-pill--info">
+                  &uarr; Take Profit: Sell Some or All
+                </span>
+                <span class="num" style="font-size: 12px; font-weight: 700;">
+                  Holding Near Ceiling
+                </span>
+              </div>
+              <p>
+                <strong>What to do:</strong> When price reaches your Resistance Ceiling ($135.00) or
+                RSI overheats above 70, place a Limit Sell to lock in gains calmly instead of
+                getting greedy.
+              </p>
+            </div>
+
+            <div class="example-item">
+              <div class="example-item__top">
+                <span class="status-pill status-pill--negative">
+                  ! Plan Broken: Consider Exiting
+                </span>
+                <span class="num" style="font-size: 12px; font-weight: 700;">
+                  Below Stop-Loss
+                </span>
+              </div>
+              <p>
+                <strong>What to do:</strong> If a 4H candle closes more than 2% below your lowest
+                support floor ($122.01), your reason for buying is broken. Follow your{' '}
+                <Term client:visible id="stop-loss">
+                  Stop-Loss
+                </Term>{' '}
+                and protect your cash.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .checker-page {
+    padding-block: var(--space-8) var(--space-16);
+  }
+
+  .checker-hero {
+    margin-bottom: var(--space-6);
+  }
+
+  .checker-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .checker-header__subline {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .checker-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 1024px) {
+    .checker-grid {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: start;
+    }
+  }
+
+  .surface-card h2 {
+    margin-bottom: var(--space-2);
+  }
+
+  .example-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .example-item {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .example-item__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: var(--font-size-xs);
+    margin-bottom: 6px;
+  }
+
+  .example-item p {
+    margin: 0;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-main);
+    line-height: 1.5;
+  }
+</style>

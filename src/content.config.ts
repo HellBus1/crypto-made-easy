@@ -2,21 +2,21 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
-const blog = defineCollection({
+const lessons = defineCollection({
   loader: glob({
-    base: './src/content/blog',
+    base: './src/content/lessons',
     pattern: '**/*.{md,mdx}',
   }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    publishDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    author: z.string().default('Syubban Fakhriya'),
-    tags: z.array(z.string()).default([]),
+    chapter: z.number().int().min(1),
+    track: z.string().default('Core'),
+    durationMinutes: z.number().int().min(1).default(4),
+    interactiveFocus: z.string(),
+    terms: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
-    ogImage: z.string().optional(),
   }),
 });
 
-export const collections = { blog };
+export const collections = { lessons };

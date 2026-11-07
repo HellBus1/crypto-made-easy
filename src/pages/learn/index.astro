@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import CourseSidebar from '../../components/learn/CourseSidebar';
+import { curriculum } from '../../config/curriculum';
+import { getCollection } from 'astro:content';
+
+const publishedLessons = await getCollection('lessons', ({ data }) => !data.draft);
+const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
+---
+
+<BaseLayout
+  title="Learn Spot Chart Reading: 8 Interactive Modules"
+  description="Step-by-step interactive lessons covering spot exchange anatomy, candlesticks, moving averages, Bollinger Bands, RSI, support floors, and the 3-Light checklist."
+>
+  <Container size="xl">
+    <div class="course-shell">
+      <div class="course-sidebar-wrap">
+        <CourseSidebar client:load />
+      </div>
+
+      <div class="course-main">
+        <!-- Header Banner -->
+        <div class="surface-card learn-hero">
+          <div>
+            <span class="status-pill status-pill--info">Beginner Learning Portal</span>
+            <h1 style="margin-top: 8px; margin-bottom: 6px;">Interactive Spot Chart Curriculum</h1>
+            <p
+              class="text-muted"
+              style="font-size: var(--font-size-sm); max-width: 62ch; margin: 0;"
+            >
+              Eight step-by-step chapters that take you from opening Gate.com for the first time to
+              reading candlesticks, checking the 3 Traffic Lights, and protecting your cash with
+              split entries.
+            </p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
+            <a href="/learn/01-how-a-chart-is-built" class="btn-primary">
+              Start Chapter 1: Decode the Screen &rarr;
+            </a>
+            <a href="/checker" class="btn-secondary">
+              Open 3-Light Signal Helper
+            </a>
+          </div>
+        </div>
+
+        <!-- Modules Grid -->
+        <div class="modules-list">
+          {curriculum.map((item) => {
+            const isReady = publishedSlugs.has(item.slug);
+            const href = isReady ? `/learn/${item.slug}` : `/learn/01-how-a-chart-is-built`;
+            return (
+              <article class="surface-card module-card">
+                <div>
+                  <div class="module-card__meta">
+                    <span class="status-pill status-pill--info">
+                      Chapter {item.chapter} · {item.track}
+                    </span>
+                    <span class="module-card__duration num">{item.durationMinutes} min read</span>
+                  </div>
+                  <h2 class="module-card__title">
+                    <a href={href}>{item.title}</a>
+                  </h2>
+                  <p class="module-card__desc">{item.description}</p>
+                </div>
+                <div class="module-card__footer">
+                  <span class="module-card__focus">
+                    <strong>Lab:</strong> {item.interactiveFocus}
+                  </span>
+                  <a href={href} class="module-card__link">
+                    {isReady ? 'Open Lesson' : 'Start Chapter 1'} &rarr;
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </Container>
+</BaseLayout>
+
+<style>
+  .learn-hero {
+    margin-bottom: var(--space-5);
+  }
+
+  .modules-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .modules-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .module-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .module-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .module-card__duration {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .module-card__title {
+    font-size: var(--font-size-lg);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .module-card__title a {
+    color: var(--color-text-main);
+    text-decoration: none;
+  }
+
+  .module-card__title a:hover {
+    color: var(--color-data-hue);
+    text-decoration: underline;
+  }
+
+  .module-card__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .module-card__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+    font-size: var(--font-size-xs);
+  }
+
+  .module-card__focus {
+    color: var(--color-text-subtle);
+  }
+
+  .module-card__link {
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+  }
+</style>

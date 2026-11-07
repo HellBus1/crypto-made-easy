@@ -1,178 +1,797 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/sections/Hero.astro';
-import Features from '../components/sections/Features.astro';
-import CTA from '../components/sections/CTA.astro';
-import Section from '../components/ui/Section.astro';
 import Container from '../components/ui/Container.astro';
-import Button from '../components/ui/Button.astro';
+import ExchangeScreenGuide from '../components/learn/ExchangeScreenGuide';
+import Term from '../components/mdx/Term';
+import { curriculum } from '../config/curriculum';
 import { getCollection } from 'astro:content';
-import { formatDate, toISODate } from '../utils/date';
 
-const recentPosts = await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-});
-
-recentPosts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
-const displayedPosts = recentPosts.slice(0, 2);
+const publishedLessons = await getCollection('lessons', ({ data }) => !data.draft);
+const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
 ---
 
-<BaseLayout>
-  <!-- Hero Section -->
-  <Hero />
+<BaseLayout
+  title="Crypto Made Easy: Beginner Spot Chart Course & 3-Light Signal Checklist"
+  description="Confused by Gate.com or Binance spot charts? Learn how candlesticks, support floors, and indicators work through everyday analogies, interactive labs, and a 3-Light safety checklist."
+>
+  <section class="home-shell">
+    <Container size="xl">
+      <!-- Beginner-First Hero Banner (Like Blockchain Made Easy) -->
+      <div class="hero-card surface-card">
+        <div class="hero-card__content">
+          <div class="hero-card__badges">
+            <span class="status-pill status-pill--info">Built for Total Beginners</span>
+            <span class="status-pill status-pill--neutral">Spot Market Only · Own Cash Only</span>
+          </div>
 
-  <!-- Features Grid Section -->
-  <Features />
+          <h1>Spot Chart Learning &amp; 3-Light Signal Checklist</h1>
 
-  <!-- Recent Articles Section -->
-  {displayedPosts.length > 0 && (
-    <Section spacing="lg">
-      <Container size="xl">
-        <div class="articles-header">
+          <p class="hero-card__lead">
+            Opened <strong>Gate.com</strong> or Binance and felt overwhelmed by flashing red and
+            green bars, strange lines, and endless abbreviations? This interactive guide translates
+            every part of a spot exchange screen into plain English with everyday analogies and
+            hands-on labs.
+          </p>
+
+          <div class="hero-card__actions">
+            <a href="/learn/01-how-a-chart-is-built" class="btn-primary">
+              Start Chapter 1: Decode the Screen &rarr;
+            </a>
+            <a href="/checker" class="btn-secondary">
+              Open 3-Light Signal Helper
+            </a>
+            <a href="/glossary" class="btn-subtle">
+              Browse Beginner Glossary
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Visual Summary Box -->
+        <div class="hero-card__summary">
+          <div class="summary-box__title">What You Will Master Here</div>
+          <ul class="summary-box__list">
+            <li>
+              <span class="summary-check" aria-hidden="true">
+                &#10003;
+              </span>
+              <div>
+                <strong>Read any 4H or 1D chart calmly:</strong> Know which 5 numbers matter on
+                Gate.com and ignore the other 90% of noisy buttons.
+              </div>
+            </li>
+            <li>
+              <span class="summary-check" aria-hidden="true">
+                &#10003;
+              </span>
+              <div>
+                <strong>Check the 3 Traffic Lights before buying:</strong> Only buy when a coin is
+                on discount (Light 1), sellers are tired (Light 2), and buyers are waiting below
+                (Light 3).
+              </div>
+            </li>
+            <li>
+              <span class="summary-check" aria-hidden="true">
+                &#10003;
+              </span>
+              <div>
+                <strong>Never go all-in at once:</strong> Split your cash into 3 small limit orders
+                (13%, 21%, 30%) and always keep 36% safe in reserve.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- How to Use This Website (3 Simple Beginner Steps) -->
+      <section class="steps-section" aria-labelledby="how-to-use-heading">
+        <div class="section-head">
           <div>
-            <h2 class="articles-header__title">Latest from the Blog</h2>
-            <p class="articles-header__subtitle">
-              Guides, tutorials, and architectural insights written by engineers.
+            <h2 id="how-to-use-heading">New Here? How to Use This Website in 3 Simple Steps</h2>
+            <p class="section-head__sub">
+              You do not need any math or finance background. Follow these three steps at your own
+              pace.
             </p>
           </div>
-          <Button variant="outline" size="md" href="/blog">
-            View All Articles &rarr;
-          </Button>
         </div>
 
-        <div class="articles-grid">
-          {displayedPosts.map((post) => (
-            <article class="article-card">
-              <time datetime={toISODate(post.data.publishDate)} class="article-card__date">
-                {formatDate(post.data.publishDate)}
-              </time>
-              <h3 class="article-card__title">
-                <a href={`/blog/${post.id}`} class="article-card__link">
-                  {post.data.title}
-                </a>
-              </h3>
-              <p class="article-card__description">{post.data.description}</p>
-              <a href={`/blog/${post.id}`} class="article-card__more">
-                Read article &rarr;
+        <div class="steps-grid">
+          <article class="surface-card step-card">
+            <div class="step-card__top">
+              <span class="status-pill status-pill--info">Step 1 · 15 Mins</span>
+              <span class="step-card__tag">Learn the Screen</span>
+            </div>
+            <h3>Play with the Interactive Simulators</h3>
+            <p class="text-muted">
+              Start with <a href="/learn/01-how-a-chart-is-built">the first lesson</a>. Click
+              through the simulated Gate.com screen below, drag candlestick bars up and down, and
+              hover any dotted word like{' '}
+              <Term client:visible id="candlestick">
+                Candlestick
+              </Term>{' '}
+              or{' '}
+              <Term client:visible id="usdt">
+                USDT
+              </Term>{' '}
+              to read a supermarket analogy.
+            </p>
+            <a href="/learn/01-how-a-chart-is-built" class="step-card__link">
+              Start Chapter 1 &rarr;
+            </a>
+          </article>
+
+          <article class="surface-card step-card">
+            <div class="step-card__top">
+              <span class="status-pill status-pill--positive">Step 2 · 2 Mins</span>
+              <span class="step-card__tag">Check the 3 Lights</span>
+            </div>
+            <h3>Copy 5 Numbers from Your Exchange</h3>
+            <p class="text-muted">
+              Open your exchange on the{' '}
+              <Term client:visible id="timeframe">
+                4H or 1D
+              </Term>{' '}
+              view. Type the coin&rsquo;s current price,{' '}
+              <Term client:visible id="ma30">
+                MA30
+              </Term>{' '}
+              average,{' '}
+              <Term client:visible id="rsi">
+                RSI
+              </Term>{' '}
+              meter, and{' '}
+              <Term client:visible id="order-book">
+                Order Book Buyer %
+              </Term>{' '}
+              into our Signal Helper to see if all 3 lights turn green.
+            </p>
+            <a href="/checker" class="step-card__link">
+              Try with Pre-Filled Example &rarr;
+            </a>
+          </article>
+
+          <article class="surface-card step-card">
+            <div class="step-card__top">
+              <span class="status-pill status-pill--warning">Step 3 · Calm Plan</span>
+              <span class="step-card__tag">Protect Your Cash</span>
+            </div>
+            <h3>Follow Your Split-Entry Safety Plan</h3>
+            <p class="text-muted">
+              Instead of guessing or panic-buying, the helper splits your budget into 3 small{' '}
+              <Term client:visible id="limit-order">
+                Limit Orders
+              </Term>{' '}
+              at lower{' '}
+              <Term client:visible id="support">
+                Support Floors
+              </Term>{' '}
+              and calculates your{' '}
+              <Term client:visible id="stop-loss">
+                Stop-Loss
+              </Term>{' '}
+              safety net automatically.
+            </p>
+            <a href="/learn" class="step-card__link">
+              Browse All 8 Chapters &rarr;
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!-- Live Interactive Gate.com Screen Decoder -->
+      <section class="decoder-section" aria-label="Interactive Exchange Screen Decoder">
+        <ExchangeScreenGuide client:visible />
+      </section>
+
+      <!-- Two-Column Beginner Worked Examples (Plain English + Everyday Context) -->
+      <section class="examples-section" aria-labelledby="worked-examples-heading">
+        <div class="section-head">
+          <div>
+            <h2 id="worked-examples-heading">
+              Real-World Example: How the 3 Lights &amp; Budget Split Work Together
+            </h2>
+            <p class="section-head__sub">
+              Here is a real example using Solana (SOL/USDT) on a 4-Hour chart and a $233.77 USDT
+              beginner budget.
+            </p>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <!-- Left Card: The 3 Traffic Lights Explained Simply -->
+          <article class="surface-card panel-equal">
+            <div>
+              <div class="panel-header">
+                <div>
+                  <h3>1. The 3 Traffic Lights Check (SOL at $128.18)</h3>
+                  <p class="panel-subline">
+                    Rule: We only place a buy order when all 3 lights are Green at the same time.
+                  </p>
+                </div>
+                <span class="status-pill status-pill--positive">
+                  <span aria-hidden="true">&#10003;</span> 3 / 3 Lights ON (Buy Zone)
+                </span>
+              </div>
+
+              <div class="lights-stack">
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Light 1: Is the coin on discount? (Price vs MA30)</strong>
+                    <span class="status-pill status-pill--positive num">&#10003; ON</span>
+                  </div>
+                  <p class="light-item__desc">
+                    <strong>What we see:</strong> Current Price is <code class="num">$128.18</code>,
+                    which is lower than the 30-bar average price (
+                    <code class="num">MA30 = $129.07</code>) and sitting right on the first bounce
+                    floor (<code class="num">$128.00</code>).
+                  </p>
+                  <p class="light-item__analogy">
+                    <em>Plain meaning:</em> You are buying below the recent average price, not
+                    chasing an expensive green spike.
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Light 2: Are sellers getting tired? (RSI &le; 36)</strong>
+                    <span class="status-pill status-pill--positive num">&#10003; ON</span>
+                  </div>
+                  <p class="light-item__desc">
+                    <strong>What we see:</strong> The{' '}
+                    <Term client:visible id="rsi">
+                      RSI
+                    </Term>{' '}
+                    momentum meter reads <code class="num">32.57</code> (our rule requires{' '}
+                    <code class="num">36</code> or lower).
+                  </p>
+                  <p class="light-item__analogy">
+                    <em>Plain meaning:</em> Sellers have already pushed the rubber band tight and
+                    are running out of energy.
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Light 3: Are buyers waiting below? (Bid % &ge; 40%)</strong>
+                    <span class="status-pill status-pill--positive num">&#10003; ON</span>
+                  </div>
+                  <p class="light-item__desc">
+                    <strong>What we see:</strong> The Order Book bar shows{' '}
+                    <code class="num">41.58% Green Buyers</code> vs{' '}
+                    <code class="num">58.42% Red Sellers</code> (our rule requires at least{' '}
+                    <code class="num">40%</code> Buyers).
+                  </p>
+                  <p class="light-item__analogy">
+                    <em>Plain meaning:</em> Real shoppers are waiting with cash buckets below. (When
+                    ETH only had 22% Buyers, Light 3 stayed OFF and told us to Wait!)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-footer">
+              <span class="panel-footer__note">
+                Want to test these exact SOL or ETH numbers yourself?
+              </span>
+              <a href="/checker" class="panel-footer__link">
+                Load Example in Signal Helper &rarr;
               </a>
-            </article>
-          ))}
-        </div>
-      </Container>
-    </Section>
-  )}
+            </div>
+          </article>
 
-  <!-- Call to Action Banner Section -->
-  <CTA />
+          <!-- Right Card: Split-Entry Budget Plan ($233.77 USDT) -->
+          <article class="surface-card panel-equal">
+            <div>
+              <div class="panel-header">
+                <div>
+                  <h3>2. Your Split-Entry Budget Plan ($233.77 USDT)</h3>
+                  <p class="panel-subline">
+                    Rule: Never spend 100% on your first click. Divide your money into 4 buckets.
+                  </p>
+                </div>
+                <span class="status-pill status-pill--info">87% Cash Kept After Buy 1</span>
+              </div>
+
+              <!-- Visual Allocation Bar -->
+              <div
+                class="allocation-bar"
+                role="img"
+                aria-label="Budget split: Buy 1 13%, Buy 2 21%, Buy 3 30%, Safe Cash Reserve 36%"
+              >
+                <div class="allocation-bar__seg allocation-bar__seg--e1" style="width: 13%">
+                  <span>13%</span>
+                </div>
+                <div class="allocation-bar__seg allocation-bar__seg--e2" style="width: 21%">
+                  <span>21%</span>
+                </div>
+                <div class="allocation-bar__seg allocation-bar__seg--e3" style="width: 30%">
+                  <span>30%</span>
+                </div>
+                <div class="allocation-bar__seg allocation-bar__seg--res" style="width: 36%">
+                  <span>Reserve 36%</span>
+                </div>
+              </div>
+
+              <div class="lights-stack">
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Bucket 1: First Small Test Buy (13% of Budget)</strong>
+                    <span class="status-pill status-pill--info num">$30.00 USDT</span>
+                  </div>
+                  <p class="light-item__desc">
+                    Place a Limit Buy at <strong>Support Floor 1 ($128.00)</strong>. If price
+                    bounces right away, you participate in the upside; if it dips further, 87% of
+                    your cash is still safe!
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Bucket 2 &amp; 3: Deeper Discount Orders (21% + 30%)</strong>
+                    <span class="status-pill status-pill--neutral num">$50.00 + $70.00 USDT</span>
+                  </div>
+                  <p class="light-item__desc">
+                    Place waiting Limit Buys at <strong>Support Floor 2 ($126.64)</strong> for $50
+                    and <strong>Support Floor 3 ($124.50)</strong> for $70. They only fill if the
+                    market gives you an even deeper discount.
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Bucket 4: Untouched Safe Cash Reserve (36%)</strong>
+                    <span class="status-pill status-pill--positive num">$83.77 USDT Kept</span>
+                  </div>
+                  <p class="light-item__desc">
+                    Always stays in your wallet as USDT cash, paired with a pre-agreed{' '}
+                    <strong>Stop-Loss at $122.01</strong> (2% below Floor 3) so one bad trade can
+                    never wipe you out.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-footer">
+              <span class="panel-footer__note num">
+                Total: $30 + $50 + $70 + $83.77 = $233.77 USDT (100%)
+              </span>
+              <a href="/checker" class="panel-footer__link">
+                Calculate for your own budget &rarr;
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 8-Chapter Interactive Curriculum Cards (Responsive Grid, No Wide Spreadsheet Table) -->
+      <section class="curriculum-section" aria-labelledby="curriculum-heading">
+        <div class="section-head">
+          <div>
+            <h2 id="curriculum-heading">8-Chapter Interactive Course Roadmap</h2>
+            <p class="section-head__sub">
+              Step-by-step interactive lessons with hands-on labs, everyday analogies, and local
+              progress checkmarks.
+            </p>
+          </div>
+          <a href="/learn" class="btn-secondary">
+            Open Course Dashboard &rarr;
+          </a>
+        </div>
+
+        <div class="curriculum-grid">
+          {curriculum.map((item) => {
+            const isReady = publishedSlugs.has(item.slug);
+            const href = isReady ? `/learn/${item.slug}` : '/learn/01-how-a-chart-is-built';
+            return (
+              <article class="surface-card chapter-card">
+                <div>
+                  <div class="chapter-card__meta">
+                    <span class="status-pill status-pill--info">
+                      Chapter {item.chapter} · {item.track}
+                    </span>
+                    <span class="chapter-card__time num">{item.durationMinutes} min</span>
+                  </div>
+
+                  <h3 class="chapter-card__title">
+                    <a href={href}>{item.title}</a>
+                  </h3>
+
+                  <p class="chapter-card__desc">{item.description}</p>
+                </div>
+
+                <div class="chapter-card__footer">
+                  <div class="chapter-card__lab">
+                    <strong>Interactive Lab:</strong> {item.interactiveFocus}
+                  </div>
+                  <a href={href} class="chapter-card__cta">
+                    {isReady ? 'Start Lesson' : 'Preview Lesson'} &rarr;
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </Container>
+  </section>
 </BaseLayout>
 
 <style>
-  .articles-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--space-4);
-    margin-bottom: var(--space-8);
+  .home-shell {
+    padding-block: var(--space-6) var(--space-16);
   }
 
-  @media (min-width: 640px) {
-    .articles-header {
-      flex-direction: row;
-      align-items: flex-end;
-    }
-  }
-
-  .articles-header__title {
-    font-size: var(--font-size-2xl);
-    color: var(--color-text-main);
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-2);
-  }
-
-  @media (min-width: 640px) {
-    .articles-header__title {
-      font-size: var(--font-size-3xl);
-    }
-  }
-
-  .articles-header__subtitle {
-    font-size: var(--font-size-base);
-    color: var(--color-text-muted);
-  }
-
-  .articles-grid {
+  /* Hero Card */
+  .hero-card {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-6);
+    margin-bottom: var(--space-10);
   }
 
-  @media (min-width: 768px) {
-    .articles-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-8);
+  @media (min-width: 1024px) {
+    .hero-card {
+      grid-template-columns: 1.35fr 1fr;
+      align-items: center;
+      padding: var(--space-8);
     }
   }
 
-  .article-card {
+  .hero-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-card__content h1 {
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-card__lead {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    max-width: 62ch;
+    margin-bottom: var(--space-5);
+  }
+
+  .hero-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .hero-card__summary {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .summary-box__title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    margin-bottom: var(--space-3);
+  }
+
+  .summary-box__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    padding: var(--space-6);
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border-default);
-    border-radius: var(--radius-xl);
-    transition:
-      border-color var(--transition-fast),
-      box-shadow var(--transition-fast);
-  }
-
-  .article-card:hover {
-    border-color: var(--color-brand-primary);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .article-card__date {
+    gap: var(--space-3);
     font-size: var(--font-size-xs);
-    color: var(--color-text-subtle);
-    margin-bottom: var(--space-2);
+    line-height: 1.5;
   }
 
-  .article-card__title {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-main);
-    line-height: var(--line-height-snug);
-    margin-bottom: var(--space-2);
+  .summary-box__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
   }
 
-  .article-card__link {
-    color: inherit;
-    text-decoration: none;
+  .summary-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background-color: var(--color-pill-positive-bg);
+    color: var(--color-pill-positive-ink);
+    border: 1px solid var(--color-pill-positive-border);
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
-  .article-card__link:hover {
-    color: var(--color-brand-primary);
+  /* Section Headers */
+  .steps-section,
+  .decoder-section,
+  .examples-section,
+  .curriculum-section {
+    margin-bottom: var(--space-12);
   }
 
-  .article-card__description {
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .section-head__sub {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    line-height: var(--line-height-relaxed);
-    margin-bottom: var(--space-4);
+    margin-top: 4px;
+    max-width: 65ch;
+  }
+
+  /* 3 Steps Grid */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .step-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .step-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .step-card__tag {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-subtle);
+  }
+
+  .step-card h3 {
+    font-size: var(--font-size-base);
+    margin: 0;
+  }
+
+  .step-card p {
+    font-size: var(--font-size-sm);
+    margin: 0;
     flex-grow: 1;
   }
 
-  .article-card__more {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-brand-primary);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
+  .step-card__link {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
-  .article-card__more:hover {
-    color: var(--color-brand-primary-hover);
+  /* Two-Column Workspace Grid */
+  .workspace-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 1024px) {
+    .workspace-grid {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: stretch;
+    }
+  }
+
+  .panel-equal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .panel-header h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: 2px;
+  }
+
+  .panel-subline {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+    margin: 0;
+  }
+
+  .lights-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .light-item {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .light-item__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: var(--font-size-xs);
+    margin-bottom: 4px;
+  }
+
+  .light-item__desc {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-main);
+    margin: 0 0 4px 0;
+  }
+
+  .light-item__analogy {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Allocation Proportion Bar */
+  .allocation-bar {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-border-default);
+    margin-bottom: var(--space-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .allocation-bar__seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 1px solid var(--color-bg-surface);
+  }
+
+  .allocation-bar__seg--e1 {
+    background-color: #0369a1;
+    color: #ffffff;
+  }
+
+  .allocation-bar__seg--e2 {
+    background-color: #0284c7;
+    color: #ffffff;
+  }
+
+  .allocation-bar__seg--e3 {
+    background-color: var(--color-data-hue-subtle);
+    color: var(--color-text-main);
+  }
+
+  .allocation-bar__seg--res {
+    background-color: var(--color-pill-positive-bg);
+    color: var(--color-pill-positive-ink);
+    border-right: none;
+  }
+
+  .panel-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .panel-footer__note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .panel-footer__link {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Curriculum Grid */
+  .curriculum-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .curriculum-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .chapter-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .chapter-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .chapter-card__time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .chapter-card__title {
+    font-size: var(--font-size-lg);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .chapter-card__title a {
+    color: var(--color-text-main);
+    text-decoration: none;
+  }
+
+  .chapter-card__title a:hover {
+    color: var(--color-data-hue);
     text-decoration: underline;
+  }
+
+  .chapter-card__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .chapter-card__footer {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .chapter-card__lab {
+    color: var(--color-text-subtle);
+  }
+
+  .chapter-card__cta {
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
   }
 </style>

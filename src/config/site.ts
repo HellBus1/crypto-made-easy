@@ -30,11 +30,11 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: 'Astro Starter',
-  title: 'Astro Starter — Production-Ready Astro + TypeScript Template',
+  name: 'Crypto Made Easy',
+  title: 'Crypto Made Easy: Interactive Spot Chart Course & 3-Light Signal Checklist',
   description:
-    'A high-performance, accessible, and easily extensible Astro starter template designed for modern web applications, portfolios, blogs, and documentation.',
-  url: process.env.SITE_URL || 'https://astro-starter.example.com',
+    'Learn how to read crypto spot charts with interactive diagrams and check any coin using a calm, rule-based 3-Light checklist and 3-tier position-sizing ladder.',
+  url: process.env.SITE_URL || 'https://crypto-made-easy.pages.dev',
   defaultLocale: 'en',
   defaultOgImage: '/images/og-default.svg',
   author: {
@@ -42,8 +42,6 @@ export const siteConfig: SiteConfig = {
     url: 'https://github.com/syubbanfakhriya',
   },
   socials: {
-    github: 'https://github.com/syubbanfakhriya/ts-astro-starter',
-    twitter: 'https://twitter.com',
-    linkedin: 'https://linkedin.com',
+    github: 'https://github.com/syubbanfakhriya/crypto-made-easy',
   },
 };
