@@ -4,14 +4,14 @@ description: 'Why an exchange screen like Gate.com feels overwhelming at first, 
 chapter: 1
 track: 'Foundations'
 durationMinutes: 6
-interactiveFocus: 'Real Gate.com Screenshot Map & Essential Indicators Graph'
+interactiveFocus: 'Real Gate.com Screenshot Map & Interactive TradingView Chart'
 draft: false
 ---
 
 import Term from '../../components/mdx/Term';
 import ExchangeScreenGuide from '../../components/learn/ExchangeScreenGuide';
 import EssentialIndicatorsGuide from '../../components/learn/EssentialIndicatorsGuide';
-import ScenarioDataExplorer from '../../components/learn/ScenarioDataExplorer';
+import MarketChart from '../../components/charts/MarketChart';
 
 When you open a crypto exchange like **Gate.com** or **Binance** for the very first time, the screen looks like an airplane cockpit. Numbers flash green and red every second, lines zig-zag across a grid, and **dozens of tiny buttons** (`1m`, `MA`, `BOLL`, `RSI`, `SRL`, `VPVR`, `SAR`, `SKDJ`) compete for your attention.
 
@@ -73,33 +73,11 @@ Use the interactive graph below to click **`4h`**, **`MA`**, **`BOLL`**, and **`
 
 ---
 
-## Step 4: How Time (X-Axis) and Price (Y-Axis) Build the Chart Grid
+## Step 4: Try the Live Interactive TradingView Chart Sandbox
 
-Once you have switched to **`4h`** or **`1D`** and turned on **`MA`** and **`BOLL`**, the chart is just a calm two-direction map:
+Now try panning, zooming, and toggling **`MA30`**, **`BOLL`**, **`VOL`**, and **`RSI`** on a real interactive chart canvas below:
 
-```
-Price (USDT)  ▲
-   $80,500 ───┼───────────────────────────────────────  ◄── Resistance Ceiling / BOLL Upper Roof
-              │          ┌─┐
-   $76,410 ───┼──────────│ │────── Smooth MA30 Line ──  ◄── 30-Bar Fair-Price Average
-              │   ┌─┐    └─┘    ┌─┐
-   $75,925 ───┼───│ │───────────│ │───────────────────  ◄── Current Price (Below MA30 = On Discount!)
-              │   └─┘           └┬┘
-   $75,500 ───┼──────────────────┴────────────────────  ◄── Support Floor / BOLL Lower Band
-              └──────────┬──────────────┬────────────►
-                    Yesterday         Today             Time (4H or 1D Bars)
-```
-
-- **Bottom Edge (Left to Right = Time):** Moving right means moving forward in time. Each vertical bar is one <Term client:visible id="candlestick">Candlestick</Term> covering 4 hours (`4h`) or 1 day (`1D`).
-- **Right Edge (Bottom to Top = Price in USDT):** Moving up means the coin costs more <Term client:visible id="usdt">USDT</Term>; moving down means the coin is on discount.
-
----
-
-## Step 5: Practice Reading the 4 Core Market Shapes (4H vs 1D)
-
-Now that you know where `MA`, `BOLL`, `RSI`, and `Volume` live on Gate.com, test them on the **4 real market patterns** below (`Dip at Support`, `Healthy Uptrend`, `Sideways Range`, and `Broken Floor`). Try switching the button in the top-right between **4H Chart (24 Bars)** and **1D Aggregated (8 Days)** to see how 6 four-hour bars combine into 1 daily bar:
-
-<ScenarioDataExplorer client:visible />
+<MarketChart client:visible />
 
 ---
 

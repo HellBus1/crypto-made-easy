@@ -9,6 +9,7 @@ draft: false
 ---
 
 import Term from '../../components/mdx/Term';
+import CandleEditor from '../../components/charts/CandleEditor';
 import CandlestickAnatomyLab from '../../components/learn/CandlestickAnatomyLab';
 
 In Chapter 1, you saw the top-left bar of Gate.com print four letters: **`O 75,903.3  H 75,932.4  L 75,889.6  C 75,925.4`**.
@@ -41,9 +42,11 @@ Those four numbers (**Open, High, Low, Close**) are the entire recipe for one <T
 
 ---
 
-## Step 2: Interactive OHLC Candlestick Builder
+## Step 2: Interactive Draggable OHLC Candlestick Sculptor
 
-Click the **4 preset candle shapes** or drag the **Open, Close, High, and Low sliders** below to see how buyer bounce wicks and seller rejection wicks form:
+Grab the **High, Open, Close, or Low** handles directly on the chart below (or drag the sliders) to see how buyer bounce wicks and seller rejection wicks form:
+
+<CandleEditor client:visible />
 
 <CandlestickAnatomyLab client:visible />
 
