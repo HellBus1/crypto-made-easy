@@ -4,6 +4,7 @@ import Container from '../components/ui/Container.astro';
 import ExchangeScreenGuide from '../components/learn/ExchangeScreenGuide';
 import ScenarioDataExplorer from '../components/learn/ScenarioDataExplorer';
 import MarketChart from '../components/charts/MarketChart';
+import ThreeLightQuickSim from '../components/checker/ThreeLightQuickSim';
 import Term from '../components/mdx/Term';
 import { curriculum } from '../config/curriculum';
 import { getCollection } from 'astro:content';
@@ -367,10 +368,15 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
                 Total: $30 + $50 + $70 + $83.77 = $233.77 USDT (100%)
               </span>
               <a href="/checker" class="panel-footer__link">
-                Calculate for your own budget &rarr;
+                Open Full Manual Signal Checker &rarr;
               </a>
             </div>
           </article>
+        </div>
+
+        <!-- Phase 4 Interactive 3-Light Preview on Home -->
+        <div style="margin-top: var(--space-5);">
+          <ThreeLightQuickSim client:visible />
         </div>
       </section>
 
