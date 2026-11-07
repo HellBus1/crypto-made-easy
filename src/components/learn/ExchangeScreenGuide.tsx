@@ -470,9 +470,24 @@ export default function ExchangeScreenGuide() {
       <style>{`
         .zone-tabs-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+          grid-template-columns: 1fr;
           gap: 8px;
           margin-bottom: var(--space-4);
+        }
+        @media (min-width: 520px) {
+          .zone-tabs-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (min-width: 768px) {
+          .zone-tabs-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+        @media (min-width: 1360px) {
+          .zone-tabs-grid {
+            grid-template-columns: repeat(6, 1fr);
+          }
         }
         .zone-tab-btn {
           text-align: left;
@@ -495,10 +510,16 @@ export default function ExchangeScreenGuide() {
           grid-template-columns: 1fr;
           gap: var(--space-4);
         }
-        @media (min-width: 1080px) {
+        @media (min-width: 1024px) {
           .screen-guide-grid {
-            grid-template-columns: 1.25fr 0.95fr;
+            grid-template-columns: 1.3fr 1fr;
             align-items: stretch;
+          }
+        }
+        @media (min-width: 1536px) {
+          .screen-guide-grid {
+            grid-template-columns: 1.45fr 1fr;
+            gap: var(--space-6);
           }
         }
         .screenshot-stage {

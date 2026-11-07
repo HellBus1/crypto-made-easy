@@ -14,6 +14,12 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (min-width: 1536px) {
+  html {
+    font-size: clamp(16px, 0.9vw + 2px, 19px);
+  }
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -375,7 +381,7 @@ code:not(pre code) {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
   margin: 4px 0 0 0;
-  max-width: 72ch;
+  max-width: 95ch;
 }
 
 .sim-box__body {
@@ -437,6 +443,23 @@ code:not(pre code) {
     grid-template-columns: 310px minmax(0, 1fr);
     gap: var(--space-8);
   }
+
+  .course-shell--with-rail {
+    grid-template-columns: 300px minmax(0, 1fr) 280px;
+    gap: var(--space-6);
+  }
+}
+
+@media (min-width: 1800px) {
+  .course-shell {
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: var(--space-10);
+  }
+
+  .course-shell--with-rail {
+    grid-template-columns: 320px minmax(0, 1fr) 310px;
+    gap: var(--space-8);
+  }
 }
 
 .course-sidebar-wrap {
@@ -446,6 +469,21 @@ code:not(pre code) {
 
 @media (min-width: 1024px) {
   .course-sidebar-wrap {
+    position: sticky;
+    top: 4.5rem;
+    max-height: calc(100vh - 5.5rem);
+    overflow-y: auto;
+  }
+}
+
+.course-rail-wrap {
+  display: none;
+  min-width: 0;
+}
+
+@media (min-width: 1440px) {
+  .course-rail-wrap {
+    display: block;
     position: sticky;
     top: 4.5rem;
     max-height: calc(100vh - 5.5rem);
@@ -504,7 +542,11 @@ code:not(pre code) {
    Prose Formatting (Lessons & Explanations)
    ========================================================================== */
 .prose {
-  max-width: 72ch;
+  max-width: 100%;
+}
+
+.prose p {
+  max-width: 92ch;
 }
 
 .prose > * + * {

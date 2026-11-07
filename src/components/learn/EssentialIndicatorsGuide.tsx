@@ -906,10 +906,16 @@ export default function EssentialIndicatorsGuide() {
           grid-template-columns: 1fr;
           gap: var(--space-4);
         }
-        @media (min-width: 1080px) {
+        @media (min-width: 1024px) {
           .essentials-layout {
-            grid-template-columns: 1.25fr 0.95fr;
+            grid-template-columns: 1.25fr 1fr;
             align-items: start;
+          }
+        }
+        @media (min-width: 1536px) {
+          .essentials-layout {
+            grid-template-columns: 1.45fr 1fr;
+            gap: var(--space-6);
           }
         }
         .gate-chart-frame {
