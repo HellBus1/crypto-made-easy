@@ -1,0 +1,68 @@
+---
+title: 'Candlestick anatomy'
+description: 'How to read Open (O), High (H), Low (L), and Close (C) on Gate.com, and why a long bottom wick at a Support Floor is your best friend.'
+chapter: 2
+track: 'Foundations'
+durationMinutes: 5
+interactiveFocus: 'Interactive OHLC Candle Builder & Bounce Wick Lab'
+draft: false
+---
+
+import Term from '../../components/mdx/Term';
+import CandlestickAnatomyLab from '../../components/learn/CandlestickAnatomyLab';
+
+In Chapter 1, you saw the top-left bar of Gate.com print four letters: **`O 75,903.3  H 75,932.4  L 75,889.6  C 75,925.4`**.
+
+Those four numbers (**Open, High, Low, Close**) are the entire recipe for one <Term client:visible id="candlestick">Candlestick</Term>. Once you know how those 4 numbers draw the thick rectangle (**body**) and the thin needles (**wicks**), you can read the tug-of-war between buyers and sellers in 2 seconds.
+
+<div className="analogy-callout">
+  <div className="analogy-callout__header">
+    Everyday Analogy: The 4-Hour Thermometer With High &amp; Low Memory Pins
+  </div>
+  <p>
+    Imagine checking a weather thermometer every 4 hours. The thick rectangle shows where the
+    temperature <strong>started (Open)</strong> and where it <strong>finished (Close)</strong>. The
+    thin needle sticking out of the top shows the <strong>hottest spike (High)</strong>, and the
+    thin needle sticking out of the bottom shows the <strong>coldest dip (Low)</strong> during those
+    4 hours.
+  </p>
+</div>
+
+---
+
+## Step 1: The 4 Prices Inside Every Candlestick (`O`, `H`, `L`, `C`)
+
+1. **`O` = Open (Start Price):** The price of the very first trade when the 4-hour timer started.
+2. **`C` = Close (Finish Price):** The final price when the 4-hour timer ended (or the live current price if the bar is still ticking).
+   - If **Close is higher than Open**, the bar is painted **Green** (buyers won that 4-hour round).
+   - If **Close is lower than Open**, the bar is painted **Red** (sellers won that 4-hour round).
+3. **`H` = High (Top <Term client:visible id="wick">Wick</Term> Tip):** The highest price reached during those 4 hours before sellers pushed it back down.
+4. **`L` = Low (Bottom <Term client:visible id="wick">Wick</Term> Tip):** The lowest price reached during those 4 hours before buyers scooped it back up.
+
+---
+
+## Step 2: Interactive OHLC Candlestick Builder
+
+Click the **4 preset candle shapes** or drag the **Open, Close, High, and Low sliders** below to see how buyer bounce wicks and seller rejection wicks form:
+
+<CandlestickAnatomyLab client:visible />
+
+---
+
+## Step 3: Why a Long Bottom Wick at a Support Floor Matters Most
+
+When a coin drops down to a <Term client:visible id="support">Support Floor</Term>, beginners often panic when they see red. Instead of guessing, look at the **bottom wick**:
+
+| Candle Shape at Support Floor               | What Happened Behind the Scenes                                                                                                           | What a Calm Beginner Does                                                                                                      |
+| :------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| **Long Bottom Wick (Hammer)**               | Sellers tried to push price down, but a wall of waiting buyers scooped up the cheap coins and pushed price back up before the bar closed. | **Positive sign:** Confirms real buyers are defending the Support Floor.                                                       |
+| **Full-Body Red Bar Closing at the Bottom** | Sellers dumped all 4 hours with zero bounce back at the end.                                                                              | **Be patient:** Check Light 3 (<Term client:visible id="order-book">Order Book Buyer %</Term>) and wait for the floor to hold. |
+| **Long Top Wick at Resistance Ceiling**     | Buyers tried to break through the ceiling, but profit-takers sold into the spike.                                                         | **Do not chase:** Never buy right underneath a Resistance Ceiling.                                                             |
+
+---
+
+## Quick Beginner Checklist Before Moving to Chapter 3
+
+- **Do I know why a candle is Green vs Red?** Green means `Close > Open`; Red means `Close < Open`.
+- **Do I know what a long bottom wick means?** Sellers pushed price down, but buyers stepped in with cash and pushed it back up.
+- **Where do I see the exact `O H L C` numbers on Gate.com?** At the top-left of the chart when you hover over any candle.
