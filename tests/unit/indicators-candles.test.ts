@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sma, ema, bollinger, rsi, macd } from '../../src/lib/indicators';
+import { sma, ema, bollinger, rsi, macd, computeEssentialSnapshot } from '../../src/lib/indicators';
 import { clampOhlc, aggregateCandles, generateScenarioCandles } from '../../src/lib/candles';
 
 describe('Technical Indicators Library', () => {
@@ -56,6 +56,19 @@ describe('Technical Indicators Library', () => {
     expect(last.macd).not.toBeNull();
     expect(last.signal).not.toBeNull();
     expect(last.histogram).toBeCloseTo(last.macd! - last.signal!, 3);
+  });
+
+  it('computes beginner essential snapshot (MA30, BOLL, RSI14, Volume) for scenario candles', () => {
+    const dipCandles = generateScenarioCandles('dip-at-support', 48, 1337);
+    const snap = computeEssentialSnapshot(dipCandles);
+
+    expect(snap.currentPrice).toBeGreaterThan(0);
+    expect(snap.ma30).not.toBeNull();
+    expect(snap.bollUpper).toBeGreaterThan(snap.bollMiddle!);
+    expect(snap.bollLower).toBeLessThan(snap.bollMiddle!);
+    expect(snap.rsi14).toBeGreaterThanOrEqual(0);
+    expect(snap.rsi14).toBeLessThanOrEqual(100);
+    expect(['higher', 'normal', 'lower']).toContain(snap.volumeState);
   });
 });
 

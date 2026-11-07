@@ -1,4 +1,5 @@
 import { roundTo } from '../signal/stop';
+import type { Candle } from '../candles';
 
 export interface BollingerPoint {
   middle: number | null;
@@ -10,6 +11,18 @@ export interface MacdPoint {
   macd: number | null;
   signal: number | null;
   histogram: number | null;
+}
+
+export interface EssentialIndicatorSnapshot {
+  currentPrice: number;
+  ma30: number | null;
+  bollUpper: number | null;
+  bollMiddle: number | null;
+  bollLower: number | null;
+  rsi14: number | null;
+  latestVolume: number;
+  avgVolume10: number;
+  volumeState: 'higher' | 'normal' | 'lower';
 }
 
 /**
@@ -188,4 +201,49 @@ export function macd(
       histogram: h,
     };
   });
+}
+
+/**
+ * Computes the beginner-essential indicator snapshot (MA30, BOLL(20,2), RSI(14), and Volume comparison)
+ * for the latest candle in a series.
+ */
+export function computeEssentialSnapshot(candles: Candle[]): EssentialIndicatorSnapshot {
+  if (candles.length === 0) {
+    throw new Error('Candles array must not be empty');
+  }
+
+  const closes = candles.map((c) => c.close);
+  const lastIdx = candles.length - 1;
+  const currentPrice = closes[lastIdx];
+
+  const ma30Period = Math.min(30, Math.max(5, closes.length));
+  const maSeries = sma(closes, ma30Period);
+  const bollPeriod = Math.min(20, Math.max(5, closes.length));
+  const bollSeries = bollinger(closes, bollPeriod, 2);
+  const rsiPeriod = Math.min(14, Math.max(3, closes.length - 1));
+  const rsiSeries = rsi(closes, rsiPeriod);
+
+  const latestVolume = candles[lastIdx].volume;
+  const volSlice = candles.slice(Math.max(0, candles.length - 10));
+  const avgVolume10 = roundTo(volSlice.reduce((sum, c) => sum + c.volume, 0) / volSlice.length, 0);
+
+  let volumeState: 'higher' | 'normal' | 'lower' = 'normal';
+  if (latestVolume >= avgVolume10 * 1.25) {
+    volumeState = 'higher';
+  } else if (latestVolume <= avgVolume10 * 0.75) {
+    volumeState = 'lower';
+  }
+
+  return {
+    currentPrice,
+    ma30: maSeries[lastIdx] !== null ? roundTo(maSeries[lastIdx]!, 2) : null,
+    bollUpper: bollSeries[lastIdx]?.upper !== null ? roundTo(bollSeries[lastIdx].upper!, 2) : null,
+    bollMiddle:
+      bollSeries[lastIdx]?.middle !== null ? roundTo(bollSeries[lastIdx].middle!, 2) : null,
+    bollLower: bollSeries[lastIdx]?.lower !== null ? roundTo(bollSeries[lastIdx].lower!, 2) : null,
+    rsi14: rsiSeries[lastIdx] !== null ? roundTo(rsiSeries[lastIdx]!, 1) : null,
+    latestVolume,
+    avgVolume10,
+    volumeState,
+  };
 }
