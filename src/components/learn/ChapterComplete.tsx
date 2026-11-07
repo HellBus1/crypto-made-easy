@@ -75,6 +75,7 @@ export default function ChapterComplete({ slug, chapter, title }: ChapterComplet
           </div>
 
           <button
+            id="chapter-complete-btn"
             type="button"
             onClick={() => toggleChapterComplete(slug)}
             className={isDone ? 'btn-secondary' : 'btn-primary'}
