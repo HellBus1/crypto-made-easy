@@ -1,80 +1,79 @@
 /**
- * Design Tokens: Achromatic Ledger (seed 1378102757)
- * Calm, minimal, light-first token system for Crypto Made Easy.
+ * Design Tokens: Calm Beginner Ledger (Light-First, Blockchain-Made-Easy Inspired)
  * Follows design-taste-frontend app-screens rules & WCAG AA (4.5:1+ contrast).
  */
 
 :root {
   /* ==========================================================================
-     Surface & Ground Palette (Achromatic Ledger: Light First)
+     Surface & Ground Palette (Warm, Approachable Light-First)
      ========================================================================== */
-  --color-bg-canvas: #f2f4f7;
+  --color-bg-canvas: #f8fafc;
   --color-bg-surface: #ffffff;
   --color-bg-surface-elevated: #ffffff;
-  --color-bg-subtle: #e8ecf2;
-  --color-bg-active: #dfe4ec;
+  --color-bg-subtle: #f1f5f9;
+  --color-bg-active: #e2e8f0;
 
   /* ==========================================================================
-     Ink & Text Tiers (All >= 4.5:1 against #ffffff and #f2f4f7)
+     Ink & Text Tiers (All >= 4.5:1 against #ffffff and #f8fafc)
      ========================================================================== */
-  --color-text-main: #0a0a0a;
-  --color-text-muted: #4b5563;
-  --color-text-subtle: #5f6672;
+  --color-text-main: #0f172a;
+  --color-text-muted: #334155;
+  --color-text-subtle: #475569;
   --color-text-inverse: #ffffff;
 
   /* ==========================================================================
-     Structural Lines & Control Borders (Three-step hairline system)
+     Structural Lines & Control Borders
      ========================================================================== */
-  --color-border-default: #dde2ea;
-  --color-border-subtle: #eaeef4;
-  --color-border-hover: #c5cdd8;
-  --color-border-control: #c5cdd8;
+  --color-border-default: #cbd5e1;
+  --color-border-subtle: #e2e8f0;
+  --color-border-hover: #94a3b8;
+  --color-border-control: #94a3b8;
 
   /* ==========================================================================
-     Chrome Primary & Single Data Hue
+     Brand & Educational Accent (Sky/Teal Ledger Accent like Blockchain Made Easy)
      ========================================================================== */
-  --color-brand-primary: #141414;
-  --color-brand-primary-hover: #2b2b2b;
-  --color-brand-primary-subtle: #e8ecf2;
+  --color-brand-primary: #0f172a;
+  --color-brand-primary-hover: #1e293b;
+  --color-brand-primary-subtle: #e2e8f0;
   --color-brand-primary-text: #ffffff;
 
-  --color-data-hue: #1d5fbf;
-  --color-data-hue-subtle: #e6f0fa;
-  --color-focus-ring: #1d5fbf;
+  --color-data-hue: #0369a1;
+  --color-data-hue-subtle: #e0f2fe;
+  --color-focus-ring: #0284c7;
 
   /* ==========================================================================
-     Semantic Signal & Status Pairs (Pale tint + high-contrast dark ink)
+     Semantic Signal & Status Pairs (High-Contrast Accessible Tints)
      ========================================================================== */
-  --color-success: #247b50;
-  --color-warning: #92400e;
-  --color-danger: #c4242a;
-  --color-info: #1d5fbf;
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-danger: #b91c1c;
+  --color-info: #0369a1;
 
-  --color-pill-positive-bg: #dcfae5;
-  --color-pill-positive-ink: #04250e;
-  --color-pill-positive-border: #a7f3d0;
+  --color-pill-positive-bg: #dcfce7;
+  --color-pill-positive-ink: #14532d;
+  --color-pill-positive-border: #86efac;
 
-  --color-pill-warning-bg: #fffbeb;
+  --color-pill-warning-bg: #fef3c7;
   --color-pill-warning-ink: #78350f;
-  --color-pill-warning-border: #fde68a;
+  --color-pill-warning-border: #fcd34d;
 
   --color-pill-info-bg: #e0f2fe;
   --color-pill-info-ink: #0c4a6e;
-  --color-pill-info-border: #bae6fd;
+  --color-pill-info-border: #7dd3fc;
 
-  --color-pill-negative-bg: #ffedea;
-  --color-pill-negative-ink: #831c1e;
-  --color-pill-negative-border: #fecdd3;
+  --color-pill-negative-bg: #fee2e2;
+  --color-pill-negative-ink: #7f1d1d;
+  --color-pill-negative-border: #fca5a5;
 
-  --color-pill-neutral-bg: #e8ecf2;
-  --color-pill-neutral-ink: #374151;
-  --color-pill-neutral-border: #d1d5db;
+  --color-pill-neutral-bg: #f1f5f9;
+  --color-pill-neutral-ink: #334155;
+  --color-pill-neutral-border: #cbd5e1;
 
   /* Chart series tokens */
-  --color-chart-ink: #141414;
-  --color-chart-muted: #767d8a;
-  --color-chart-accent: #1d5fbf;
-  --color-chart-grid: #e5e8ef;
+  --color-chart-ink: #0f172a;
+  --color-chart-muted: #64748b;
+  --color-chart-accent: #0284c7;
+  --color-chart-grid: #e2e8f0;
 
   /* ==========================================================================
      Typography Tokens
@@ -87,19 +86,19 @@
     'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     'Courier New', monospace;
 
-  --font-size-xs: 0.75rem; /* 12px floor size */
-  --font-size-sm: 0.875rem; /* 14px app controls, cells, labels */
-  --font-size-base: 1rem; /* 16px prose body, card titles */
-  --font-size-lg: 1.125rem; /* 18px section headings */
-  --font-size-xl: 1.25rem; /* 20px subheadings */
-  --font-size-2xl: 1.5rem; /* 24px page title (h1) */
-  --font-size-3xl: 1.75rem; /* 28px primary KPI figure */
-  --font-size-4xl: 2rem; /* 32px max app display ceiling */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
 
   --line-height-tight: 1.2;
   --line-height-snug: 1.35;
   --line-height-normal: 1.5;
-  --line-height-relaxed: 1.6;
+  --line-height-relaxed: 1.65;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -122,22 +121,23 @@
   --space-20: 5rem; /* 80px */
   --space-24: 6rem; /* 96px */
 
-  --container-sm: 640px;
-  --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1200px;
+  --container-sm: 768px;
+  --container-md: 1120px;
+  --container-lg: 1440px;
+  --container-xl: 1920px;
+  --container-2xl: 2240px;
 
   /* ==========================================================================
-     Bimodal Tight Radii & Flat Surfaces (No resting shadows)
+     Clean Radii & Flat Surfaces (No resting shadows)
      ========================================================================== */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 8px;
-  --radius-2xl: 8px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 12px;
   --radius-full: 9999px;
 
-  --control-height: 38px;
+  --control-height: 40px;
   --row-height: 44px;
 
   --transition-fast: 120ms ease;
@@ -146,61 +146,60 @@
 }
 
 /* ==========================================================================
-   Dark Theme Overrides (True neutral darks for optional toggle compatibility)
+   Dark Theme Overrides
    ========================================================================== */
 :root[data-theme='dark'] {
-  --color-bg-canvas: #0a0a0a;
-  --color-bg-surface: #141414;
-  --color-bg-surface-elevated: #1f1f1f;
-  --color-bg-subtle: #1f1f1f;
-  --color-bg-active: #292929;
+  --color-bg-canvas: #090d16;
+  --color-bg-surface: #111827;
+  --color-bg-surface-elevated: #1e293b;
+  --color-bg-subtle: #1e293b;
+  --color-bg-active: #334155;
 
-  --color-text-main: #f5f5f5;
-  --color-text-muted: #b4b4b4;
-  --color-text-subtle: #949494;
-  --color-text-inverse: #0a0a0a;
+  --color-text-main: #f8fafc;
+  --color-text-muted: #cbd5e1;
+  --color-text-subtle: #94a3b8;
+  --color-text-inverse: #090d16;
 
-  --color-border-default: #262626;
-  --color-border-subtle: #1c1c1c;
-  --color-border-hover: #3a3a3a;
-  --color-border-control: #424242;
+  --color-border-default: #1e293b;
+  --color-border-subtle: #172033;
+  --color-border-hover: #334155;
+  --color-border-control: #475569;
 
-  --color-brand-primary: #f5f5f5;
-  --color-brand-primary-hover: #dcdcdc;
-  --color-brand-primary-subtle: #242424;
-  --color-brand-primary-text: #0a0a0a;
+  --color-brand-primary: #38bdf8;
+  --color-brand-primary-hover: #7dd3fc;
+  --color-brand-primary-subtle: #0c4a6e;
+  --color-brand-primary-text: #090d16;
 
-  --color-data-hue: #58a6ff;
-  --color-data-hue-subtle: #13273f;
-  --color-focus-ring: #58a6ff;
+  --color-data-hue: #38bdf8;
+  --color-data-hue-subtle: #082f49;
+  --color-focus-ring: #38bdf8;
 
-  --color-pill-positive-bg: #172a1d;
-  --color-pill-positive-ink: #3fc07a;
-  --color-pill-positive-border: #234730;
+  --color-pill-positive-bg: #052e16;
+  --color-pill-positive-ink: #4ade80;
+  --color-pill-positive-border: #14532d;
 
-  --color-pill-warning-bg: #2b2111;
-  --color-pill-warning-ink: #f5b942;
-  --color-pill-warning-border: #4d3817;
+  --color-pill-warning-bg: #451a03;
+  --color-pill-warning-ink: #fbbf24;
+  --color-pill-warning-border: #78350f;
 
-  --color-pill-info-bg: #13273f;
-  --color-pill-info-ink: #6cb6ff;
-  --color-pill-info-border: #1f426b;
+  --color-pill-info-bg: #082f49;
+  --color-pill-info-ink: #7dd3fc;
+  --color-pill-info-border: #0369a1;
 
-  --color-pill-negative-bg: #2c1a20;
-  --color-pill-negative-ink: #ff7b8b;
-  --color-pill-negative-border: #522733;
+  --color-pill-negative-bg: #450a0a;
+  --color-pill-negative-ink: #f87171;
+  --color-pill-negative-border: #7f1d1d;
 
-  --color-pill-neutral-bg: #242424;
-  --color-pill-neutral-ink: #d4d4d4;
-  --color-pill-neutral-border: #383838;
+  --color-pill-neutral-bg: #1e293b;
+  --color-pill-neutral-ink: #cbd5e1;
+  --color-pill-neutral-border: #334155;
 
-  --color-chart-ink: #f5f5f5;
-  --color-chart-muted: #949494;
-  --color-chart-accent: #58a6ff;
-  --color-chart-grid: #242424;
+  --color-chart-ink: #f8fafc;
+  --color-chart-muted: #94a3b8;
+  --color-chart-accent: #38bdf8;
+  --color-chart-grid: #1e293b;
 }
 
-/* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

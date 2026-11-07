@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/ui/Container.astro';
+import CourseSidebar from '../../components/learn/CourseSidebar';
 import { curriculum } from '../../config/curriculum';
 import { getCollection } from 'astro:content';
 
@@ -12,89 +13,76 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   title="Learn Spot Chart Reading: 8 Interactive Modules"
   description="Step-by-step interactive lessons covering spot exchange anatomy, candlesticks, moving averages, Bollinger Bands, RSI, support floors, and the 3-Light checklist."
 >
-  <section class="learn-index">
-    <Container size="xl">
-      <div class="learn-header">
-        <div>
-          <h1>Interactive Spot Chart Curriculum</h1>
-          <p class="learn-header__subline">
-            Eight focused chapters designed for 4H and 1D spot swing traders. Every chapter connects
-            directly to the 3-Light Signal Checker.
-          </p>
-        </div>
-        <a href="/checker" class="btn-checker">
-          Try Signal Checker &rarr;
-        </a>
+  <Container size="xl">
+    <div class="course-shell">
+      <div class="course-sidebar-wrap">
+        <CourseSidebar client:load />
       </div>
 
-      <div class="modules-list">
-        {curriculum.map((item) => {
-          const isReady = publishedSlugs.has(item.slug);
-          const href = isReady ? `/learn/${item.slug}` : `/learn/01-how-a-chart-is-built`;
-          return (
-            <article class="surface-card module-card">
-              <div class="module-card__meta">
-                <span class="status-pill status-pill--neutral">
-                  Chapter {item.chapter} · {item.track}
-                </span>
-                <span class="module-card__duration num">{item.durationMinutes} min read</span>
-              </div>
-              <h2 class="module-card__title">
-                <a href={href}>{item.title}</a>
-              </h2>
-              <p class="module-card__desc">{item.description}</p>
-              <div class="module-card__footer">
-                <span class="module-card__focus">Interactive: {item.interactiveFocus}</span>
-                <a href={href} class="module-card__link">
-                  {isReady ? 'Read chapter' : 'Coming in Phase 5'} &rarr;
-                </a>
-              </div>
-            </article>
-          );
-        })}
+      <div class="course-main">
+        <!-- Header Banner -->
+        <div class="surface-card learn-hero">
+          <div>
+            <span class="status-pill status-pill--info">Beginner Learning Portal</span>
+            <h1 style="margin-top: 8px; margin-bottom: 6px;">Interactive Spot Chart Curriculum</h1>
+            <p
+              class="text-muted"
+              style="font-size: var(--font-size-sm); max-width: 90ch; margin: 0;"
+            >
+              Eight step-by-step chapters that take you from opening Gate.com for the first time to
+              reading candlesticks, checking the 3 Traffic Lights, and protecting your cash with
+              split entries.
+            </p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
+            <a href="/learn/01-how-a-chart-is-built" class="btn-primary">
+              Start Chapter 1: Decode the Screen &rarr;
+            </a>
+            <a href="/checker" class="btn-secondary">
+              Open 3-Light Signal Helper
+            </a>
+          </div>
+        </div>
+
+        <!-- Modules Grid -->
+        <div class="modules-list">
+          {curriculum.map((item) => {
+            const isReady = publishedSlugs.has(item.slug);
+            const href = isReady ? `/learn/${item.slug}` : `/learn/01-how-a-chart-is-built`;
+            return (
+              <article class="surface-card module-card">
+                <div>
+                  <div class="module-card__meta">
+                    <span class="status-pill status-pill--info">
+                      Chapter {item.chapter} · {item.track}
+                    </span>
+                    <span class="module-card__duration num">{item.durationMinutes} min read</span>
+                  </div>
+                  <h2 class="module-card__title">
+                    <a href={href}>{item.title}</a>
+                  </h2>
+                  <p class="module-card__desc">{item.description}</p>
+                </div>
+                <div class="module-card__footer">
+                  <span class="module-card__focus">
+                    <strong>Lab:</strong> {item.interactiveFocus}
+                  </span>
+                  <a href={href} class="module-card__link">
+                    {isReady ? 'Open Lesson' : 'Start Chapter 1'} &rarr;
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </div>
-    </Container>
-  </section>
+    </div>
+  </Container>
 </BaseLayout>
 
 <style>
-  .learn-index {
-    padding-block: var(--space-8) var(--space-16);
-  }
-
-  .learn-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-4);
-    margin-bottom: var(--space-6);
-  }
-
-  .learn-header__subline {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    margin-top: var(--space-1);
-    max-width: 62ch;
-  }
-
-  .btn-checker {
-    display: inline-flex;
-    align-items: center;
-    height: var(--control-height);
-    padding-inline: var(--space-4);
-    background-color: var(--color-brand-primary);
-    color: var(--color-brand-primary-text);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    text-decoration: none;
-  }
-
-  .btn-checker:hover {
-    background-color: var(--color-brand-primary-hover);
-    color: var(--color-brand-primary-text);
-    text-decoration: none;
+  .learn-hero {
+    margin-bottom: var(--space-5);
   }
 
   .modules-list {
@@ -109,11 +97,23 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
     }
   }
 
+  @media (min-width: 1400px) {
+    .modules-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1800px) {
+    .modules-list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
   .module-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: var(--space-3);
+    gap: var(--space-4);
   }
 
   .module-card__meta {
@@ -121,6 +121,7 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
+    margin-bottom: var(--space-2);
   }
 
   .module-card__duration {
@@ -130,9 +131,11 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
 
   .module-card__title {
     font-size: var(--font-size-lg);
+    margin: 0 0 var(--space-2) 0;
   }
 
   .module-card__title a {
+    color: var(--color-text-main);
     text-decoration: none;
   }
 
@@ -144,7 +147,7 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   .module-card__desc {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    flex-grow: 1;
+    margin: 0;
   }
 
   .module-card__footer {
@@ -163,7 +166,7 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   }
 
   .module-card__link {
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
     white-space: nowrap;
   }
 </style>

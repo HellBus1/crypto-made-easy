@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
+import ExchangeScreenGuide from '../components/learn/ExchangeScreenGuide';
+import Term from '../components/mdx/Term';
 import { curriculum } from '../config/curriculum';
 import { getCollection } from 'astro:content';
 
@@ -9,290 +11,404 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
 ---
 
 <BaseLayout
-  title="Crypto Made Easy: Calm Spot Chart Course & 3-Light Signal Checklist"
-  description="Read spot exchange charts without panic. Learn how candlesticks, volume, and indicators work, then run the 3-Light checklist with a pre-planned 3-tier entry ladder."
+  title="Crypto Made Easy: Beginner Spot Chart Course & 3-Light Signal Checklist"
+  description="Confused by Gate.com or Binance spot charts? Learn how candlesticks, support floors, and indicators work through everyday analogies, interactive labs, and a 3-Light safety checklist."
 >
-  <section class="overview-shell">
+  <section class="home-shell">
     <Container size="xl">
-      <!-- Screen Title Row (App-Screen Pattern) -->
-      <div class="title-row">
-        <div class="title-row__copy">
+      <!-- Beginner-First Hero Banner (Like Blockchain Made Easy) -->
+      <div class="hero-card surface-card">
+        <div class="hero-card__content">
+          <div class="hero-card__badges">
+            <span class="status-pill status-pill--info">Built for Total Beginners</span>
+            <span class="status-pill status-pill--neutral">Spot Market Only · Own Cash Only</span>
+          </div>
+
           <h1>Spot Chart Learning &amp; 3-Light Signal Checklist</h1>
-          <p class="title-row__subline">
-            Always know where the support floor sits, how much cash reserve remains, and what your
-            exit plan is before placing a spot order.
+
+          <p class="hero-card__lead">
+            Opened <strong>Gate.com</strong> or Binance and felt overwhelmed by flashing red and
+            green bars, strange lines, and endless abbreviations? This interactive guide translates
+            every part of a spot exchange screen into plain English with everyday analogies and
+            hands-on labs.
           </p>
-        </div>
-        <div class="title-row__actions">
-          <a href="/checker" class="btn-primary">
-            Open Signal Checker
-          </a>
-          <a href="/learn/01-how-a-chart-is-built" class="btn-secondary">
-            Start Chapter 1
-          </a>
-        </div>
-      </div>
 
-      <!-- Divided KPI & Principle Strip (No icons, no sparklines, tabular figures) -->
-      <div class="kpi-strip" role="region" aria-label="Core checklist parameters">
-        <div class="kpi-cell">
-          <span class="kpi-cell__label">Target timeframes</span>
-          <span class="kpi-cell__value num">4H / 1D</span>
-          <span class="kpi-cell__note">Casual spot swing pace, checked 1–2 times daily</span>
-        </div>
-        <div class="kpi-cell">
-          <span class="kpi-cell__label">Buy Zone trigger</span>
-          <span class="kpi-cell__value num">3 / 3 Lights</span>
-          <span class="kpi-cell__note">Price &lt; MA30, RSI &le; 36, Bid &ge; 40%</span>
-        </div>
-        <div class="kpi-cell">
-          <span class="kpi-cell__label">Split-entry ladder</span>
-          <span class="kpi-cell__value num">13 · 21 · 30%</span>
-          <span class="kpi-cell__note">Three limit tranches placed at support levels</span>
-        </div>
-        <div class="kpi-cell">
-          <span class="kpi-cell__label">Unspent cash reserve</span>
-          <span class="kpi-cell__value num">36% USDT</span>
-          <span class="kpi-cell__note">Kept in reserve + 2% stop buffer below lowest support</span>
-        </div>
-      </div>
-
-      <!-- Two-Column Balanced Workspace Preview: 3-Light Worked Example + Position Sizing Ladder -->
-      <div class="workspace-grid">
-        <!-- Left Card: The 3-Light Checklist Worked Example (SOL Nov 2026) -->
-        <article class="surface-card panel-equal">
-          <div class="panel-header">
-            <div>
-              <h2>Worked Example: SOL / USDT (4H)</h2>
-              <p class="panel-subline">Dated illustration from 5–6 Nov 2026 source dataset</p>
-            </div>
-            <span class="status-pill status-pill--positive">
-              <span aria-hidden="true">&#10003;</span> Buy Zone (3/3 Lights)
-            </span>
-          </div>
-
-          <table class="ledger-table" aria-label="3-Light evaluation for SOL">
-            <thead>
-              <tr>
-                <th scope="col">Checklist light</th>
-                <th scope="col" data-numeric="true">
-                  Observed reading
-                </th>
-                <th scope="col">Condition &amp; meaning</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <strong>Light 1: Price vs MA30</strong>
-                </td>
-                <td data-numeric="true" class="num">
-                  89.73 vs 91.60 USDT
-                </td>
-                <td>
-                  <span class="status-pill status-pill--positive">&#10003; On discount</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Light 2: Momentum (RSI)</strong>
-                </td>
-                <td data-numeric="true" class="num">
-                  36.0
-                </td>
-                <td>
-                  <span class="status-pill status-pill--positive">&#10003; Sellers exhausted</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Light 3: Order Book Bid %</strong>
-                </td>
-                <td data-numeric="true" class="num">
-                  40.61% Bid
-                </td>
-                <td>
-                  <span class="status-pill status-pill--positive">&#10003; Buyer wall below</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="panel-footer">
-            <span class="panel-footer__note">
-              Contrast case: ETH with 22.0% Bid turns Light 3 off &rarr; <strong>Wait</strong>.
-            </span>
-            <a href="/checker" class="panel-footer__link">
-              Run your own numbers &rarr;
+          <div class="hero-card__actions">
+            <a href="/learn/01-how-a-chart-is-built" class="btn-primary">
+              Start Chapter 1: Decode the Screen &rarr;
+            </a>
+            <a href="/checker" class="btn-secondary">
+              Open 3-Light Signal Helper
+            </a>
+            <a href="/glossary" class="btn-subtle">
+              Browse Beginner Glossary
             </a>
           </div>
-        </article>
+        </div>
 
-        <!-- Right Card: Signature Split-Entry Ammunition Plan (233.77 USDT) -->
-        <article class="surface-card panel-equal">
-          <div class="panel-header">
-            <div>
-              <h2>Split-Entry Ammunition Plan</h2>
-              <p class="panel-subline">Worked allocation for 233.77 USDT total spot capital</p>
-            </div>
-            <span class="status-pill status-pill--neutral">87% cash kept after Entry 1</span>
-          </div>
-
-          <!-- Proportion Track (13% / 21% / 30% / 36%) -->
-          <div
-            class="allocation-bar"
-            role="img"
-            aria-label="Capital split: Entry 1 13%, Entry 2 21%, Entry 3 30%, Cash Reserve 36%"
-          >
-            <div class="allocation-bar__seg allocation-bar__seg--e1" style="width: 13%">
-              <span>E1 13%</span>
-            </div>
-            <div class="allocation-bar__seg allocation-bar__seg--e2" style="width: 21%">
-              <span>E2 21%</span>
-            </div>
-            <div class="allocation-bar__seg allocation-bar__seg--e3" style="width: 30%">
-              <span>E3 30%</span>
-            </div>
-            <div class="allocation-bar__seg allocation-bar__seg--res" style="width: 36%">
-              <span>Reserve 36%</span>
-            </div>
-          </div>
-
-          <table class="ledger-table" aria-label="Split-entry capital allocation">
-            <thead>
-              <tr>
-                <th scope="col">Tranche</th>
-                <th scope="col" data-numeric="true">
-                  Share
-                </th>
-                <th scope="col" data-numeric="true">
-                  Amount (USDT)
-                </th>
-                <th scope="col">Role</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <strong>Entry 1 (Support 1)</strong>
-                </td>
-                <td data-numeric="true" class="num">
-                  12.8%
-                </td>
-                <td data-numeric="true" class="num">
-                  30.00 USDT
-                </td>
-                <td>Initial test tranche near first floor</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Entry 2 (Support 2)</strong>
-                </td>
-                <td data-numeric="true" class="num">
-                  21.4%
-                </td>
-                <td data-numeric="true" class="num">
-                  50.00 USDT
-                </td>
-                <td>Lowers average cost if dip continues</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Entry 3 (Support 3)</strong>
-                </td>
-                <td data-numeric="true" class="num">
-                  29.9%
-                </td>
-                <td data-numeric="true" class="num">
-                  70.00 USDT
-                </td>
-                <td>Deep liquidity floor limit order</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Unspent Cash Reserve</strong>
-                </td>
-                <td data-numeric="true" class="num">
-                  35.9%
-                </td>
-                <td data-numeric="true" class="num">
-                  83.77 USDT
-                </td>
-                <td>Psychological calm &amp; emergency buffer</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="panel-footer">
-            <span class="panel-footer__note num">Total reconciled: 233.77 USDT (100.0%)</span>
-            <a href="/learn/01-how-a-chart-is-built" class="panel-footer__link">
-              Learn the method &rarr;
-            </a>
-          </div>
-        </article>
+        <!-- Quick Visual Summary Box -->
+        <div class="hero-card__summary">
+          <div class="summary-box__title">What You Will Master Here</div>
+          <ul class="summary-box__list">
+            <li>
+              <span class="summary-check" aria-hidden="true">
+                &#10003;
+              </span>
+              <div>
+                <strong>Read any 4H or 1D chart calmly:</strong> Know which 5 numbers matter on
+                Gate.com and ignore the other 90% of noisy buttons.
+              </div>
+            </li>
+            <li>
+              <span class="summary-check" aria-hidden="true">
+                &#10003;
+              </span>
+              <div>
+                <strong>Check the 3 Traffic Lights before buying:</strong> Only buy when a coin is
+                on discount (Light 1), sellers are tired (Light 2), and buyers are waiting below
+                (Light 3).
+              </div>
+            </li>
+            <li>
+              <span class="summary-check" aria-hidden="true">
+                &#10003;
+              </span>
+              <div>
+                <strong>Never go all-in at once:</strong> Split your cash into 3 small limit orders
+                (13%, 21%, 30%) and always keep 36% safe in reserve.
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <!-- Course Curriculum Table (All 8 Chapters) -->
-      <section class="curriculum-section" aria-labelledby="curriculum-heading">
-        <div class="section-header">
+      <!-- How to Use This Website (3 Simple Beginner Steps) -->
+      <section class="steps-section" aria-labelledby="how-to-use-heading">
+        <div class="section-head">
           <div>
-            <h2 id="curriculum-heading">8-Chapter Interactive Curriculum</h2>
-            <p class="section-header__subline">
-              Move from raw exchange screen anatomy to the 3-Light checklist and calm position
-              sizing.
+            <h2 id="how-to-use-heading">New Here? How to Use This Website in 3 Simple Steps</h2>
+            <p class="section-head__sub">
+              You do not need any math or finance background. Follow these three steps at your own
+              pace.
             </p>
           </div>
-          <a href="/learn" class="section-header__link">
-            View all chapters &rarr;
+        </div>
+
+        <div class="steps-grid">
+          <article class="surface-card step-card">
+            <div class="step-card__top">
+              <span class="status-pill status-pill--info">Step 1 · 15 Mins</span>
+              <span class="step-card__tag">Learn the Screen</span>
+            </div>
+            <h3>Play with the Interactive Simulators</h3>
+            <p class="text-muted">
+              Start with <a href="/learn/01-how-a-chart-is-built">the first lesson</a>. Click
+              through the simulated Gate.com screen below, drag candlestick bars up and down, and
+              hover any dotted word like{' '}
+              <Term client:visible id="candlestick">
+                Candlestick
+              </Term>{' '}
+              or{' '}
+              <Term client:visible id="usdt">
+                USDT
+              </Term>{' '}
+              to read a supermarket analogy.
+            </p>
+            <a href="/learn/01-how-a-chart-is-built" class="step-card__link">
+              Start Chapter 1 &rarr;
+            </a>
+          </article>
+
+          <article class="surface-card step-card">
+            <div class="step-card__top">
+              <span class="status-pill status-pill--positive">Step 2 · 2 Mins</span>
+              <span class="step-card__tag">Check the 3 Lights</span>
+            </div>
+            <h3>Copy 5 Numbers from Your Exchange</h3>
+            <p class="text-muted">
+              Open your exchange on the{' '}
+              <Term client:visible id="timeframe">
+                4H or 1D
+              </Term>{' '}
+              view. Type the coin&rsquo;s current price,{' '}
+              <Term client:visible id="ma30">
+                MA30
+              </Term>{' '}
+              average,{' '}
+              <Term client:visible id="rsi">
+                RSI
+              </Term>{' '}
+              meter, and{' '}
+              <Term client:visible id="order-book">
+                Order Book Buyer %
+              </Term>{' '}
+              into our Signal Helper to see if all 3 lights turn green.
+            </p>
+            <a href="/checker" class="step-card__link">
+              Try with Pre-Filled Example &rarr;
+            </a>
+          </article>
+
+          <article class="surface-card step-card">
+            <div class="step-card__top">
+              <span class="status-pill status-pill--warning">Step 3 · Calm Plan</span>
+              <span class="step-card__tag">Protect Your Cash</span>
+            </div>
+            <h3>Follow Your Split-Entry Safety Plan</h3>
+            <p class="text-muted">
+              Instead of guessing or panic-buying, the helper splits your budget into 3 small{' '}
+              <Term client:visible id="limit-order">
+                Limit Orders
+              </Term>{' '}
+              at lower{' '}
+              <Term client:visible id="support">
+                Support Floors
+              </Term>{' '}
+              and calculates your{' '}
+              <Term client:visible id="stop-loss">
+                Stop-Loss
+              </Term>{' '}
+              safety net automatically.
+            </p>
+            <a href="/learn" class="step-card__link">
+              Browse All 8 Chapters &rarr;
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!-- Live Interactive Gate.com Screen Decoder -->
+      <section class="decoder-section" aria-label="Interactive Exchange Screen Decoder">
+        <ExchangeScreenGuide client:visible />
+      </section>
+
+      <!-- Two-Column Beginner Worked Examples (Plain English + Everyday Context) -->
+      <section class="examples-section" aria-labelledby="worked-examples-heading">
+        <div class="section-head">
+          <div>
+            <h2 id="worked-examples-heading">
+              Real-World Example: How the 3 Lights &amp; Budget Split Work Together
+            </h2>
+            <p class="section-head__sub">
+              Here is a real example using Solana (SOL/USDT) on a 4-Hour chart and a $233.77 USDT
+              beginner budget.
+            </p>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <!-- Left Card: The 3 Traffic Lights Explained Simply -->
+          <article class="surface-card panel-equal">
+            <div>
+              <div class="panel-header">
+                <div>
+                  <h3>1. The 3 Traffic Lights Check (SOL at $128.18)</h3>
+                  <p class="panel-subline">
+                    Rule: We only place a buy order when all 3 lights are Green at the same time.
+                  </p>
+                </div>
+                <span class="status-pill status-pill--positive">
+                  <span aria-hidden="true">&#10003;</span> 3 / 3 Lights ON (Buy Zone)
+                </span>
+              </div>
+
+              <div class="lights-stack">
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Light 1: Is the coin on discount? (Price vs MA30)</strong>
+                    <span class="status-pill status-pill--positive num">&#10003; ON</span>
+                  </div>
+                  <p class="light-item__desc">
+                    <strong>What we see:</strong> Current Price is <code class="num">$128.18</code>,
+                    which is lower than the 30-bar average price (
+                    <code class="num">MA30 = $129.07</code>) and sitting right on the first bounce
+                    floor (<code class="num">$128.00</code>).
+                  </p>
+                  <p class="light-item__analogy">
+                    <em>Plain meaning:</em> You are buying below the recent average price, not
+                    chasing an expensive green spike.
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Light 2: Are sellers getting tired? (RSI &le; 36)</strong>
+                    <span class="status-pill status-pill--positive num">&#10003; ON</span>
+                  </div>
+                  <p class="light-item__desc">
+                    <strong>What we see:</strong> The{' '}
+                    <Term client:visible id="rsi">
+                      RSI
+                    </Term>{' '}
+                    momentum meter reads <code class="num">32.57</code> (our rule requires{' '}
+                    <code class="num">36</code> or lower).
+                  </p>
+                  <p class="light-item__analogy">
+                    <em>Plain meaning:</em> Sellers have already pushed the rubber band tight and
+                    are running out of energy.
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Light 3: Are buyers waiting below? (Bid % &ge; 40%)</strong>
+                    <span class="status-pill status-pill--positive num">&#10003; ON</span>
+                  </div>
+                  <p class="light-item__desc">
+                    <strong>What we see:</strong> The Order Book bar shows{' '}
+                    <code class="num">41.58% Green Buyers</code> vs{' '}
+                    <code class="num">58.42% Red Sellers</code> (our rule requires at least{' '}
+                    <code class="num">40%</code> Buyers).
+                  </p>
+                  <p class="light-item__analogy">
+                    <em>Plain meaning:</em> Real shoppers are waiting with cash buckets below. (When
+                    ETH only had 22% Buyers, Light 3 stayed OFF and told us to Wait!)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-footer">
+              <span class="panel-footer__note">
+                Want to test these exact SOL or ETH numbers yourself?
+              </span>
+              <a href="/checker" class="panel-footer__link">
+                Load Example in Signal Helper &rarr;
+              </a>
+            </div>
+          </article>
+
+          <!-- Right Card: Split-Entry Budget Plan ($233.77 USDT) -->
+          <article class="surface-card panel-equal">
+            <div>
+              <div class="panel-header">
+                <div>
+                  <h3>2. Your Split-Entry Budget Plan ($233.77 USDT)</h3>
+                  <p class="panel-subline">
+                    Rule: Never spend 100% on your first click. Divide your money into 4 buckets.
+                  </p>
+                </div>
+                <span class="status-pill status-pill--info">87% Cash Kept After Buy 1</span>
+              </div>
+
+              <!-- Visual Allocation Bar -->
+              <div
+                class="allocation-bar"
+                role="img"
+                aria-label="Budget split: Buy 1 13%, Buy 2 21%, Buy 3 30%, Safe Cash Reserve 36%"
+              >
+                <div class="allocation-bar__seg allocation-bar__seg--e1" style="width: 13%">
+                  <span>13%</span>
+                </div>
+                <div class="allocation-bar__seg allocation-bar__seg--e2" style="width: 21%">
+                  <span>21%</span>
+                </div>
+                <div class="allocation-bar__seg allocation-bar__seg--e3" style="width: 30%">
+                  <span>30%</span>
+                </div>
+                <div class="allocation-bar__seg allocation-bar__seg--res" style="width: 36%">
+                  <span>Reserve 36%</span>
+                </div>
+              </div>
+
+              <div class="lights-stack">
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Bucket 1: First Small Test Buy (13% of Budget)</strong>
+                    <span class="status-pill status-pill--info num">$30.00 USDT</span>
+                  </div>
+                  <p class="light-item__desc">
+                    Place a Limit Buy at <strong>Support Floor 1 ($128.00)</strong>. If price
+                    bounces right away, you participate in the upside; if it dips further, 87% of
+                    your cash is still safe!
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Bucket 2 &amp; 3: Deeper Discount Orders (21% + 30%)</strong>
+                    <span class="status-pill status-pill--neutral num">$50.00 + $70.00 USDT</span>
+                  </div>
+                  <p class="light-item__desc">
+                    Place waiting Limit Buys at <strong>Support Floor 2 ($126.64)</strong> for $50
+                    and <strong>Support Floor 3 ($124.50)</strong> for $70. They only fill if the
+                    market gives you an even deeper discount.
+                  </p>
+                </div>
+
+                <div class="light-item">
+                  <div class="light-item__top">
+                    <strong>Bucket 4: Untouched Safe Cash Reserve (36%)</strong>
+                    <span class="status-pill status-pill--positive num">$83.77 USDT Kept</span>
+                  </div>
+                  <p class="light-item__desc">
+                    Always stays in your wallet as USDT cash, paired with a pre-agreed{' '}
+                    <strong>Stop-Loss at $122.01</strong> (2% below Floor 3) so one bad trade can
+                    never wipe you out.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-footer">
+              <span class="panel-footer__note num">
+                Total: $30 + $50 + $70 + $83.77 = $233.77 USDT (100%)
+              </span>
+              <a href="/checker" class="panel-footer__link">
+                Calculate for your own budget &rarr;
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 8-Chapter Interactive Curriculum Cards (Responsive Grid, No Wide Spreadsheet Table) -->
+      <section class="curriculum-section" aria-labelledby="curriculum-heading">
+        <div class="section-head">
+          <div>
+            <h2 id="curriculum-heading">8-Chapter Interactive Course Roadmap</h2>
+            <p class="section-head__sub">
+              Step-by-step interactive lessons with hands-on labs, everyday analogies, and local
+              progress checkmarks.
+            </p>
+          </div>
+          <a href="/learn" class="btn-secondary">
+            Open Course Dashboard &rarr;
           </a>
         </div>
 
-        <div class="surface-card table-card">
-          <table class="ledger-table curriculum-table">
-            <thead>
-              <tr>
-                <th scope="col">Chapter</th>
-                <th scope="col">Track</th>
-                <th scope="col">Interactive chart &amp; focus</th>
-                <th scope="col" data-numeric="true">
-                  Read time
-                </th>
-                <th scope="col" data-numeric="true">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {curriculum.map((item) => {
-                const isReady = publishedSlugs.has(item.slug);
-                const href = isReady ? `/learn/${item.slug}` : '/learn';
-                return (
-                  <tr>
-                    <td>
-                      <div class="chapter-cell">
-                        <a href={href} class="chapter-cell__title">
-                          {item.chapter}. {item.title}
-                        </a>
-                        <span class="chapter-cell__desc">{item.description}</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="status-pill status-pill--neutral">{item.track}</span>
-                    </td>
-                    <td class="text-muted">{item.interactiveFocus}</td>
-                    <td data-numeric="true" class="num">
-                      {item.durationMinutes} min
-                    </td>
-                    <td data-numeric="true">
-                      <a href={href} class="row-action">
-                        {isReady ? 'Open lesson' : 'Preview'}
-                      </a>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div class="curriculum-grid">
+          {curriculum.map((item) => {
+            const isReady = publishedSlugs.has(item.slug);
+            const href = isReady ? `/learn/${item.slug}` : '/learn/01-how-a-chart-is-built';
+            return (
+              <article class="surface-card chapter-card">
+                <div>
+                  <div class="chapter-card__meta">
+                    <span class="status-pill status-pill--info">
+                      Chapter {item.chapter} · {item.track}
+                    </span>
+                    <span class="chapter-card__time num">{item.durationMinutes} min</span>
+                  </div>
+
+                  <h3 class="chapter-card__title">
+                    <a href={href}>{item.title}</a>
+                  </h3>
+
+                  <p class="chapter-card__desc">{item.description}</p>
+                </div>
+
+                <div class="chapter-card__footer">
+                  <div class="chapter-card__lab">
+                    <strong>Interactive Lab:</strong> {item.interactiveFocus}
+                  </div>
+                  <a href={href} class="chapter-card__cta">
+                    {isReady ? 'Start Lesson' : 'Preview Lesson'} &rarr;
+                  </a>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
     </Container>
@@ -300,137 +416,180 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
 </BaseLayout>
 
 <style>
-  .overview-shell {
-    padding-block: var(--space-8) var(--space-16);
+  .home-shell {
+    padding-block: var(--space-6) var(--space-16);
   }
 
-  .title-row {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--space-4);
-    margin-bottom: var(--space-6);
+  /* Hero Card */
+  .hero-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
   }
 
-  @media (min-width: 768px) {
-    .title-row {
-      flex-direction: row;
-      align-items: flex-end;
+  @media (min-width: 1024px) {
+    .hero-card {
+      grid-template-columns: 1.35fr 1fr;
+      align-items: center;
+      padding: var(--space-8);
     }
   }
 
-  .title-row__copy h1 {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--space-2);
-  }
-
-  .title-row__subline {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    max-width: 62ch;
-  }
-
-  .title-row__actions {
+  .hero-card__badges {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-    flex-shrink: 0;
+    margin-bottom: var(--space-3);
   }
 
-  .btn-primary,
-  .btn-secondary {
+  .hero-card__content h1 {
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-card__lead {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    max-width: 85ch;
+    margin-bottom: var(--space-5);
+  }
+
+  .hero-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .hero-card__actions a {
+    flex: 1 1 100%;
+  }
+
+  @media (min-width: 560px) {
+    .hero-card__actions a {
+      flex: 0 1 auto;
+    }
+  }
+
+  .hero-card__summary {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .summary-box__title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    margin-bottom: var(--space-3);
+  }
+
+  .summary-box__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    font-size: var(--font-size-xs);
+    line-height: 1.5;
+  }
+
+  .summary-box__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .summary-check {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: var(--control-height);
-    padding-inline: var(--space-4);
-    border-radius: var(--radius-md);
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background-color: var(--color-pill-positive-bg);
+    color: var(--color-pill-positive-ink);
+    border: 1px solid var(--color-pill-positive-border);
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Section Headers */
+  .steps-section,
+  .decoder-section,
+  .examples-section,
+  .curriculum-section {
+    margin-bottom: var(--space-12);
+  }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .section-head__sub {
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    text-decoration: none;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+    max-width: 90ch;
   }
 
-  .btn-primary {
-    background-color: var(--color-brand-primary);
-    color: var(--color-brand-primary-text);
-    border: 1px solid var(--color-brand-primary);
-  }
-
-  .btn-primary:hover {
-    background-color: var(--color-brand-primary-hover);
-    color: var(--color-brand-primary-text);
-    text-decoration: none;
-  }
-
-  .btn-secondary {
-    background-color: var(--color-bg-surface);
-    color: var(--color-text-main);
-    border: 1px solid var(--color-border-control);
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--color-bg-subtle);
-    color: var(--color-text-main);
-    text-decoration: none;
-  }
-
-  /* Divided KPI Strip */
-  .kpi-strip {
+  /* 3 Steps Grid */
+  .steps-grid {
     display: grid;
     grid-template-columns: 1fr;
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border-default);
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--space-6);
-    overflow: hidden;
+    gap: var(--space-4);
   }
 
-  @media (min-width: 640px) {
-    .kpi-strip {
-      grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 768px) {
+    .steps-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  @media (min-width: 1024px) {
-    .kpi-strip {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  .kpi-cell {
+  .step-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-4) var(--space-5);
-    border-bottom: 1px solid var(--color-border-subtle);
+    justify-content: space-between;
+    gap: var(--space-3);
   }
 
-  @media (min-width: 1024px) {
-    .kpi-cell {
-      border-bottom: none;
-      border-right: 1px solid var(--color-border-subtle);
-    }
-    .kpi-cell:last-child {
-      border-right: none;
-    }
+  .step-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
   }
 
-  .kpi-cell__label {
+  .step-card__tag {
     font-size: var(--font-size-xs);
-    color: var(--color-text-muted);
-  }
-
-  .kpi-cell__value {
-    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-semibold);
-    color: var(--color-text-main);
-    line-height: 1.2;
+    color: var(--color-text-subtle);
   }
 
-  .kpi-cell__note {
+  .step-card h3 {
+    font-size: var(--font-size-base);
+    margin: 0;
+  }
+
+  .step-card p {
+    font-size: var(--font-size-sm);
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .step-card__link {
     font-size: var(--font-size-xs);
-    color: var(--color-text-subtle);
+    font-weight: var(--font-weight-bold);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   /* Two-Column Workspace Grid */
@@ -438,7 +597,6 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-4);
-    margin-bottom: var(--space-10);
   }
 
   @media (min-width: 1024px) {
@@ -463,7 +621,7 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
     margin-bottom: var(--space-4);
   }
 
-  .panel-header h2 {
+  .panel-header h3 {
     font-size: var(--font-size-base);
     margin-bottom: 2px;
   }
@@ -471,19 +629,55 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   .panel-subline {
     font-size: var(--font-size-xs);
     color: var(--color-text-subtle);
+    margin: 0;
+  }
+
+  .lights-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .light-item {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .light-item__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: var(--font-size-xs);
+    margin-bottom: 4px;
+  }
+
+  .light-item__desc {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-main);
+    margin: 0 0 4px 0;
+  }
+
+  .light-item__analogy {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin: 0;
   }
 
   /* Allocation Proportion Bar */
   .allocation-bar {
     display: flex;
     width: 100%;
-    height: 28px;
+    height: 30px;
     border-radius: var(--radius-sm);
     overflow: hidden;
     border: 1px solid var(--color-border-default);
     margin-bottom: var(--space-3);
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
   }
 
   .allocation-bar__seg {
@@ -496,12 +690,12 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   }
 
   .allocation-bar__seg--e1 {
-    background-color: var(--color-data-hue);
+    background-color: #0369a1;
     color: #ffffff;
   }
 
   .allocation-bar__seg--e2 {
-    background-color: #3b7dd8;
+    background-color: #0284c7;
     color: #ffffff;
   }
 
@@ -511,35 +705,9 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   }
 
   .allocation-bar__seg--res {
-    background-color: var(--color-bg-subtle);
-    color: var(--color-text-main);
+    background-color: var(--color-pill-positive-bg);
+    color: var(--color-pill-positive-ink);
     border-right: none;
-  }
-
-  /* Ledger Tables */
-  .ledger-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--font-size-sm);
-  }
-
-  .ledger-table th {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-regular);
-    color: var(--color-text-subtle);
-    text-align: left;
-    padding: var(--space-2) var(--space-2);
-    border-bottom: 1px solid var(--color-border-default);
-  }
-
-  .ledger-table td {
-    padding: var(--space-2) var(--space-2);
-    border-bottom: 1px solid var(--color-border-subtle);
-    vertical-align: middle;
-  }
-
-  .ledger-table tbody tr:last-child td {
-    border-bottom: none;
   }
 
   .panel-footer {
@@ -560,66 +728,86 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
 
   .panel-footer__link {
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-main);
+    font-weight: var(--font-weight-bold);
   }
 
-  /* Curriculum Section */
-  .section-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
+  /* Curriculum Grid */
+  .curriculum-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
   }
 
-  .section-header__subline {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    margin-top: 2px;
+  @media (min-width: 768px) {
+    .curriculum-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
-  .section-header__link {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+  @media (min-width: 1440px) {
+    .curriculum-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
-  .table-card {
-    padding: 0;
-    overflow-x: auto;
-  }
-
-  .curriculum-table th,
-  .curriculum-table td {
-    padding: var(--space-3) var(--space-4);
-  }
-
-  .chapter-cell {
+  .chapter-card {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    justify-content: space-between;
+    gap: var(--space-4);
   }
 
-  .chapter-cell__title {
-    font-weight: var(--font-weight-medium);
+  .chapter-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .chapter-card__time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .chapter-card__title {
+    font-size: var(--font-size-lg);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .chapter-card__title a {
     color: var(--color-text-main);
     text-decoration: none;
   }
 
-  .chapter-cell__title:hover {
+  .chapter-card__title a:hover {
     color: var(--color-data-hue);
     text-decoration: underline;
   }
 
-  .chapter-cell__desc {
-    font-size: var(--font-size-xs);
+  .chapter-card__desc {
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
+    margin: 0;
   }
 
-  .row-action {
+  .chapter-card__footer {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border-subtle);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
+  }
+
+  .chapter-card__lab {
+    color: var(--color-text-subtle);
+  }
+
+  .chapter-card__cta {
+    font-weight: var(--font-weight-bold);
     white-space: nowrap;
   }
 </style>
