@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import Term from '../components/mdx/Term';
+import ThreeLightQuickSim from '../components/checker/ThreeLightQuickSim';
 ---
 
 <BaseLayout
@@ -42,6 +43,9 @@ import Term from '../components/mdx/Term';
           </p>
         </div>
       </div>
+
+      <!-- Interactive 3-Light Engine Simulator -->
+      <ThreeLightQuickSim client:load />
 
       <!-- Step-by-Step Guide with Concrete Examples -->
       <div class="checker-grid">
@@ -237,7 +241,7 @@ import Term from '../components/mdx/Term';
   .checker-header__subline {
     font-size: var(--font-size-base);
     color: var(--color-text-muted);
-    max-width: 62ch;
+    max-width: 88ch;
     margin: 0;
   }
 

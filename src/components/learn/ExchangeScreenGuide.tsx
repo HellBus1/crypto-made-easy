@@ -4,6 +4,8 @@ interface ScreenZone {
   id: number;
   shortTitle: string;
   badge: string;
+  pinLeft: string;
+  pinTop: string;
   screenValue: string;
   plainQuestion: string;
   plainExplanation: string;
@@ -15,93 +17,107 @@ interface ScreenZone {
 const ZONES: ScreenZone[] = [
   {
     id: 1,
-    shortTitle: '1. Coin Pair & Current Price',
-    badge: 'Top-Left Header',
-    screenValue: 'SOL / USDT = $128.18',
-    plainQuestion: 'What am I buying, and what does 1 coin cost right now?',
+    shortTitle: '1. Timeframe Bar (1m vs 4h / 1D)',
+    badge: 'Top-Left Row Above Chart',
+    pinLeft: '9%',
+    pinTop: '11%',
+    screenValue: '1m | 15m | 1h | [4h] | [1D]',
+    plainQuestion: 'Why does the chart move so fast when I first open Gate.com?',
     plainExplanation:
-      'Every spot chart compares two things: the coin you want to buy (SOL) and the digital dollar cash you pay with (USDT). The big number ($128.18) is the last price a buyer and seller agreed on.',
+      'Look at the top-left row of the screenshot: "1m  15m  1h  4h  1D". On 1m (1-minute), every single trade makes the bars jump like a heartbeat monitor. Clicking "4h" or "1D" zooms out so each bar equals 4 hours or 1 full day.',
     analogy:
-      'Just like a sign at a fruit stall that says "Mangoes / USD: $1.28 each". Always make sure you are on the "Spot" tab (buying real coins with your own cash, never borrowed money).',
+      'Staring at a 1m chart is like pressing your nose 2 inches from a TV screen: all you see is flashing pixels. Stepping back to 4h or 1D lets you see the whole picture calmly.',
     concreteExample:
-      'If you have 128.18 USDT in your wallet and buy at this price, you receive 1.00 SOL coin.',
-    checkerConnection: 'Copy "128.18" into the "Current Price" box in our Signal Helper.',
+      'In the attached screenshot, "1h" is selected. Before checking any coin, click "4h" or "1D" right next to it.',
+    checkerConnection: 'Always switch your exchange to "4H" or "1D" before reading any numbers.',
   },
   {
     id: 2,
-    shortTitle: '2. Timeframe Buttons (4H / 1D)',
-    badge: 'Row Above Chart',
-    screenValue: 'Selected: 4H (1 bar = 4 hours)',
-    plainQuestion: 'Why does the chart look so fast and chaotic when I first open Gate.com?',
+    shortTitle: '2. Pair & OHLC Price Bar',
+    badge: 'Top-Left Inside Chart',
+    pinLeft: '24%',
+    pinTop: '18%',
+    screenValue: 'BTC/USDT · O 75,903 H 75,932 L 75,889 C 75,925.4',
+    plainQuestion: 'What coin am I looking at, and what do O, H, L, C mean?',
     plainExplanation:
-      'By default, many exchanges open on the 1-minute (1m) or 15-minute (15m) view, where every tiny trade makes the bars jump around like a heartbeat monitor. Clicking "4H" or "1D" zooms out so each bar shows 4 hours or 1 full day.',
+      'BTC/USDT means you are pricing Bitcoin in USDT digital dollars. Next to it are four letters for the current candle: O (Open/Start price), H (Highest tip), L (Lowest drop), and C (Current/Closing price).',
     analogy:
-      'Staring at a 1-minute chart is like pressing your nose 2 inches from a TV screen: all you see is flashing pixels. Stepping back to 4H or 1D lets you see the whole picture calmly.',
+      'Just like a daily weather summary that shows: Morning Temp (O), Daytime High (H), Nighttime Low (L), and Current Temp right now (C).',
     concreteExample:
-      'On the 4H view, you only need to glance at the chart once or twice a day (morning and evening).',
-    checkerConnection: 'Always click "4H" or "1D" on Gate.com before reading any numbers.',
+      'In the screenshot, C 75,925.4 (also shown in the green box on the right edge) is the live Current Price.',
+    checkerConnection: 'Copy the live "C" price into the "Current Price" box in our Signal Helper.',
   },
   {
     id: 3,
-    shortTitle: '3. Candles & MA30 Line (Light 1)',
+    shortTitle: '3. Candles & Support Bounce Floor',
     badge: 'Main Chart Center',
-    screenValue: 'Price $128.18 vs MA30 $129.07',
-    plainQuestion: 'Is the coin currently on discount compared to its recent average price?',
+    pinLeft: '32%',
+    pinTop: '52%',
+    screenValue: 'Peak ~80,500 -> Support Base ~75,500',
+    plainQuestion: 'Where did sellers stop dumping and where did buyers start catching the drop?',
     plainExplanation:
-      'Green bars mean price went up during that 4-hour block; red bars mean price went down. The smooth blue line (MA30) is the average closing price of the last 30 bars.',
+      'In the middle of the screenshot, price rallied to ~80,500 (Resistance Ceiling), dropped in a tall red bar down to ~75,500, and then went sideways in a flat row of small candles. That flat bottom (~75,500) is your Support Floor.',
     analogy:
-      'Imagine a jacket that normally costs $129.07 over the past month (MA30). Today it is priced at $128.18 (below the line), which means it is on sale rather than overpriced.',
+      'Drop a tennis ball from a table: the table top was the ceiling where it fell from, and the floor where it stops falling and bounces is Support.',
     concreteExample:
-      'Look at the tiny legend at the top-left of the chart: "MA30: 129.07". Since Current Price ($128.18) is below MA30 ($129.07), Light 1 turns GREEN.',
-    checkerConnection: 'Copy "129.07" into the "MA30 Average Price" box for Light 1.',
+      'When you also click [MA] or [BOLL] at the bottom, the 30-bar average line and price tunnel draw right over these candles.',
+    checkerConnection:
+      'Copy the recent bounce floor prices into "Support Floor 1, 2 & 3" for your split buy plan.',
   },
   {
     id: 4,
-    shortTitle: '4. Support Floor & Ceiling',
-    badge: 'Horizontal Price Zones',
-    screenValue: 'Floor $126.64 | Ceiling $135.00',
-    plainQuestion: 'Where did price bounce up before, and where did it get stuck before?',
+    shortTitle: '4. Volume Activity Bars',
+    badge: 'Sub-Chart Under Candles',
+    pinLeft: '19%',
+    pinTop: '81%',
+    screenValue: 'Volume 14.51 (Green & Red Pillars)',
+    plainQuestion: 'Was that price drop or bounce backed by a real crowd or an empty room?',
     plainExplanation:
-      'Look left on the chart. The low price where red drops previously stopped and bounced up is your Support Floor. The high peak where green rallies previously stalled is your Resistance Ceiling.',
+      'Right underneath the candles sits "Volume 14.51". Each vertical bar shows how many coins changed hands during that candle above it. Notice the tall red pillar during the big drop, followed by smaller calm bars as selling dried up.',
     analogy:
-      'Bouncing a ball inside a room: the Support is the floor underneath you ($126.64), and Resistance is the ceiling above your head ($135.00). We want to buy near the floor and sell near the ceiling.',
+      'Tall Volume bars mean a packed supermarket; tiny Volume bars mean only a few shoppers are inside.',
     concreteExample:
-      'SOL bounced near $128.00 and $126.64 recently. Those become the exact prices where we place our staggered buy orders.',
-    checkerConnection:
-      'Copy those bounce prices into "Support Floor 1 & 2" and the peak into "Resistance Ceiling".',
+      'When a big red Volume spike is followed by shrinking bars and flat candles, panic sellers have finished dumping.',
+    checkerConnection: 'Use Volume to confirm whether selling pressure is calming down.',
   },
   {
     id: 5,
-    shortTitle: '5. RSI Momentum Meter (Light 2)',
-    badge: 'Bottom Sub-Chart',
-    screenValue: 'RSI(14) = 32.57 (Below 36)',
-    plainQuestion: 'Are sellers tired and running out of steam, or is everyone panic-dumping?',
+    shortTitle: '5. Bottom Indicator Strip (MA, BOLL, RSI)',
+    badge: 'Bottom Edge of Chart',
+    pinLeft: '24%',
+    pinTop: '95%',
+    screenValue: 'Use ONLY: [MA] [Volume] [BOLL] [RSI]',
+    plainQuestion: 'There are 17 tiny buttons at the very bottom! Which ones do I actually click?',
     plainExplanation:
-      'Directly underneath the main chart sits a 0-to-100 speedometer called RSI. When RSI drops to 36 or lower, sellers have pushed price down hard and are getting exhausted. When RSI climbs above 70, buyers are overheated.',
+      'Look at the bottom strip of the screenshot: "SRL | Turnover | MA | EMA | Volume | MACD | BOLL | VPVR | SAR | AVL | MTM | VR | DMA | SKDJ | PSY | BBI | >". Beginners only need 3 indicators from this bar: MA (average price), BOLL (price tunnel), and RSI (click the ">" arrow on the right to see RSI).',
     analogy:
-      'Pulling a rubber band downward: by the time the meter reaches 32–36, the rubber band is stretched tight and ready to snap back up.',
-    concreteExample: 'Here RSI reads 32.57. Because 32.57 is 36 or lower, Light 2 turns GREEN.',
-    checkerConnection: 'Copy "32.57" into the "RSI (0-100)" box for Light 2.',
+      'A microwave has 20 preset buttons (Popcorn, Defrost, Reheat, Grill), but 95% of the time you only need "Time" and "Start". Ignore the other 13 buttons!',
+    concreteExample:
+      'Tap [MA] to see Light 1 (Price vs Average), tap [BOLL] to see the floor/ceiling bands, and tap [RSI] to check Light 2 (RSI 36 or lower).',
+    checkerConnection: 'Copy MA30 into Light 1 and RSI (0-100) into Light 2 in our Signal Checker.',
   },
   {
     id: 6,
-    shortTitle: '6. Order Book Buyer Bar (Light 3)',
-    badge: 'Right Column Tug-of-War',
-    screenValue: '41.6% Green Bids vs 58.4% Red Asks',
-    plainQuestion: 'Are real buyers actually waiting with cash underneath the current price?',
+    shortTitle: '6. Order Book & Limit Buy Box',
+    badge: 'Middle & Right Columns',
+    pinLeft: '68%',
+    pinTop: '48%',
+    screenValue: 'Order Book (Red/Green) + Limit Buy Box',
+    plainQuestion: 'Where do I check waiting buyers (Light 3) and where do I place my order?',
     plainExplanation:
-      'On the right side of Gate.com, the Order Book lists waiting buy orders (Green Bids) and waiting sell orders (Red Asks). At the bottom or top of that list is a percentage bar showing the tug-of-war between buyers and sellers.',
+      'The middle column ("Order Book") lists Red Sellers on top (75,936.0 down to 75,929.2) and Green Buyers waiting below (75,929.1 down to 75,926.5). The far-right column ("Buy / Limit") is where you type your desired Limit Price, USDT amount, check TP/SL, and click "Buy".',
     analogy:
-      'A cheap price means nothing if nobody wants to buy the item. Seeing at least 40% Green Buyers proves there is a real crowd of shoppers holding cash buckets underneath.',
+      'The Order Book is the live auction board showing who is waiting with cash. The "Limit" tab on the right lets you name your own discount price instead of paying full sticker price.',
     concreteExample:
-      'In our SOL example, Green Bids are 41.58% (at least 40%), so Light 3 turns GREEN. In our ETH contrast example, Bids were only 22%, which kept Light 3 OFF and saved us from buying too early!',
-    checkerConnection: 'Copy "41.58" into the "Order Book Buyer Bid %" box for Light 3.',
+      'In the right panel of the screenshot, "Limit" is selected with Price 75,916.9 USDT, Available 193.26 USDT, and a "TP/SL" checkbox for your Stop-Loss.',
+    checkerConnection:
+      'Check that Green Buyers make up at least 40% (Light 3), then copy your 3 Limit Buy prices into the right panel.',
   },
 ];
 
 export default function ExchangeScreenGuide() {
-  const [activeId, setActiveId] = useState<number>(1);
-  const [hideNoise, setHideNoise] = useState<boolean>(true);
+  const [activeId, setActiveId] = useState<number>(5);
+  const [viewMode, setViewMode] = useState<'screenshot' | 'diagram'>('screenshot');
 
   const activeZone = ZONES.find((z) => z.id === activeId) ?? ZONES[0];
 
@@ -109,41 +125,53 @@ export default function ExchangeScreenGuide() {
     <div className="sim-box" data-ui="exchange-screen-guide">
       <div className="sim-box__header">
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <span className="status-pill status-pill--info">Interactive Screen Map</span>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: '8px',
+              marginBottom: '4px',
+            }}
+          >
+            <span className="status-pill status-pill--info">Interactive Gate.com Screen Map</span>
             <span style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-text-subtle)' }}>
-              Click any numbered zone (1 to 6) to decode it
+              Click any numbered pin (1 to 6) on the screenshot or tabs below
             </span>
           </div>
-          <h3 className="sim-box__title">Decode a Gate.com / Spot Exchange Screen in 60 Seconds</h3>
+          <h3 className="sim-box__title">
+            Real Gate.com Spot Screen: Where the Essential Buttons Live
+          </h3>
           <p className="sim-box__subtitle">
-            An exchange screen looks scary because 90% of the buttons are for day-traders. Click
-            each numbered part below to see the only 6 places a beginner needs to look.
+            Here is an actual Gate.com spot trading screen. Click pins <strong>1 to 6</strong> to
+            see exactly where <code>1m / 4h / 1D</code>, <code>MA</code>, <code>BOLL</code>,{' '}
+            <code>RSI</code>, the <code>Order Book</code>, and <code>Limit Buy</code> are located.
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setHideNoise(!hideNoise)}
-          className={hideNoise ? 'btn-primary' : 'btn-secondary'}
-          style={{ flexShrink: 0 }}
-        >
-          <span>{hideNoise ? 'Beginner Clean View: ON' : 'Showing Extra Clutter'}</span>
-        </button>
+        <div style={{ display: 'flex', gap: '6px', flexShrink: 0, flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={() => setViewMode('screenshot')}
+            className={viewMode === 'screenshot' ? 'btn-primary' : 'btn-secondary'}
+            style={{ minHeight: '36px', padding: '6px 12px', fontSize: '12px' }}
+          >
+            Real Gate.com Screenshot
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode('diagram')}
+            className={viewMode === 'diagram' ? 'btn-primary' : 'btn-secondary'}
+            style={{ minHeight: '36px', padding: '6px 12px', fontSize: '12px' }}
+          >
+            Simplified Beginner Map
+          </button>
+        </div>
       </div>
 
       <div className="sim-box__body">
         {/* Step Selector Pills */}
-        <div
-          role="tablist"
-          aria-label="Exchange screen zones"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
-            gap: '8px',
-            marginBottom: 'var(--space-5)',
-          }}
-        >
+        <div role="tablist" aria-label="Exchange screen zones" className="zone-tabs-grid">
           {ZONES.map((zone) => {
             const isSelected = zone.id === activeId;
             return (
@@ -153,21 +181,7 @@ export default function ExchangeScreenGuide() {
                 role="tab"
                 aria-selected={isSelected}
                 onClick={() => setActiveId(zone.id)}
-                style={{
-                  textAlign: 'left',
-                  padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border: `1px solid ${
-                    isSelected ? 'var(--color-data-hue)' : 'var(--color-border-default)'
-                  }`,
-                  backgroundColor: isSelected
-                    ? 'var(--color-data-hue-subtle)'
-                    : 'var(--color-bg-surface)',
-                  color: 'var(--color-text-main)',
-                  cursor: 'pointer',
-                  fontSize: 'var(--font-size-xs)',
-                  fontWeight: isSelected ? 700 : 500,
-                }}
+                className={`zone-tab-btn ${isSelected ? 'zone-tab-btn--active' : ''}`}
               >
                 {zone.shortTitle}
               </button>
@@ -177,360 +191,188 @@ export default function ExchangeScreenGuide() {
 
         {/* Main Responsive 2-Column Interactive Grid */}
         <div className="screen-guide-grid">
-          {/* Left: Visual Simplified Exchange Mock */}
-          <div
-            style={{
-              padding: 'var(--space-4)',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--color-border-default)',
-              backgroundColor: 'var(--color-bg-canvas)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-3)',
-            }}
-          >
-            {/* Top Bar: Zone 1 (Pair & Price) + Clutter */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '8px',
-              }}
-            >
+          {/* Left: Real Gate.com Annotated Screenshot OR Simplified Diagram */}
+          {viewMode === 'screenshot' ? (
+            <div className="screenshot-stage">
+              <div className="screenshot-stage__top-note">
+                <span>
+                  <strong>Real Gate.com Spot Screen:</strong> Tap any numbered pin (1 to 6) on the
+                  image below
+                </span>
+                <span className="status-pill status-pill--positive">
+                  Active Pin #{activeZone.id}
+                </span>
+              </div>
+
+              <div className="screenshot-canvas">
+                <img
+                  src="/images/gate-spot-screen.jpg"
+                  alt="Annotated Gate.com BTC/USDT Spot trading screen showing timeframe bar, candlestick chart, volume, bottom indicator buttons (MA, BOLL, RSI), order book, and limit buy form"
+                  loading="lazy"
+                />
+
+                {/* Highlight Box Overlay for Active Zone */}
+                {activeId === 1 && (
+                  <div
+                    className="screenshot-highlight"
+                    style={{ left: '0.8%', top: '8%', width: '16%', height: '6.5%' }}
+                  />
+                )}
+                {activeId === 2 && (
+                  <div
+                    className="screenshot-highlight"
+                    style={{ left: '4%', top: '15%', width: '43%', height: '6%' }}
+                  />
+                )}
+                {activeId === 3 && (
+                  <div
+                    className="screenshot-highlight"
+                    style={{ left: '4%', top: '22%', width: '53%', height: '50%' }}
+                  />
+                )}
+                {activeId === 4 && (
+                  <div
+                    className="screenshot-highlight"
+                    style={{ left: '4%', top: '73%', width: '53%', height: '18%' }}
+                  />
+                )}
+                {activeId === 5 && (
+                  <div
+                    className="screenshot-highlight"
+                    style={{ left: '3%', top: '92.5%', width: '51%', height: '6.5%' }}
+                  />
+                )}
+                {activeId === 6 && (
+                  <div
+                    className="screenshot-highlight"
+                    style={{ left: '57.5%', top: '2%', width: '41.5%', height: '94%' }}
+                  />
+                )}
+
+                {/* Numbered Hotspot Pins */}
+                {ZONES.map((zone) => {
+                  const isActive = zone.id === activeId;
+                  return (
+                    <button
+                      key={zone.id}
+                      type="button"
+                      onClick={() => setActiveId(zone.id)}
+                      className={`screenshot-pin ${isActive ? 'screenshot-pin--active' : ''}`}
+                      style={{ left: zone.pinLeft, top: zone.pinTop }}
+                      aria-label={`Select ${zone.shortTitle}`}
+                    >
+                      {zone.id}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="screenshot-stage__caption">
+                <strong>Tip:</strong> On small phone screens, you can also tap the 6 numbered tabs
+                above or switch to <em>Simplified Beginner Map</em> for large text blocks.
+              </div>
+            </div>
+          ) : (
+            /* Simplified Schematic View */
+            <div className="schematic-stage">
               <button
                 type="button"
                 onClick={() => setActiveId(1)}
-                style={{
-                  flex: '1 1 auto',
-                  textAlign: 'left',
-                  padding: '10px 12px',
-                  borderRadius: 'var(--radius-md)',
-                  border:
-                    activeId === 1
-                      ? '2px solid var(--color-data-hue)'
-                      : '1px solid var(--color-border-default)',
-                  backgroundColor:
-                    activeId === 1 ? 'var(--color-data-hue-subtle)' : 'var(--color-bg-surface)',
-                  cursor: 'pointer',
-                }}
+                className={`schematic-block ${activeId === 1 ? 'schematic-block--active' : ''}`}
               >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '8px',
-                  }}
-                >
-                  <span
-                    style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-data-hue)' }}
-                  >
-                    [Zone 1] Spot Pair &amp; Price
-                  </span>
-                  <span className="status-pill status-pill--positive">Spot Tab</span>
-                </div>
-                <div
-                  className="num"
-                  style={{ fontSize: 'var(--font-size-lg)', fontWeight: 700, marginTop: '2px' }}
-                >
-                  SOL / USDT &nbsp; $128.18
+                <div className="schematic-block__row">
+                  <span className="schematic-tag">[1] Timeframe Bar</span>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <span
+                      style={{
+                        textDecoration: 'line-through',
+                        color: 'var(--color-text-subtle)',
+                        fontSize: '11px',
+                      }}
+                    >
+                      1m &nbsp; 15m &nbsp; 1h
+                    </span>
+                    <span className="status-pill status-pill--info">4h (Recommended)</span>
+                    <span className="status-pill status-pill--neutral">1D</span>
+                  </div>
                 </div>
               </button>
 
-              {!hideNoise && (
-                <div
-                  style={{
-                    padding: '8px 10px',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px dashed var(--color-border-default)',
-                    fontSize: '11px',
-                    color: 'var(--color-text-subtle)',
-                  }}
-                >
-                  24h High / 24h Turnover / Perp Futures / Margin 10x (Ignore this clutter)
-                </div>
-              )}
-            </div>
-
-            {/* Row 2: Zone 2 (Timeframe Bar) + Indicator Toggles */}
-            <button
-              type="button"
-              onClick={() => setActiveId(2)}
-              style={{
-                width: '100%',
-                textAlign: 'left',
-                padding: '8px 12px',
-                borderRadius: 'var(--radius-md)',
-                border:
-                  activeId === 2
-                    ? '2px solid var(--color-data-hue)'
-                    : '1px solid var(--color-border-default)',
-                backgroundColor:
-                  activeId === 2 ? 'var(--color-data-hue-subtle)' : 'var(--color-bg-surface)',
-                cursor: 'pointer',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '8px',
-              }}
-            >
-              <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-data-hue)' }}>
-                [Zone 2] Timeframe Bar:
-              </span>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', fontSize: '11px' }}>
-                {!hideNoise && (
-                  <span
-                    style={{ color: 'var(--color-text-subtle)', textDecoration: 'line-through' }}
-                  >
-                    1m &nbsp; 5m &nbsp; 15m
-                  </span>
-                )}
-                <span className="status-pill status-pill--info">4H (Active)</span>
-                <span className="status-pill status-pill--neutral">1D</span>
-              </div>
-            </button>
-
-            {/* Center Split: Main Chart (Zones 3, 4, 5) + Right Order Book (Zone 6) */}
-            <div className="screen-guide-inner-split">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                {/* Zone 3: Candles & MA30 */}
-                <button
-                  type="button"
-                  onClick={() => setActiveId(3)}
-                  style={{
-                    width: '100%',
-                    textAlign: 'left',
-                    padding: '12px',
-                    borderRadius: 'var(--radius-md)',
-                    border:
-                      activeId === 3
-                        ? '2px solid var(--color-data-hue)'
-                        : '1px solid var(--color-border-default)',
-                    backgroundColor:
-                      activeId === 3 ? 'var(--color-data-hue-subtle)' : 'var(--color-bg-surface)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      flexWrap: 'wrap',
-                      gap: '4px',
-                    }}
-                  >
-                    <span
-                      style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-data-hue)' }}
-                    >
-                      [Zone 3] Light 1: Price vs MA30 Line
-                    </span>
-                    <span className="num" style={{ fontSize: '11px', fontWeight: 600 }}>
-                      MA30: $129.07 | BOLL LB: $126.50
-                    </span>
-                  </div>
-
-                  {/* Mini SVG Diagram of Candles + MA30 Curve */}
-                  <svg
-                    viewBox="0 0 320 90"
-                    style={{ width: '100%', height: '84px', marginTop: '8px', display: 'block' }}
-                    aria-hidden="true"
-                  >
-                    {/* MA30 Smooth Line */}
-                    <path
-                      d="M 10 25 Q 110 28, 200 42 T 310 52"
-                      fill="none"
-                      stroke="#0284c7"
-                      strokeWidth="2.5"
-                    />
-                    <text x="14" y="20" fontSize="10" fill="#0284c7" fontWeight="bold">
-                      MA30 Fair-Price Line ($129.07)
-                    </text>
-
-                    {/* Sample Candles dipping below MA30 */}
-                    <line x1="60" y1="22" x2="60" y2="54" stroke="#b91c1c" strokeWidth="2" />
-                    <rect x="54" y="28" width="12" height="20" fill="#b91c1c" rx="1" />
-
-                    <line x1="120" y1="32" x2="120" y2="68" stroke="#b91c1c" strokeWidth="2" />
-                    <rect x="114" y="38" width="12" height="22" fill="#b91c1c" rx="1" />
-
-                    <line x1="180" y1="45" x2="180" y2="82" stroke="#b91c1c" strokeWidth="2" />
-                    <rect x="174" y="50" width="12" height="22" fill="#b91c1c" rx="1" />
-
-                    <line x1="245" y1="48" x2="245" y2="84" stroke="#15803d" strokeWidth="2" />
-                    <rect x="239" y="54" width="12" height="16" fill="#15803d" rx="1" />
-                    <text x="205" y="44" fontSize="10" fill="#15803d" fontWeight="bold">
-                      Current $128.18 (On Discount)
-                    </text>
-                  </svg>
-                </button>
-
-                {/* Zone 4: Support & Resistance Floors */}
-                <button
-                  type="button"
-                  onClick={() => setActiveId(4)}
-                  style={{
-                    width: '100%',
-                    textAlign: 'left',
-                    padding: '10px 12px',
-                    borderRadius: 'var(--radius-md)',
-                    border:
-                      activeId === 4
-                        ? '2px solid var(--color-data-hue)'
-                        : '1px solid var(--color-border-default)',
-                    backgroundColor:
-                      activeId === 4 ? 'var(--color-data-hue-subtle)' : 'var(--color-bg-surface)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div
-                    style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-data-hue)' }}
-                  >
-                    [Zone 4] Support Floors &amp; Resistance Ceiling
-                  </div>
-                  <div
-                    className="num"
-                    style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      justifyContent: 'space-between',
-                      gap: '8px',
-                      fontSize: 'var(--font-size-xs)',
-                      marginTop: '4px',
-                    }}
-                  >
-                    <span style={{ color: 'var(--color-success)', fontWeight: 600 }}>
-                      Floors: $128.00 / $126.64 / $124.50
-                    </span>
-                    <span style={{ color: 'var(--color-warning)', fontWeight: 600 }}>
-                      Ceiling: $135.00
-                    </span>
-                  </div>
-                </button>
-
-                {/* Zone 5: RSI Sub-Pane */}
-                <button
-                  type="button"
-                  onClick={() => setActiveId(5)}
-                  style={{
-                    width: '100%',
-                    textAlign: 'left',
-                    padding: '10px 12px',
-                    borderRadius: 'var(--radius-md)',
-                    border:
-                      activeId === 5
-                        ? '2px solid var(--color-data-hue)'
-                        : '1px solid var(--color-border-default)',
-                    backgroundColor:
-                      activeId === 5 ? 'var(--color-data-hue-subtle)' : 'var(--color-bg-surface)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <span
-                      style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-data-hue)' }}
-                    >
-                      [Zone 5] Light 2: RSI Momentum (0 to 100)
-                    </span>
-                    <span className="status-pill status-pill--positive num">
-                      RSI: 32.57 (&le; 36)
-                    </span>
-                  </div>
-                </button>
-              </div>
-
-              {/* Right Column: Zone 6 (Order Book Bid %) */}
               <button
                 type="button"
-                onClick={() => setActiveId(6)}
-                style={{
-                  textAlign: 'left',
-                  padding: '12px',
-                  borderRadius: 'var(--radius-md)',
-                  border:
-                    activeId === 6
-                      ? '2px solid var(--color-data-hue)'
-                      : '1px solid var(--color-border-default)',
-                  backgroundColor:
-                    activeId === 6 ? 'var(--color-data-hue-subtle)' : 'var(--color-bg-surface)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  gap: '8px',
-                }}
+                onClick={() => setActiveId(2)}
+                className={`schematic-block ${activeId === 2 ? 'schematic-block--active' : ''}`}
               >
-                <div>
-                  <div
-                    style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-data-hue)' }}
-                  >
-                    [Zone 6] Light 3: Order Book
-                  </div>
-                  <div
-                    style={{ fontSize: '11px', color: 'var(--color-text-muted)', marginTop: '2px' }}
-                  >
-                    Waiting Buyers vs Sellers
-                  </div>
-                </div>
-
-                {/* Tug of war bar */}
-                <div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      marginBottom: '4px',
-                    }}
-                    className="num"
-                  >
-                    <span style={{ color: 'var(--color-success)' }}>Buyers 41.6%</span>
-                    <span style={{ color: 'var(--color-danger)' }}>58.4% Sellers</span>
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      height: '12px',
-                      borderRadius: '9999px',
-                      overflow: 'hidden',
-                      border: '1px solid var(--color-border-default)',
-                    }}
-                  >
-                    <div style={{ width: '41.6%', backgroundColor: 'var(--color-success)' }} />
-                    <div style={{ width: '58.4%', backgroundColor: 'var(--color-danger)' }} />
-                  </div>
-                </div>
-
-                <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>
-                  Rule: Need <strong>&ge; 40% Buyers</strong> so you are not catching a falling
-                  knife.
+                <div className="schematic-block__row">
+                  <span className="schematic-tag">[2] Pair &amp; OHLC Header</span>
+                  <span className="num" style={{ fontSize: '12px', fontWeight: 700 }}>
+                    BTC/USDT · O 75,903 H 75,932 L 75,889 C 75,925.4
+                  </span>
                 </div>
               </button>
+
+              <div className="screen-guide-inner-split">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveId(3)}
+                    className={`schematic-block ${activeId === 3 ? 'schematic-block--active' : ''}`}
+                  >
+                    <div className="schematic-tag">[3] Main Candlesticks + MA / BOLL</div>
+                    <div style={{ fontSize: '12px', marginTop: '4px' }}>
+                      Green &amp; red price bars + Support Bounce Floor (~$75,500) + MA30 fair-price
+                      line.
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveId(4)}
+                    className={`schematic-block ${activeId === 4 ? 'schematic-block--active' : ''}`}
+                  >
+                    <div className="schematic-tag">[4] Volume 14.51 (Activity Pillars)</div>
+                    <div style={{ fontSize: '12px', marginTop: '4px' }}>
+                      Shows how many coins traded during each candle bar.
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveId(5)}
+                    className={`schematic-block ${activeId === 5 ? 'schematic-block--active' : ''}`}
+                  >
+                    <div className="schematic-tag">
+                      [5] Bottom Indicator Bar (&ldquo;Dozens of Tiny Buttons&rdquo;)
+                    </div>
+                    <div style={{ fontSize: '12px', marginTop: '4px' }}>
+                      Keep ONLY: <strong>MA</strong>, <strong>Volume</strong>, <strong>BOLL</strong>
+                      , <strong>RSI</strong>. Ignore SRL, VPVR, SAR, AVL, MTM, VR, DMA, SKDJ, PSY,
+                      BBI.
+                    </div>
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveId(6)}
+                  className={`schematic-block ${activeId === 6 ? 'schematic-block--active' : ''}`}
+                >
+                  <div className="schematic-tag">[6] Order Book &amp; Limit Buy Panel</div>
+                  <div style={{ fontSize: '12px', marginTop: '6px' }}>
+                    <strong>Order Book:</strong> Red Asks (Sellers) on top vs Green Bids (Buyers) on
+                    bottom (Light 3 needs &ge; 40% Buyers).
+                  </div>
+                  <div style={{ fontSize: '12px', marginTop: '6px' }}>
+                    <strong>Right Form:</strong> Choose <strong>Limit</strong>, enter your Support
+                    Floor price, check <strong>TP/SL</strong>, and click Buy.
+                  </div>
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Right: Beginner Plain-English Decoder Card */}
-          <div
-            style={{
-              padding: 'var(--space-5)',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--color-border-default)',
-              backgroundColor: 'var(--color-bg-surface)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              gap: 'var(--space-4)',
-            }}
-          >
+          <div className="decoder-card">
             <div>
               <div
                 style={{
@@ -581,25 +423,14 @@ export default function ExchangeScreenGuide() {
                   fontSize: 'var(--font-size-xs)',
                 }}
               >
-                <strong>Concrete Example: </strong>
+                <strong>On Your Gate.com Screen: </strong>
                 <span>{activeZone.concreteExample}</span>
               </div>
             </div>
 
-            <div
-              style={{
-                paddingTop: 'var(--space-3)',
-                borderTop: '1px solid var(--color-border-subtle)',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '8px',
-                fontSize: 'var(--font-size-xs)',
-              }}
-            >
+            <div className="decoder-card__footer">
               <span style={{ color: 'var(--color-text-muted)' }}>
-                <strong>Next step:</strong> {activeZone.checkerConnection}
+                <strong>Action step:</strong> {activeZone.checkerConnection}
               </span>
               <div style={{ display: 'flex', gap: '6px' }}>
                 <button
@@ -608,7 +439,7 @@ export default function ExchangeScreenGuide() {
                   className="btn-subtle"
                   style={{ minHeight: '32px', padding: '4px 10px', fontSize: '12px' }}
                 >
-                  &larr; Prev Zone
+                  &larr; Prev Pin
                 </button>
                 <button
                   type="button"
@@ -616,7 +447,7 @@ export default function ExchangeScreenGuide() {
                   className="btn-primary"
                   style={{ minHeight: '32px', padding: '4px 10px', fontSize: '12px' }}
                 >
-                  Next Zone &rarr;
+                  Next Pin &rarr;
                 </button>
               </div>
             </div>
@@ -626,8 +457,10 @@ export default function ExchangeScreenGuide() {
 
       <div className="sim-box__footer">
         <span>
-          <strong>Beginner Golden Rule:</strong> Ignore Futures, Margin, and 1-minute charts. Only
-          read <strong>Spot 4H / 1D</strong> and check the 3 Lights before placing any order.
+          <strong>Beginner Golden Rule:</strong> Ignore the 11 drawing icons on the far left and the
+          13 extra acronyms on the bottom bar. Stick to <strong>4h / 1D</strong>,{' '}
+          <strong>MA</strong>, <strong>BOLL</strong>, <strong>RSI</strong>, and the{' '}
+          <strong>Order Book</strong>.
         </span>
         <a href="/checker" style={{ fontWeight: 700 }}>
           Open the 3-Light Signal Helper &rarr;
@@ -635,6 +468,43 @@ export default function ExchangeScreenGuide() {
       </div>
 
       <style>{`
+        .zone-tabs-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 8px;
+          margin-bottom: var(--space-4);
+        }
+        @media (min-width: 520px) {
+          .zone-tabs-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (min-width: 768px) {
+          .zone-tabs-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+        @media (min-width: 1360px) {
+          .zone-tabs-grid {
+            grid-template-columns: repeat(6, 1fr);
+          }
+        }
+        .zone-tab-btn {
+          text-align: left;
+          padding: 9px 12px;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--color-border-default);
+          background-color: var(--color-bg-surface);
+          color: var(--color-text-main);
+          cursor: pointer;
+          font-size: var(--font-size-xs);
+          font-weight: 500;
+        }
+        .zone-tab-btn--active {
+          border-color: var(--color-data-hue);
+          background-color: var(--color-data-hue-subtle);
+          font-weight: 700;
+        }
         .screen-guide-grid {
           display: grid;
           grid-template-columns: 1fr;
@@ -642,9 +512,121 @@ export default function ExchangeScreenGuide() {
         }
         @media (min-width: 1024px) {
           .screen-guide-grid {
-            grid-template-columns: 1.05fr 0.95fr;
+            grid-template-columns: 1.3fr 1fr;
             align-items: stretch;
           }
+        }
+        @media (min-width: 1536px) {
+          .screen-guide-grid {
+            grid-template-columns: 1.45fr 1fr;
+            gap: var(--space-6);
+          }
+        }
+        .screenshot-stage {
+          padding: var(--space-3);
+          border-radius: var(--radius-lg);
+          border: 1px solid var(--color-border-default);
+          background-color: var(--color-bg-canvas);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: var(--space-3);
+        }
+        .screenshot-stage__top-note {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          font-size: var(--font-size-xs);
+        }
+        .screenshot-canvas {
+          position: relative;
+          width: 100%;
+          border-radius: var(--radius-md);
+          overflow: hidden;
+          border: 1px solid var(--color-border-default);
+          background-color: #ffffff;
+        }
+        .screenshot-canvas img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+        .screenshot-highlight {
+          position: absolute;
+          border: 2px solid #0284c7;
+          background-color: rgba(2, 132, 199, 0.14);
+          border-radius: 6px;
+          pointer-events: none;
+        }
+        .screenshot-pin {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          width: 26px;
+          height: 26px;
+          border-radius: 9999px;
+          border: 2px solid #ffffff;
+          background-color: #0f172a;
+          color: #ffffff;
+          font-size: 12px;
+          font-weight: 700;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          padding: 0;
+        }
+        @media (min-width: 640px) {
+          .screenshot-pin {
+            width: 30px;
+            height: 30px;
+            font-size: 13px;
+          }
+        }
+        .screenshot-pin--active {
+          background-color: #0284c7;
+          transform: translate(-50%, -50%) scale(1.18);
+          z-index: 5;
+        }
+        .screenshot-stage__caption {
+          font-size: 11px;
+          color: var(--color-text-subtle);
+        }
+        .schematic-stage {
+          padding: var(--space-4);
+          border-radius: var(--radius-lg);
+          border: 1px solid var(--color-border-default);
+          background-color: var(--color-bg-canvas);
+          display: flex;
+          flex-direction: column;
+          gap: var(--space-3);
+        }
+        .schematic-block {
+          width: 100%;
+          text-align: left;
+          padding: 12px;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--color-border-default);
+          background-color: var(--color-bg-surface);
+          color: var(--color-text-main);
+          cursor: pointer;
+        }
+        .schematic-block--active {
+          border: 2px solid var(--color-data-hue);
+          background-color: var(--color-data-hue-subtle);
+        }
+        .schematic-block__row {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+        }
+        .schematic-tag {
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--color-data-hue);
         }
         .screen-guide-inner-split {
           display: grid;
@@ -653,8 +635,33 @@ export default function ExchangeScreenGuide() {
         }
         @media (min-width: 640px) {
           .screen-guide-inner-split {
-            grid-template-columns: 1.8fr 1fr;
+            grid-template-columns: 1.5fr 1fr;
           }
+        }
+        .decoder-card {
+          padding: var(--space-4);
+          border-radius: var(--radius-lg);
+          border: 1px solid var(--color-border-default);
+          background-color: var(--color-bg-surface);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: var(--space-4);
+        }
+        @media (min-width: 640px) {
+          .decoder-card {
+            padding: var(--space-5);
+          }
+        }
+        .decoder-card__footer {
+          padding-top: var(--space-3);
+          border-top: 1px solid var(--color-border-subtle);
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          font-size: var(--font-size-xs);
         }
       `}</style>
     </div>

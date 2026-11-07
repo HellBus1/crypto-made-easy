@@ -31,38 +31,40 @@ const { title, description, publishDate, updatedDate, author, ogImage, canonical
   author={author}
 >
   <div class="content-layout">
-    <Container size="md">
-      {backLink && (
-        <nav class="content-layout__back" aria-label="Breadcrumb">
-          <a href={backLink.href} class="content-layout__back-link">
-            &larr; {backLink.label}
-          </a>
-        </nav>
-      )}
-
-      <header class="content-layout__header">
-        <h1 class="content-layout__title">{title}</h1>
-
-        {description && <p class="content-layout__description">{description}</p>}
-
-        {(publishDate || author) && (
-          <div class="content-layout__meta">
-            {publishDate && (
-              <time datetime={toISODate(publishDate)} class="content-layout__date">
-                Published on {formatDate(publishDate)}
-              </time>
-            )}
-            {updatedDate && (
-              <span class="content-layout__updated">(Updated on {formatDate(updatedDate)})</span>
-            )}
-            {author && <span class="content-layout__author">By {author}</span>}
-          </div>
+    <Container size="lg">
+      <div class="surface-card content-layout__card">
+        {backLink && (
+          <nav class="content-layout__back" aria-label="Breadcrumb">
+            <a href={backLink.href} class="content-layout__back-link">
+              &larr; {backLink.label}
+            </a>
+          </nav>
         )}
-      </header>
 
-      <article class="prose">
-        <slot />
-      </article>
+        <header class="content-layout__header">
+          <h1 class="content-layout__title">{title}</h1>
+
+          {description && <p class="content-layout__description">{description}</p>}
+
+          {(publishDate || author) && (
+            <div class="content-layout__meta">
+              {publishDate && (
+                <time datetime={toISODate(publishDate)} class="content-layout__date">
+                  Published on {formatDate(publishDate)}
+                </time>
+              )}
+              {updatedDate && (
+                <span class="content-layout__updated">(Updated on {formatDate(updatedDate)})</span>
+              )}
+              {author && <span class="content-layout__author">By {author}</span>}
+            </div>
+          )}
+        </header>
+
+        <article class="prose">
+          <slot />
+        </article>
+      </div>
     </Container>
   </div>
 </BaseLayout>

@@ -27,7 +27,7 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
             <h1 style="margin-top: 8px; margin-bottom: 6px;">Interactive Spot Chart Curriculum</h1>
             <p
               class="text-muted"
-              style="font-size: var(--font-size-sm); max-width: 62ch; margin: 0;"
+              style="font-size: var(--font-size-sm); max-width: 90ch; margin: 0;"
             >
               Eight step-by-step chapters that take you from opening Gate.com for the first time to
               reading candlesticks, checking the 3 Traffic Lights, and protecting your cash with
@@ -94,6 +94,18 @@ const publishedSlugs = new Set(publishedLessons.map((entry) => entry.id));
   @media (min-width: 768px) {
     .modules-list {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .modules-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1800px) {
+    .modules-list {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
