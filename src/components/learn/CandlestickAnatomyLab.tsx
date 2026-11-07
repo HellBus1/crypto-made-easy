@@ -232,18 +232,17 @@ export default function CandlestickAnatomyLab() {
               <line x1="170" y1={yHigh} x2="170" y2={yLow} stroke={bodyColor} strokeWidth="3.5" />
 
               {/* Thick Candle Body */}
-              <rect
-                x="138"
-                y={yBodyTop}
-                width="64"
-                height={bodyHeight}
-                fill={bodyColor}
-                rx="4"
-              />
+              <rect x="138" y={yBodyTop} width="64" height={bodyHeight} fill={bodyColor} rx="4" />
 
               {/* Annotations on Right Side */}
               <line x1="175" y1={yHigh} x2="235" y2={yHigh} stroke="var(--color-text-subtle)" />
-              <text x="242" y={yHigh + 4} fontSize="11" fontWeight="bold" fill="var(--color-text-main)">
+              <text
+                x="242"
+                y={yHigh + 4}
+                fontSize="11"
+                fontWeight="bold"
+                fill="var(--color-text-main)"
+              >
                 High (H): ${ohlc.high} (Top Wick Tip)
               </text>
 
@@ -258,7 +257,13 @@ export default function CandlestickAnatomyLab() {
               </text>
 
               <line x1="175" y1={yLow} x2="235" y2={yLow} stroke="var(--color-text-subtle)" />
-              <text x="242" y={yLow + 4} fontSize="11" fontWeight="bold" fill="var(--color-text-main)">
+              <text
+                x="242"
+                y={yLow + 4}
+                fontSize="11"
+                fontWeight="bold"
+                fill="var(--color-text-main)"
+              >
                 Low (L): ${ohlc.low} (Bottom Bounce Wick)
               </text>
             </svg>
@@ -339,7 +344,9 @@ export default function CandlestickAnatomyLab() {
                   }}
                 >
                   <strong>3. High Tip (H - Highest spike)</strong>
-                  <span className="num">${ohlc.high} (Top wick: ${upperWickSize})</span>
+                  <span className="num">
+                    ${ohlc.high} (Top wick: ${upperWickSize})
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -365,7 +372,9 @@ export default function CandlestickAnatomyLab() {
                   }}
                 >
                   <strong>4. Low Tip (L - Lowest drop)</strong>
-                  <span className="num">${ohlc.low} (Bottom wick: ${lowerWickSize})</span>
+                  <span className="num">
+                    ${ohlc.low} (Bottom wick: ${lowerWickSize})
+                  </span>
                 </div>
                 <input
                   type="range"
@@ -419,4 +428,3 @@ export default function CandlestickAnatomyLab() {
     </div>
   );
 }
-
