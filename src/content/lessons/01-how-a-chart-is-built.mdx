@@ -5,6 +5,11 @@ chapter: 1
 track: 'Foundations'
 durationMinutes: 6
 interactiveFocus: 'Real Gate.com Screenshot Map & Interactive TradingView Chart'
+goals:
+  - 'Locate the Spot tab (never Futures/Margin) and switch the chart timeframe to 4h or 1D.'
+  - 'Read the 5 numbers needed by our checklist: Current Price, MA30, RSI, Bid %, and Support.'
+  - 'Confirm why a <$50 starter budget works safely above Gate.com 1 USDT spot minimums.'
+realWorldWhy: 'Open a live exchange without this filter and 1-minute flashing numbers pull you into panic clicks. Mastering screen layout in 4 minutes stops accidental Margin trades and noisy 1m entries.'
 draft: false
 ---
 
@@ -12,6 +17,7 @@ import Term from '../../components/mdx/Term';
 import ExchangeScreenGuide from '../../components/learn/ExchangeScreenGuide';
 import EssentialIndicatorsGuide from '../../components/learn/EssentialIndicatorsGuide';
 import MarketChart from '../../components/charts/MarketChart';
+import ChapterQuiz from '../../components/learn/ChapterQuiz';
 
 When you open a crypto exchange like **Gate.com** or **Binance** for the very first time, the screen looks like an airplane cockpit. Numbers flash green and red every second, lines zig-zag across a grid, and **dozens of tiny buttons** (`1m`, `MA`, `BOLL`, `RSI`, `SRL`, `VPVR`, `SAR`, `SKDJ`) compete for your attention.
 
@@ -81,8 +87,21 @@ Now try panning, zooming, and toggling **`MA30`**, **`BOLL`**, **`VOL`**, and **
 
 ---
 
+## Real-Life Spot Example: Reading Gate.com Before Spending $1
+
+Suppose you have **$50 USDT** sitting in your Gate.com Spot account before work at **08:00**:
+
+1. You tap **Trade -> Spot** (never Margin or Futures), pick `SOL/USDT`, and immediately click **`4h`** at the top-left of the chart.
+2. Along the bottom toolbar, you make sure only **`MA` (`MA30`)**, **`BOLL`**, **`RSI`**, and **`Volume`** are highlighted. You ignore `SKDJ`, `DMA`, `PSY`, and `1m`.
+3. You read just 5 numbers: Current Price (`$89.73`), `MA30` (`$91.60`), `RSI` (`36`), and in the Order Book column `Bid 40.61%` (Green buyers vs Red sellers).
+4. Knowing our Entry 1 slice on `$50` is **`$6.42`**, you verify that `$6.42` comfortably passes Gate.com's `1 USDT` Spot minimum order size before you ever type into the order box.
+
+---
+
 ## Quick Beginner Checklist Before Moving to Chapter 2
 
 - **Am I on the Spot tab?** Yes, buying real coins with my own USDT cash (never Futures or Margin).
 - **Did I click `4h` or `1D` at the top-left of the chart?** Yes, never `1m`.
 - **Did I turn on only the Essentials (`MA`, `BOLL`, `RSI`, `Volume`)?** Yes, and I ignored the other 13 buttons at the bottom.
+
+<ChapterQuiz client:load chapter={1} />

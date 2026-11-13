@@ -156,4 +156,42 @@ describe('Signal Checker Logic (FR-1 to FR-5)', () => {
     expect(result.state).toBe('TAKE_PROFIT');
     expect(result.sellLightsCount).toBe(3);
   });
+
+  it('Market Context Caution: flags BTC sharp drop (<= -5%) and multi-day crash without mutating the 3 lights', () => {
+    const crashInput: SignalInput = {
+      ...baseSolInput,
+      btc24hChange: -7.2,
+      marketStructure: 'downtrend_crash',
+    };
+
+    const result = evaluateSignal(crashInput);
+    expect(result.valid).toBe(true);
+    expect(result.buyLightsCount).toBe(3);
+    expect(result.state).toBe('BUY_ZONE');
+    expect(result.marketContextCaution).not.toBeNull();
+    expect(result.marketContextCaution?.triggered).toBe(true);
+    expect(result.marketContextCaution?.reason).toContain('BTC dropped -7.2%');
+    expect(result.marketContextCaution?.reason).toContain('falling knives');
+  });
+
+  it('Market Context Caution: returns null when BTC is calm (-1.2%) and structure is healthy', () => {
+    const calmInput: SignalInput = {
+      ...baseSolInput,
+      btc24hChange: -1.2,
+      marketStructure: 'uptrend_or_range',
+    };
+
+    const result = evaluateSignal(calmInput);
+    expect(result.valid).toBe(true);
+    expect(result.marketContextCaution).toBeNull();
+  });
+
+  it('Validation: rejects out-of-range btc24hChange (< -100 or > 1000)', () => {
+    const invalidBtc = evaluateSignal({
+      ...baseSolInput,
+      btc24hChange: -150,
+    });
+    expect(invalidBtc.valid).toBe(false);
+    expect(invalidBtc.errors.some((e) => e.field === 'btc24hChange')).toBe(true);
+  });
 });

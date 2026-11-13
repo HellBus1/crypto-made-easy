@@ -5,6 +5,11 @@ chapter: 3
 track: 'Indicators'
 durationMinutes: 6
 interactiveFocus: 'Essential Indicators Filter & 4 Market Scenarios Lab'
+goals:
+  - 'Use MA30 and BOLL to judge whether price is discounted vs stretched overhead.'
+  - 'Avoid buying blindly on low RSI during a multi-day crash without 1D/4H structure context.'
+  - 'Use Volume and MACD purely as supporting context rather than extra traffic lights.'
+realWorldWhy: 'Buying just because RSI is low inside a relentless downtrend ("if downtrend buy") is one of the fastest ways beginners lose money. Indicators explain whether a pullback is a healthy discount inside a range/uptrend OR a falling knife.'
 draft: false
 ---
 
@@ -12,6 +17,7 @@ import Term from '../../components/mdx/Term';
 import EssentialIndicatorsGuide from '../../components/learn/EssentialIndicatorsGuide';
 import ScenarioDataExplorer from '../../components/learn/ScenarioDataExplorer';
 import MarketChart from '../../components/charts/MarketChart';
+import ChapterQuiz from '../../components/learn/ChapterQuiz';
 
 When beginners open Gate.com, they see 17+ indicator buttons along the bottom of the chart (`SRL`, `Turnover`, `MA`, `EMA`, `Volume`, `MACD`, `BOLL`, `VPVR`, `SAR`, `AVL`, `MTM`, `VR`, `DMA`, `SKDJ`, `PSY`, `BBI`, `RSI`).
 
@@ -74,8 +80,19 @@ Test panning, zooming, and toggling `MA30`, `BOLL`, `VOL`, and `RSI` on the live
 
 ---
 
+## Real-Life Spot Example: Healthy Discount vs Continuous Crash
+
+Compare two coins with identical **`RSI = 34`** (`Nov 2026` teaching scenario):
+
+- **Healthy Range / Uptrend Pullback (SOL `$89.73` vs `MA30 $91.60`):** `MA30` is flattening or gently rising, price rests just above the `$88.50` shelf, and MACD red bars are shrinking. Buying here fits **Light 1 + Light 2** constructively.
+- **Sustained Downtrend Crash:** `MA30` slopes steeply down at `-45 degrees`, candles hug the bottom BOLL band for 6 straight days, and Bitcoin is down `-7%`. Here `RSI 34` is simply **"cheap getting cheaper"** -- wait for structure to stop making lower lows before putting `$6.42` at risk.
+
+---
+
 ## Quick Beginner Checklist Before Moving to Chapter 4
 
 - **Which 4 buttons do I keep ON?** `MA`, `BOLL`, `RSI`, and `Volume` (on a `4h` or `1D` chart).
 - **What turns Light 1 ON?** Current Price is below `MA30` (or touching the `BOLL` Lower Band) near a Support Floor.
-- **What turns Light 2 ON?** `RSI` is `36` or lower.
+- **What turns Light 2 ON?** `RSI` is `38` or lower (sellers are stretched and tired).
+
+<ChapterQuiz client:load chapter={3} />

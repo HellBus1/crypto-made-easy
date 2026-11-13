@@ -23,6 +23,7 @@ export const navigationConfig: NavigationConfig = {
     { label: 'Overview', href: '/' },
     { label: 'Learn', href: '/learn' },
     { label: 'Signal Checker', href: '/checker' },
+    { label: 'Paper Journal', href: '/journal' },
     { label: 'Glossary', href: '/glossary' },
     { label: 'About', href: '/about' },
   ],
@@ -30,6 +31,7 @@ export const navigationConfig: NavigationConfig = {
     product: [
       { label: 'Course Modules', href: '/learn' },
       { label: 'Signal Checker', href: '/checker' },
+      { label: 'Paper Journal', href: '/journal' },
       { label: 'Chart Glossary', href: '/glossary' },
     ],
     resources: [

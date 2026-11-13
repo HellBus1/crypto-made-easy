@@ -5,12 +5,18 @@ chapter: 4
 track: 'Structure & Indicators'
 durationMinutes: 5
 interactiveFocus: 'Interactive floor and ceiling placement with bounce/break zones'
+goals:
+  - 'Identify 3 descending Support Floors (S1, S2, S3) and at least 1 Resistance Ceiling before clicking Buy.'
+  - 'Calculate your exact Stop-Loss level 2% below your lowest Support Floor (S3).'
+  - 'Commit to placing an automatic Spot TP/SL order on Gate.com immediately after Entry 1 fills.'
+realWorldWhy: 'If you buy a coin at a random price in the middle of nowhere, you never know when your idea is wrong. Marking floors, ceilings, and a 2% auto Stop-Loss upfront ensures a wrong trade costs $1-$2 instead of draining your starter account.'
 terms: ['support', 'resistance', 'stop-loss', 'limit-order']
 draft: false
 ---
 
 import Term from '../../components/mdx/Term';
 import SupportResistanceLab from '../../components/learn/SupportResistanceLab';
+import ChapterQuiz from '../../components/learn/ChapterQuiz';
 
 Before you ever consider pressing "Buy" on Gate.com, you need to answer one fundamental question: **where is the floor, and where is the ceiling?**
 
@@ -46,3 +52,15 @@ No support floor is unbreakable. If unexpected negative news hits the market, se
 If price drops through the floor by more than 2%, the floor is officially broken. We do not argue with the market; we exit according to the pre-agreed plan.
 
 <SupportResistanceLab client:visible />
+
+---
+
+## Real-Life Spot Example: Mapping SOL Floors & Setting the Auto Stop
+
+Before placing a `$6.42` Entry 1 order on SOL (`5-6 Nov 2026` worked case):
+
+- **Support Floors:** `S1 = $88.50`, `S2 = $85.00`, lowest floor `S3 = $81.20`.
+- **Resistance Ceiling (Take Profit):** `R1 = $95.00` (giving `+7.3%` room above Entry 1, easily clearing Gate.com's `~0.4%` round-trip Spot fee).
+- **Mandatory Auto Stop-Loss:** `$81.20 x 0.98 = $79.58`. Immediately after `$6.42` fills at `$88.50`, you attach an automatic **Gate.com Spot TP/SL order** at `$79.58` so the exchange protects your capital even while you sleep.
+
+<ChapterQuiz client:load chapter={4} />

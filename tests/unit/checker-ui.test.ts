@@ -73,4 +73,20 @@ describe('Phase 4 Signal Checker Form & Presets', () => {
     expect(result.plan?.stopLossPrice).toBe(78);
     expect(result.plan?.takeProfitPrice).toBe(102);
   });
+
+  it('evaluates the 5th worked preset (sol-btc-crash) with $50 starter budget and BTC -7.2% crash caution', () => {
+    const crashPreset = WORKED_EXAMPLE_PRESETS.find((p) => p.id === 'sol-btc-crash')!;
+    expect(crashPreset).toBeDefined();
+
+    const result = evaluateSignal(parseDraftToSignalInput(crashPreset.draft));
+    expect(result.valid).toBe(true);
+    expect(result.state).toBe('BUY_ZONE');
+    expect(result.marketContextCaution).not.toBeNull();
+    expect(result.marketContextCaution?.triggered).toBe(true);
+    expect(result.marketContextCaution?.reason).toContain('BTC dropped -7.2%');
+    expect(result.marketContextCaution?.reason).toContain('downtrend');
+    // $50 starter budget -> 13/21/30/36 split: ~6.42 / ~10.70 / ~14.97 + ~17.91 reserve
+    expect(result.plan?.tranches[0].amountUsdt).toBeCloseTo(6.42, 1);
+    expect(result.plan?.tranches[2].amountUsdt).toBeCloseTo(14.97, 1);
+  });
 });

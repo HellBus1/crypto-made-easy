@@ -183,6 +183,17 @@ export function validateSignalInput(input: SignalInput): {
     });
   }
 
+  if (
+    input.btc24hChange !== undefined &&
+    (!Number.isFinite(input.btc24hChange) || input.btc24hChange < -100 || input.btc24hChange > 1000)
+  ) {
+    errors.push({
+      field: 'btc24hChange',
+      message: 'BTC 24h change (%) must be between -100% and 1000%.',
+      severity: 'error',
+    });
+  }
+
   return {
     valid: errors.length === 0,
     errors,

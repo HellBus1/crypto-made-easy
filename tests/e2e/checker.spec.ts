@@ -31,6 +31,15 @@ test.describe('Phase 4 Signal Checker Flows (FR-1 to FR-7)', () => {
       'Sellers still dominate the order book'
     );
 
+    // 3b. Load SOL during BTC -7% Crash preset -> triggers Market Context Caution banner
+    await page.getByTestId('preset-btn-sol-btc-crash').click();
+    await expect(page.getByTestId('signal-state-badge')).toContainText('Buy Zone');
+    await expect(page.getByTestId('market-context-caution-banner')).toBeVisible();
+    await expect(page.getByTestId('market-context-caution-banner')).toContainText(
+      'BTC dropped -7.2%'
+    );
+    await expect(page.getByTestId('ladder-table')).toContainText('$6.42');
+
     // 4. Enter RSI = 120 -> Validation error, no plan card shown (Acceptance #5)
     await page.getByTestId('input-rsi').fill('120');
     await expect(page.getByTestId('checker-validation-error')).toBeVisible();

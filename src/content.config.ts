@@ -14,6 +14,8 @@ const lessons = defineCollection({
     track: z.string().default('Core'),
     durationMinutes: z.number().int().min(1).default(4),
     interactiveFocus: z.string(),
+    goals: z.array(z.string()).default([]),
+    realWorldWhy: z.string().default(''),
     terms: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),
