@@ -5,12 +5,18 @@ chapter: 6
 track: 'Execution & Mindset'
 durationMinutes: 4
 interactiveFocus: 'Interactive 13% / 21% / 30% / 36% capital ladder calculator'
+goals:
+  - 'Divide a <$50 starter budget into $6.42 / $10.70 / $14.97 limit orders plus $17.91 untouched reserve.'
+  - 'Verify Gate.com 1 USDT spot minimum order rules and ~0.4% round-trip fee clearance.'
+  - 'Attach an automatic Gate.com Spot TP/SL order as soon as Entry 1 fills.'
+realWorldWhy: 'Going all-in on one entry forces you to panic when normal volatility hits. Sizing with a $50 4-bucket ladder lets you learn real Gate.com execution while risking roughly $1-$3 max per invalidation.'
 terms: ['limit-order', 'stop-loss', 'support']
 draft: false
 ---
 
 import Term from '../../components/mdx/Term';
 import PositionSizingLab from '../../components/learn/PositionSizingLab';
+import ChapterQuiz from '../../components/learn/ChapterQuiz';
 
 When a beginner gets a green signal, their first impulse is often to click "100% All-In" on a single market order.
 
@@ -43,3 +49,16 @@ Notice what happens after your first purchase: **you still hold 87% of your capi
 Even if all three entry tiers fill during a volatile flush, you still have **36% untouched cash**, and your stop-loss sits 2% below your lowest floor. One bad trade can never wipe you out.
 
 <PositionSizingLab client:visible />
+
+---
+
+## Real-Life Spot Example: Your First `$50` Gate.com SOL Plan
+
+Instead of buying `$50` worth of SOL in one click:
+
+1. **Entry 1 (`$6.42`, ~13%):** Spot Limit Buy at `$88.50` (`0.0725 SOL`, well over Gate.com's `1 USDT` minimum).
+2. **Entry 2 (`$10.70`, ~21%):** Optional deeper Spot Limit Buy at `$85.00`.
+3. **Entry 3 (`$14.97`, ~30%):** Optional final floor Spot Limit Buy at `$81.20`.
+4. **Reserve (`$17.91`, ~36%):** Stays untouched in USDT. Once Entry 1 fills, you immediately place an automatic Spot TP/SL Stop at **`$79.58`** and profit target near **`$95.00`** (`+7.3%` gain vs `~0.4%` round-trip fee).
+
+<ChapterQuiz client:load chapter={6} />

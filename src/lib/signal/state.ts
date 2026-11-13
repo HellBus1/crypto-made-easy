@@ -2,8 +2,42 @@ import { SIGNAL_CONSTANTS } from './constants';
 import { buildPositionPlan } from './ladder';
 import { evaluateLights } from './lights';
 import { roundTo } from './stop';
-import type { SignalEvaluation, SignalInput, SignalState } from './types';
+import type { MarketContextCaution, SignalEvaluation, SignalInput, SignalState } from './types';
 import { validateSignalInput } from './validate';
+
+/**
+ * Evaluates optional market-wide context (BTC 24h change & coin trend structure) as an extra
+ * safety reminder without turning it into a fourth light (FR-2).
+ */
+export function evaluateMarketContextCaution(input: SignalInput): MarketContextCaution | null {
+  const btcDropTriggered =
+    input.btc24hChange !== undefined &&
+    Number.isFinite(input.btc24hChange) &&
+    input.btc24hChange <= SIGNAL_CONSTANTS.BTC_CRASH_CAUTION_THRESHOLD_PERCENT;
+  const crashStructureTriggered = input.marketStructure === 'downtrend_crash';
+
+  if (!btcDropTriggered && !crashStructureTriggered) {
+    return null;
+  }
+
+  const reasons: string[] = [];
+  if (btcDropTriggered) {
+    reasons.push(
+      `BTC dropped ${input.btc24hChange}% in the last 24 hours (past the ${SIGNAL_CONSTANTS.BTC_CRASH_CAUTION_THRESHOLD_PERCENT}% caution threshold). Market-wide selloffs often drag altcoins through their own support floors even when all 3 lights turn green.`
+    );
+  }
+  if (crashStructureTriggered) {
+    reasons.push(
+      `Coin structure is marked as a strong downtrend / multi-day crash. The 3-Light method works best on pullbacks inside uptrends or sideways ranges at proven support, not catching falling knives.`
+    );
+  }
+
+  return {
+    triggered: true,
+    headline: 'Market-Context Caution: Consider Waiting Before Buying',
+    reason: reasons.join(' '),
+  };
+}
 
 /**
  * Generates plain-language supporting notes from MACD, volume, and support/resistance distance
@@ -99,11 +133,13 @@ export function evaluateSignal(input: SignalInput): SignalEvaluation {
       askPercent,
       plan: null,
       supportingNotes: [],
+      marketContextCaution: null,
     };
   }
 
   const plan = buildPositionPlan(input);
   const supportingNotes = buildSupportingNotes(input, plan.stopLossPrice, plan.takeProfitPrice);
+  const marketContextCaution = evaluateMarketContextCaution(input);
 
   let state: SignalState = 'WAIT_HOLD';
   let badgeLabel = 'Wait / Hold';
@@ -150,8 +186,8 @@ export function evaluateSignal(input: SignalInput): SignalEvaluation {
     summaryReason = `All 3 buy lights are on for ${input.ticker.toUpperCase()} (${input.timeframe}): price is on discount, RSI (${input.rsi}) shows sellers are tired, and Bid (${input.bidPercent}%) shows a buyer wall below.`;
     whatToDo = [
       `Place a Buy Limit for Entry 1 (${plan.tranches[0].amountUsdt} USDT at ${plan.tranches[0].limitPrice} USDT, ~${plan.tranches[0].nominalSharePercent}% of capital).`,
-      `Set resting Buy Limits for Entry 2 (${plan.tranches[1].limitPrice} USDT) and Entry 3 (${plan.tranches[2].limitPrice} USDT) and define your stop at ${plan.stopLossPrice} USDT.`,
-      `Remember: you still hold ${plan.remainingCashAfterEntry1Percent}% of your capital in USDT after Entry 1.`,
+      `Immediately attach an automatic TP/SL Stop-Loss at ${plan.stopLossPrice} USDT (or conditional exit) so you never freeze if the floor breaks.`,
+      `Set resting Buy Limits for Entry 2 (${plan.tranches[1].limitPrice} USDT) and Entry 3 (${plan.tranches[2].limitPrice} USDT), and remember you still hold ${plan.remainingCashAfterEntry1Percent}% in USDT after Entry 1.`,
     ];
     whatNotToDo = [
       'Do not go all-in on Entry 1 or spend your 36% cash reserve.',
@@ -201,5 +237,6 @@ export function evaluateSignal(input: SignalInput): SignalEvaluation {
     askPercent,
     plan,
     supportingNotes,
+    marketContextCaution,
   };
 }

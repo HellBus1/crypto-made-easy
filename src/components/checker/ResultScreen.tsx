@@ -161,6 +161,25 @@ export default function ResultScreen({
         </p>
       </div>
 
+      {/* Market Context Caution Banner (BTC Crash / Downtrend Guardrail) */}
+      {evaluation.marketContextCaution && evaluation.marketContextCaution.triggered && (
+        <div
+          className="result-context-caution"
+          role="alert"
+          data-testid="market-context-caution-banner"
+        >
+          <div className="result-context-caution__header">
+            <span className="status-pill status-pill--warning">! Market Context Caution</span>
+            <strong>{evaluation.marketContextCaution.headline}</strong>
+          </div>
+          <p className="result-context-caution__reason">{evaluation.marketContextCaution.reason}</p>
+          <p className="result-context-caution__action">
+            <strong>Protective Rule:</strong> Wait or Skip new altcoin buys even when all 3 lights
+            turn green if Bitcoin is crashing or multi-day structure is breaking lower.
+          </p>
+        </div>
+      )}
+
       {/* 2. THE 3 LIGHTS PANEL (FR-5 Step 2) */}
       <div className="result-card" data-testid="three-lights-panel">
         <div className="result-card__header">
@@ -361,7 +380,7 @@ export default function ResultScreen({
                     {plan.takeProfitGainFromEntry1Percent}% from Buy 1)
                   </strong>
                   <span className="plan-kpi-box__sub">
-                    Defaulted to nearest resistance ceiling (+6% fallback if none entered).
+                    Defaulted to nearest resistance ceiling (+8% fallback if none entered).
                   </span>
                   {onUpdateCustomTakeProfit && (
                     <div className="inline-override-control">
@@ -532,6 +551,15 @@ export default function ResultScreen({
         market downtrend. Always use your pre-agreed Stop-Loss level ($
         {plan ? plan.stopLossPrice : '--'} USDT), keep your 36% cash reserve untouched, and never
         trade with money you cannot afford to lose.
+      </div>
+
+      <div className="result-journal-cta">
+        <span>
+          Practicing your 10 paper-trade checks before putting real money on the exchange?
+        </span>
+        <a href="/journal" className="btn-secondary" data-testid="result-journal-link">
+          Open Paper-Trade Journal &rarr;
+        </a>
       </div>
 
       <style>{`
@@ -962,6 +990,46 @@ export default function ResultScreen({
           font-size: var(--font-size-xs);
           color: var(--color-text-muted);
           line-height: 1.5;
+        }
+
+        .result-context-caution {
+          padding: var(--space-4);
+          border-radius: var(--radius-lg);
+          border: 2px solid var(--color-pill-warning-border);
+          background-color: var(--color-pill-warning-bg);
+          color: var(--color-text-main);
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .result-context-caution__header {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: var(--space-2);
+          font-size: var(--font-size-sm);
+        }
+
+        .result-context-caution__reason,
+        .result-context-caution__action {
+          margin: 0;
+          font-size: var(--font-size-xs);
+          line-height: 1.5;
+        }
+
+        .result-journal-cta {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--space-3);
+          padding: var(--space-3) var(--space-4);
+          border-radius: var(--radius-md);
+          background-color: var(--color-bg-surface);
+          border: 1px solid var(--color-border-default);
+          font-size: var(--font-size-xs);
+          color: var(--color-text-muted);
         }
       `}</style>
     </section>

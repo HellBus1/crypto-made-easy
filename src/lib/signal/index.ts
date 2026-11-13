@@ -3,6 +3,8 @@ export type {
   Timeframe,
   MacdHistogramState,
   VolumeState,
+  MarketStructure,
+  MarketContextCaution,
   SignalState,
   SignalInput,
   ValidationIssue,

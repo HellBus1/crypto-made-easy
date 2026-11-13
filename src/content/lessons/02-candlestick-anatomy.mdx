@@ -5,12 +5,18 @@ chapter: 2
 track: 'Foundations'
 durationMinutes: 5
 interactiveFocus: 'Interactive OHLC Candle Builder & Bounce Wick Lab'
+goals:
+  - 'Read Open, High, Low, and Close (OHLC) bars cleanly without guessing.'
+  - 'Distinguish a buyer-absorption bottom wick at support from a weak full-body breakdown.'
+  - 'Wait for 4H/1D candle closes instead of reacting to mid-candle 1-minute spikes.'
+realWorldWhy: 'A downtrend can show plenty of red candles. Knowing whether buyers actually absorbed selling at the floor (long lower wick) vs sellers dumping unchecked (zero wick at the low) separates smart support entries from catching a falling knife.'
 draft: false
 ---
 
 import Term from '../../components/mdx/Term';
 import CandleEditor from '../../components/charts/CandleEditor';
 import CandlestickAnatomyLab from '../../components/learn/CandlestickAnatomyLab';
+import ChapterQuiz from '../../components/learn/ChapterQuiz';
 
 In Chapter 1, you saw the top-left bar of Gate.com print four letters: **`O 75,903.3  H 75,932.4  L 75,889.6  C 75,925.4`**.
 
@@ -64,8 +70,20 @@ When a coin drops down to a <Term client:visible id="support">Support Floor</Ter
 
 ---
 
+## Real-Life Spot Example: Waiting for the 4H Wick on SOL ($88.50)
+
+During a volatile Tuesday afternoon (`5-6 Nov 2026` historical SOL case):
+
+- At hour 2 of a 4H bar, SOL briefly dips to **`$86.90`**. A beginner glued to a 1-minute chart thinks _"It's crashing!"_ or market-buys early without checking support.
+- By the `4h` candle close, real buyers sitting at `$88.50` absorb the selling and SOL closes at **`$89.40`**, printing a long bottom wick down into the support shelf.
+- Meanwhile, on a true breakdown (`SOL $79.50`), the 4H bar closes right at its bottom with heavy red volume and zero recovery wick -- signaling **Stand Back** rather than **"Buy the Dip."**
+
+---
+
 ## Quick Beginner Checklist Before Moving to Chapter 3
 
 - **Do I know why a candle is Green vs Red?** Green means `Close > Open`; Red means `Close < Open`.
 - **Do I know what a long bottom wick means?** Sellers pushed price down, but buyers stepped in with cash and pushed it back up.
 - **Where do I see the exact `O H L C` numbers on Gate.com?** At the top-left of the chart when you hover over any candle.
+
+<ChapterQuiz client:load chapter={2} />

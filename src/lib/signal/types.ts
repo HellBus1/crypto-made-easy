@@ -11,6 +11,8 @@ export type MacdHistogramState =
 
 export type VolumeState = 'lower' | 'normal' | 'higher';
 
+export type MarketStructure = 'uptrend_or_range' | 'unclear' | 'downtrend_crash';
+
 export type SignalState = 'BUY_ZONE' | 'WAIT_HOLD' | 'TAKE_PROFIT' | 'PLAN_BROKEN';
 
 export interface SignalInput {
@@ -26,6 +28,8 @@ export interface SignalInput {
   resistances?: number[];
   macdHistogram?: MacdHistogramState;
   volumeState?: VolumeState;
+  btc24hChange?: number;
+  marketStructure?: MarketStructure;
   isHolding?: boolean;
   averageBuyPrice?: number;
   customStopLoss?: number;
@@ -73,6 +77,12 @@ export interface PositionPlan {
   takeProfitGainFromEntry1Percent: number;
 }
 
+export interface MarketContextCaution {
+  triggered: boolean;
+  headline: string;
+  reason: string;
+}
+
 export interface SignalEvaluation {
   valid: boolean;
   errors: ValidationIssue[];
@@ -88,4 +98,5 @@ export interface SignalEvaluation {
   askPercent: number;
   plan: PositionPlan | null;
   supportingNotes: string[];
+  marketContextCaution: MarketContextCaution | null;
 }

@@ -5,12 +5,18 @@ chapter: 5
 track: 'Execution & Mindset'
 durationMinutes: 5
 interactiveFocus: 'Live 3-Light simulator with SOL and ETH worked examples'
+goals:
+  - 'Require all 3 traffic lights simultaneously before calling a setup a Buy Zone.'
+  - 'Check the BTC 24h Context Filter (skip alt buys if BTC dropped <= -5%) plus 1D/4H trend structure.'
+  - 'Practice walking away cleanly when Light 3 (Bid %) shows heavy seller pressure (<= 40%).'
+realWorldWhy: 'Most losing trades happen because a trader buys when 2 of 3 lights are ON or while Bitcoin is crashing. Using the 3-Light Gate plus BTC Crash Filter keeps your cash safe during trap bounces.'
 terms: ['ma30', 'rsi', 'order-book', 'support', 'stop-loss']
 draft: false
 ---
 
 import Term from '../../components/mdx/Term';
 import ThreeLightQuickSim from '../../components/checker/ThreeLightQuickSim';
+import ChapterQuiz from '../../components/learn/ChapterQuiz';
 
 The core philosophy of **Crypto Made Easy** is simple: **we never guess, and we never buy because of fear of missing out (FOMO)**.
 
@@ -54,3 +60,15 @@ In our documented case from November 2026:
 Waiting on ETH protected traders from catching a falling knife.
 
 <ThreeLightQuickSim client:visible />
+
+---
+
+## Real-Life Spot Example: When 3/3 Lights Still Means "Wait" (BTC Crash Rule)
+
+Suppose `SOL` shows all 3 lights ON (`Price $89.73 < MA30 $91.60`, `RSI 36`, `Bid 40.61%`) **right while Bitcoin drops `-7.2%` in 24 hours**:
+
+- On the Signal Checker, you enter `BTC 24h Change = -7.2` and `1D/4H Structure = Multi-day crash`.
+- The checker highlights the **Market Context Caution** warning: altcoins usually follow Bitcoin lower during market-wide flushes.
+- Instead of rushing `$6.42` into a falling market, you wait until Bitcoin stabilizes above `-5%` or test the scenario safely in the [Paper-Trade Journal](/journal).
+
+<ChapterQuiz client:load chapter={5} />

@@ -5,6 +5,11 @@ chapter: 8
 track: 'Execution & Mindset'
 durationMinutes: 3
 interactiveFocus: 'Searchable plain-language dictionary of exchange abbreviations'
+goals:
+  - 'Translate Gate.com Spot abbreviations (Limit, TP/SL, Bid/Ask, MA30, BOLL, RSI) without confusion.'
+  - 'Verify you only use Spot Limit & Spot TP/SL buttons (never Margin Borrow or Futures).'
+  - 'Use the Glossary + Playbook whenever an unfamiliar button appears on a live screen.'
+realWorldWhy: 'One misread exchange button (clicking Market instead of Limit, or Margin instead of Spot) causes more beginner mistakes than bad chart reading. Fluency removes execution errors.'
 terms:
   [
     'timeframe',
@@ -25,6 +30,7 @@ draft: false
 
 import Term from '../../components/mdx/Term';
 import GlossaryExplorer from '../../components/learn/GlossaryExplorer';
+import ChapterQuiz from '../../components/learn/ChapterQuiz';
 
 When you open Gate.com, Binance, or TradingView, the interface is flooded with financial acronyms and jargon designed for institutional market makers.
 
@@ -46,3 +52,15 @@ This final chapter serves as your permanent, zero-jargon dictionary. Every term 
 </div>
 
 <GlossaryExplorer client:visible />
+
+---
+
+## Real-Life Spot Example: Gate.com Pre-Click Button Check
+
+Right before submitting any order on Gate.com Spot:
+
+1. Check top tab says **Spot** (not Margin `3x` / Futures).
+2. Confirm order mode says **Limit** (`$88.50` price + `$6.42` total), never blind **Market**.
+3. As soon as filled, open **TP/SL** and lock your automatic **Stop-Loss** (`$79.58`) + **Take-Profit** (`$95.00`).
+
+<ChapterQuiz client:load chapter={8} />

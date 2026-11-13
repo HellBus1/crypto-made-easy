@@ -29,6 +29,9 @@ export const SIGNAL_CONSTANTS = {
   /** Fallback take-profit target above Entry 1 when no resistance level is supplied (+8%) */
   DEFAULT_TAKE_PROFIT_FALLBACK_PERCENT: 0.08,
 
+  /** Optional Market Context caution threshold when BTC drops sharply in 24h */
+  BTC_CRASH_CAUTION_THRESHOLD_PERCENT: -5,
+
   /**
    * Worked example reference capital from source document (233.77 USDT -> 30 / 50 / 70 / 83.77)
    * Used so 233.77 USDT produces exact 30.00 / 50.00 / 70.00 / 83.77 tranches while general

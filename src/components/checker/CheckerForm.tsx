@@ -2,6 +2,7 @@ import { useState, type SyntheticEvent } from 'react';
 import {
   evaluateSignal,
   type MacdHistogramState,
+  type MarketStructure,
   type SignalInput,
   type Timeframe,
   type VolumeState,
@@ -24,6 +25,8 @@ export interface CheckerFormDraft {
   resistance2: string;
   macdHistogram: '' | MacdHistogramState;
   volumeState: '' | VolumeState;
+  btc24hChange: string;
+  marketStructure: '' | MarketStructure;
   isHolding: boolean;
   averageBuyPrice: string;
   customStopLoss: string;
@@ -47,6 +50,8 @@ export const EMPTY_CHECKER_DRAFT: CheckerFormDraft = {
   resistance2: '',
   macdHistogram: '',
   volumeState: '',
+  btc24hChange: '',
+  marketStructure: '',
   isHolding: false,
   averageBuyPrice: '',
   customStopLoss: '',
@@ -84,6 +89,8 @@ export const WORKED_EXAMPLE_PRESETS: WorkedPreset[] = [
       resistance2: '99.50',
       macdHistogram: 'red_shrinking',
       volumeState: 'normal',
+      btc24hChange: '-1.2',
+      marketStructure: 'uptrend_or_range',
       isHolding: false,
       averageBuyPrice: '',
       customStopLoss: '',
@@ -112,6 +119,8 @@ export const WORKED_EXAMPLE_PRESETS: WorkedPreset[] = [
       resistance2: '',
       macdHistogram: 'red_growing',
       volumeState: 'higher',
+      btc24hChange: '-2.1',
+      marketStructure: 'unclear',
       isHolding: false,
       averageBuyPrice: '',
       customStopLoss: '',
@@ -140,6 +149,8 @@ export const WORKED_EXAMPLE_PRESETS: WorkedPreset[] = [
       resistance2: '99.50',
       macdHistogram: 'green_shrinking',
       volumeState: 'higher',
+      btc24hChange: '2.4',
+      marketStructure: 'uptrend_or_range',
       isHolding: true,
       averageBuyPrice: '88.50',
       customStopLoss: '',
@@ -168,11 +179,43 @@ export const WORKED_EXAMPLE_PRESETS: WorkedPreset[] = [
       resistance2: '',
       macdHistogram: 'red_growing',
       volumeState: 'higher',
+      btc24hChange: '-4.8',
+      marketStructure: 'downtrend_crash',
       isHolding: true,
       averageBuyPrice: '85.00',
       customStopLoss: '',
       customTakeProfit: '',
       totalCapital: '233.77',
+    },
+  },
+  {
+    id: 'sol-btc-crash',
+    label: 'SOL 3/3 Lights during BTC -7% Crash ($50 Starter)',
+    tag: 'Context Caution',
+    dateNote: 'Historical scenario: BTC flush override drill',
+    draft: {
+      ticker: 'SOL',
+      timeframe: '4H',
+      currentPrice: '89.73',
+      ma30: '91.60',
+      bollLower: '88.90',
+      bollUpper: '94.30',
+      rsi: '36',
+      bidPercent: '40.61',
+      support1: '88.50',
+      support2: '85.00',
+      support3: '81.20',
+      resistance1: '95.00',
+      resistance2: '99.50',
+      macdHistogram: 'red_growing',
+      volumeState: 'higher',
+      btc24hChange: '-7.2',
+      marketStructure: 'downtrend_crash',
+      isHolding: false,
+      averageBuyPrice: '',
+      customStopLoss: '',
+      customTakeProfit: '',
+      totalCapital: '50',
     },
   },
 ];
@@ -214,6 +257,8 @@ export function parseDraftToSignalInput(draft: CheckerFormDraft): SignalInput {
     resistances: resistances.length > 0 ? resistances : undefined,
     macdHistogram: draft.macdHistogram || undefined,
     volumeState: draft.volumeState || undefined,
+    btc24hChange: parseOptionalPositive(draft.btc24hChange),
+    marketStructure: draft.marketStructure || undefined,
     isHolding: draft.isHolding,
     averageBuyPrice: parseOptionalPositive(draft.averageBuyPrice),
     customStopLoss: parseOptionalPositive(draft.customStopLoss),
@@ -749,6 +794,65 @@ export default function CheckerForm() {
               </div>
             )}
           </div>
+
+          {/* Group 5: Optional Market Context Guardrail */}
+          <fieldset className="checker-fieldset" data-testid="market-context-fieldset">
+            <legend className="checker-fieldset__legend">
+              Market Context Check (Optional -- Prevents Catching a Falling Knife)
+            </legend>
+
+            <div className="form-grid form-grid--4">
+              <div className="form-field">
+                <label htmlFor="checker-btc-24h">BTC 24h Change (%)</label>
+                <input
+                  id="checker-btc-24h"
+                  name="btc24hChange"
+                  type="number"
+                  step="any"
+                  min="-100"
+                  max="1000"
+                  placeholder="e.g. -1.5 or -7.2"
+                  value={draft.btc24hChange}
+                  onChange={(e) => updateField('btc24hChange', e.target.value)}
+                  aria-invalid={hasFieldError('btc24hChange')}
+                  data-testid="input-btc-24h"
+                />
+                <span className="field-hint">
+                  If BTC drops &le; -5%, altcoin buy signals carry a crash-override caution.
+                </span>
+                {getFieldErrorMessage('btc24hChange') && (
+                  <span className="field-error" data-testid="error-btc-24h">
+                    {getFieldErrorMessage('btc24hChange')}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="checker-market-structure">1D / 4H Coin Structure</label>
+                <select
+                  id="checker-market-structure"
+                  name="marketStructure"
+                  value={draft.marketStructure}
+                  onChange={(e) =>
+                    updateField('marketStructure', e.target.value as '' | MarketStructure)
+                  }
+                  data-testid="input-market-structure"
+                >
+                  <option value="">Skip / Not selected</option>
+                  <option value="uptrend_or_range">
+                    Uptrend pullback or sideways range near proven support
+                  </option>
+                  <option value="unclear">Unclear / choppy sideways structure</option>
+                  <option value="downtrend_crash">
+                    Multi-day lower lows / sharp crash (falling knife)
+                  </option>
+                </select>
+                <span className="field-hint">
+                  Buying dips works in healthy pullbacks or ranges, not steep crashes.
+                </span>
+              </div>
+            </div>
+          </fieldset>
 
           {/* Submit Row */}
           <div className="checker-submit-row">
