@@ -172,3 +172,4 @@ Before putting real `$20–$50` into Gate.com orders:
 2. Perform **10 real chart checks** over 2 weeks during your 2 scheduled daily windows (`4H` / `1D`).
 3. Log every check—including **waits** (e.g., ETH `22% Bid` or BTC `-6%` crash) and **hypothetical stops/targets** checked 48 hours later.
 4. **Graduation Gate:** Once you reach **10 / 10 Rule-Compliant Paper Checks** without moving a virtual stop-loss or chasing FOMO, place **one real Entry 1 Limit Buy** (`~13%`, e.g., `$6.50` on a `$50` budget) with an immediate automatic TP/SL Stop-Loss attached.
+

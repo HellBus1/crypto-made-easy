@@ -53,3 +53,4 @@ test.describe('Phase 7 Paper-Trade Journal & Enhanced Course Quizzes', () => {
     await expect(page.getByTestId('chapter-quiz-8')).toBeVisible();
   });
 });
+
